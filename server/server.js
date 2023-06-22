@@ -1,14 +1,19 @@
 const http = require("http");
 
-const hostname = "127.0.0.1";
-const port = 4000;
+const express = require("express");
+const routes = require("./routes")
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
-});
+const app = express();
+const port = 8000;
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app
+   .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(routes)
+    .use((req, res) => {
+        res.status(404);
+        res.json({
+          error: "Page not found",
+        });
+      })
+      .listen(port, () => console.log("listening on port " + port));
