@@ -15,10 +15,10 @@ DROP TABLE IF EXISTS candidates_in_users, tags_in_candidates, tags, candidates, 
 /*CREATE users table*/
 CREATE TABLE users
 (
-  user_id INT NOT NULL AUTO_INCREMENT,
+  user_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (user_id),
+  PRIMARY KEY (user_name),
   UNIQUE (email)
 );
 
@@ -28,6 +28,7 @@ CREATE TABLE candidates
   candidate_id INT NOT NULL,
   candidate_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (candidate_id)
+  UNIQUE(candidate_name)
 );
 
 /*CREATE tags table*/
@@ -53,11 +54,11 @@ CREATE TABLE tags_in_candidates
 /*CREATE candidates_in_users table*/
 CREATE TABLE candidates_in_users
 (
-  user_id INT NOT NULL,
+  user_name VARCHAR(255) NOT NULL,
   candidate_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (user_name) REFERENCES users(user_name),
   FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id),
-  UNIQUE (user_id, candidate_id)
+  UNIQUE (user_name, candidate_id)
 );
 
 
