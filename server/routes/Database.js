@@ -22,16 +22,24 @@ class Database
   }
 
 query(sql, values, callback) {
-  if (!Array.isArray(values)) {
-    values = []; // Assign an empty array if values is not provided
+  if (typeof values === 'function')
+  {
+    callback = values;
+    values = [];
+  }
+  else if (!Array.isArray(values))
+  {
+    values = [];
   }
 
   this.connection.query(sql, values, (err, result) => {
     if (err) throw err;
-    callback.json(result);
+    callback(result);
   });
 }
-  close() {
+
+  close()
+  {
     this.connection.end();
   }
 }
