@@ -18,7 +18,6 @@ CREATE TABLE users
   user_id INT NOT NULL AUTO_INCREMENT,
   email VARCHAR(255) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
-  user_type ENUM("user", "administrator") NOT NULL,
   PRIMARY KEY (user_id),
   UNIQUE (email)
 );
