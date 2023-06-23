@@ -16,14 +16,47 @@ database.connect((err => {
 
 
 routes
-.get('/', (req, res) => {
-    res.json("Hello World!")})
-.get('/candidates', (req, res) => {
-    let sql = 'SELECT * FROM candidates';
-    database.query(sql, (err, result) => {
+.get('/get_list_of_candidates', (req, res) => {
+    let query = 'SELECT * FROM candidates';
+    database.query(query, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    });
+})
+
+.get('/get_user_by_email/:email', (req, res) => {
+    var email = req.params.email;
+
+    var query = 'SELECT * FROM users WHERE email = ?';
+
+    database.query(query, [email], (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    });
+})
+
+.post('/register_user', (req, res) => {
+    var email = "niall22";
+    var userPassword = "145";
+    var userType = "user";
+
+    var query = "INSERT INTO users (email, user_password, user_type) VALUES (?, ?, ?)";
+    database.query(query, [email, userPassword, userType], (err, result) => {
+        if (err) throw err;
+        res.json(result);
+    });
+})
+
+.get('/remove_user', (req, res) => {
+
+    var userId = 1;
+    var query = "DELETE FROM users WHERE user_id = ?";
+    database.query(query, [userId], (err, result) => {
         if (err) throw err;
         res.json(result);
     });
 });
 
-module.exports = routes
+
+
+module.exports = routes;
