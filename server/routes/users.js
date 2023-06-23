@@ -13,16 +13,16 @@ router.post("/get_user_by_email_password", (req, res) => {
       });
 
 router.post('/register_user', (req, res) => {
-      var userName = req.body.username;
+      var userId = req.body.userId;
       var email = req.body.email;
       var userPassword = req.body.password;
 
-      var query = "INSERT INTO users (user_name, email, user_password) VALUES (?, ?, ?)";
+      var query = "INSERT INTO users (user_id, email, user_password) VALUES (?, ?, ?)";
       database.query(query, [userName, email, userPassword], res);
     });
 
-router.delete("/remove_user", (req, res) => {
-        var userId = req.body.user_id;
+router.get("/remove_user", (req, res) => {
+        var userId = req.body.userId;
         var query = "DELETE FROM users WHERE user_id = ?";
         database.query(query, [userId], res);
   });
