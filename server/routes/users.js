@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
- const Database = require("./Database");
- const database = new Database();
+const Database = require("./Database");
+const database = new Database();
 
 router.post("/get_user_by_email_password", (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
-  var query = "SELECT * FROM users WHERE email = ? AND user_password = ?;"
+  var query = "SELECT * FROM users WHERE email = ? AND user_password = ?;";
   database.query(query, [email, password], (result) => res.json(result));
 });
 
@@ -16,8 +16,11 @@ router.post("/register_user", (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
-  var query = "INSERT INTO users (user_name, email, user_password) VALUES (?, ?, ?);"
-  database.query(query, [userName, email, userPassword], (result) => res.json(result));
+  var query =
+    "INSERT INTO users (user_id, email, user_password) VALUES (?, ?, ?);";
+  database.query(query, [userName, email, password], (result) =>
+    res.json(result)
+  );
 });
 
 router.get("/remove_user/:userId", (req, res) => {
