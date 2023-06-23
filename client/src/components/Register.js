@@ -10,10 +10,10 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  let registerUser = (e) => {
+  const registerUser = (e) => {
     e.preventDefault();
 
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
     formData.append("password", password);
@@ -23,7 +23,7 @@ export default function Register() {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         console.error("Error registering user:", error);
