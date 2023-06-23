@@ -18,9 +18,16 @@ export default function Register() {
     formData.append("email", email);
     formData.append("password", password);
 
-    axios.post(`${SERVER_HOST}/register_user`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    axios
+      .post(`${SERVER_HOST}/register_user`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        setNavigate(true);
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+      });
 
     setNavigate(true);
   };
@@ -49,7 +56,7 @@ export default function Register() {
         <input type="text" onChange={handleEmailChange} />
 
         <label>Password</label>
-        <input type="text" onChange={handlePasswordChange} />
+        <input type="password" onChange={handlePasswordChange} />
 
         <button onClick={registerUser}>Register</button>
       </form>
