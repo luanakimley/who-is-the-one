@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { SERVER_HOST } from "../config/global_constants";
+import axios from "axios";
 
 export default function LogIn() {
-  const [cookies, setCookie] = useCookies(["userToken"]);
+  const [cookies, setCookie] = useCookies(["userId"]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -15,7 +17,17 @@ export default function LogIn() {
     formData.append("email", email);
     formData.append("password", password);
 
-    navigate("/");
+    axios
+      .post(`${SERVER_HOST}/get_user_by_email_password`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setCookie("userId", res.data[0].user_id);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error logging in user:", error);
+      });
   };
 
   const handleEmailChange = (e) => {

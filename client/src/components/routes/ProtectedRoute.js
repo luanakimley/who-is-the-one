@@ -1,19 +1,14 @@
 import React from "react";
 import { useCookies } from "react-cookie";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const [cookies] = useCookies(["userToken"]);
-  const isAuthenticated = !!cookies.userToken; // Check if the user token cookie exists
+const ProtectedRoute = () => {
+  const [cookies] = useCookies(["userId"]);
+  const auth = !!cookies.userId; // determine if authorized, from context or however you're doing it
 
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
-      }
-    />
-  );
+  // If authorized, return an outlet that will render child elements
+  // If not, return element that will navigate to login page
+  return auth ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
