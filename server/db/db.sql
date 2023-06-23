@@ -69,3 +69,20 @@ CREATE TABLE tags_in_candidates
   FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id),
   UNIQUE (tag_id, candidate_id)
 );
+
+
+/*-----------------------------------------------------------------PROCEDURES-------------------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS get_all_tags_by_user_id;
+
+DELIMITER //
+CREATE PROCEDURE get_all_tags_by_user_id(IN user_id VARCHAR(255))
+BEGIN
+  SELECT DISTINCT tags.*
+  FROM tags
+  JOIN tags_in_candidates ON tags.tag_id = tags_in_candidates.tag_id
+  JOIN candidates ON tags_in_candidates.candidate_id = candidates.candidate_id
+  JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id
+  JOIN categories ON candidates_in_categories.category_id = categories.category_id
+  WHERE categories.user_id = user_id;
+END //
+DELIMITER ;
