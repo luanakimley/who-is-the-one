@@ -3,12 +3,15 @@ const router = express.Router();
 const Database = require("./Database");
 const database = new Database();
 
-router.get("/get_list_of_candidates", (req, res) => {
-        var email = req.params.email;
+router.get("/get_list_of_candidates_by_category/:userId/:categoryName", (req, res) => {
+        var userId = req.params.userId;
+        var categoryName = req.params.categoryName;
 
-        var query = "SELECT * FROM candidates";
+        var query = "SELECT candidates.* FROM candidates " + "\n" +
+                    "JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id " + "\n" +
+                    "JOIN categories ON candidates_in_categories.category_id = categories.category_id WHERE categories.user_id = ? AND categories.category_name = ?;";
 
-        database.query(query, res);
+        database.query(query, [userId, categoryName], res);
       });
 
 module.exports = router;
