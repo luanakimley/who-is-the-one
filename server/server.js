@@ -1,5 +1,7 @@
 const express = require("express");
-const routes = require("./routes");
+const usersRoutes = require("./routes/users");
+const candidatesRoutes = require("./routes/candidates");
+const tagsRoutes = require("./routes/tags");
 const cors = require("cors");
 
 const app = express();
@@ -9,7 +11,9 @@ app
   .use(cors())
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  .use(routes)
+  .use(usersRoutes)
+  .use(candidatesRoutes)
+  .use(tagsRoutes)
   .use((req, res) => {
     res.status(404);
     res.json({
