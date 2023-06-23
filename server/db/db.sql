@@ -10,15 +10,15 @@ CREATE DATABASE IF NOT EXISTS voting_system DEFAULT CHARACTER SET utf8 COLLATE u
 USE voting_system;
 
 /*DROPS any of the tables that may already exists*/
-DROP TABLE IF EXISTS candidates_in_users, tags_in_candidates, tags, candidates, users;
+DROP TABLE IF EXISTS tags_in_candidates, tags, candidates_in_categories, categories, candidates, users;
 
 /*CREATE users table*/
 CREATE TABLE users
 (
-  user_name VARCHAR(255) NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (user_name),
+  PRIMARY KEY (user_id),
   UNIQUE (email)
 );
 
@@ -28,7 +28,27 @@ CREATE TABLE candidates
   candidate_id INT NOT NULL,
   candidate_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (candidate_id)
-  UNIQUE(candidate_name)
+);
+
+/*CREATE categories table*/
+CREATE TABLE categories
+(
+  category_id INT NOT NULL,
+  category_name VARCHAR(255) NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  PRIMARY KEY (category_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  UNIQUE (category_name, user_id)
+);
+
+/*CREATE candidates_in_categories table*/
+CREATE TABLE candidates_in_categories
+(
+  category_id INT NOT NULL,
+  candidate_id INT NOT NULL,
+  FOREIGN KEY (category_id) REFERENCES categories(category_id),
+  FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id),
+  UNIQUE (category_id, candidate_id)
 );
 
 /*CREATE tags table*/
@@ -49,17 +69,3 @@ CREATE TABLE tags_in_candidates
   FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id),
   UNIQUE (tag_id, candidate_id)
 );
-
-
-/*CREATE candidates_in_users table*/
-CREATE TABLE candidates_in_users
-(
-  user_name VARCHAR(255) NOT NULL,
-  candidate_id INT NOT NULL,
-  FOREIGN KEY (user_name) REFERENCES users(user_name),
-  FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id),
-  UNIQUE (user_name, candidate_id)
-);
-
-
-
