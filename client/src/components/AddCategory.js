@@ -15,7 +15,7 @@ export default function AddCategory() {
     let formData = new FormData();
     formData.append("category", category);
 
-    navigate("/");
+    navigate("/add_candidates", { state: category });
   };
 
   return (

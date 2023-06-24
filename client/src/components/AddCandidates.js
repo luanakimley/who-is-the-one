@@ -1,29 +1,40 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
   const [candidates, setCandidates] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const categoryName = location.state;
 
   const handleCandidateNameChange = (e) => {
     setCandidateName(e.target.value);
   };
 
-  let addCandidate = (e) => {
+  const addCandidate = (e) => {
     e.preventDefault();
 
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("candidateName", candidateName);
   };
 
-  let doneAddCandidates = (e) => {
+  const doneAddCandidates = (e) => {
     navigate("/");
+  };
+
+  const addCandidateTags = (e) => {
+    navigate("/add_candidate_tags", {
+      state: {
+        categoryName: categoryName,
+      },
+    });
   };
 
   return (
     <div>
-      <h1>Add Candidate</h1>
+      <h2>{categoryName}</h2>
+      <h1>Add Candidates</h1>
       <form>
         <input
           type="text"
@@ -35,7 +46,7 @@ export default function AddCandidates() {
       <button onClick={doneAddCandidates}>Done</button>
 
       {candidates.map((candidate) => (
-        <p>{candidate.candidate_name}</p>
+        <div onClick={addCandidateTags}>{candidate.candidate_name}</div>
       ))}
     </div>
   );
