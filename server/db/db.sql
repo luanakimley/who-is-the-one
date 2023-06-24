@@ -97,10 +97,25 @@ BEGIN
 END //
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS get_list_of_candidates_by_category;
+
+DROP PROCEDURE IF EXISTS get_all_tags_for_a_category;
 
 DELIMITER //
-CREATE PROCEDURE get_list_of_candidates_by_category(IN user_id VARCHAR(255), IN category_name VARCHAR(255))
+CREATE PROCEDURE get_all_tags_for_a_category(IN category_id INT)
+BEGIN
+  SELECT DISTINCT tags.*
+    FROM tags
+    JOIN tags_in_candidates ON tags.tag_id = tags_in_candidates.tag_id
+    JOIN candidates ON tags_in_candidates.candidate_id = candidates.candidate_id
+    JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id
+    WHERE candidates_in_categories.category_id = category_id;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS get_all_of_candidates_by_category;
+
+DELIMITER //
+CREATE PROCEDURE get_all_of_candidates_by_category(IN user_id VARCHAR(255), IN category_name VARCHAR(255))
 BEGIN
   SELECT candidates.*, tags.tag_description FROM candidates
   JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id
@@ -110,3 +125,6 @@ BEGIN
   WHERE categories.user_id = user_id AND categories.category_name = category_name;
 END //
 DELIMITER ;
+
+
+
