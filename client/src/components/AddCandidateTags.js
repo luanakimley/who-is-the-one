@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
 
 export default function AddCandidateTags() {
   return (
     <div>
+      <NavBar />
       <h2>Category name - Candidate name</h2>
       <h1>Add Tags</h1>
       <form>

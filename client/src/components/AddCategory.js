@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
 
 export default function AddCategory() {
   const [category, setCategory] = useState("");
@@ -20,6 +21,7 @@ export default function AddCategory() {
 
   return (
     <div>
+      <NavBar />
       <h1>Add Category</h1>
       <form>
         <input

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import NavBar from "./NavBar";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
   const [candidates, setCandidates] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const categoryName = location.state;
+  const category = location.state;
 
   const handleCandidateNameChange = (e) => {
     setCandidateName(e.target.value);
@@ -26,14 +27,15 @@ export default function AddCandidates() {
   const addCandidateTags = (e) => {
     navigate("/add_candidate_tags", {
       state: {
-        categoryName: categoryName,
+        category: category,
       },
     });
   };
 
   return (
     <div>
-      <h2>{categoryName}</h2>
+      <NavBar />
+      <h2>{category.name}</h2>
       <h1>Add Candidates</h1>
       <form>
         <input
