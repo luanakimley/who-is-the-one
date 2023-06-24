@@ -16,8 +16,7 @@ router.post("/register_user", (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
 
-  var query =
-    "INSERT INTO users (user_id, email, user_password) VALUES (?, ?, ?);";
+  var query = "INSERT INTO users (user_id, email, user_password) VALUES (?, ?, ?);";
   database.query(query, [userName, email, password], (result) =>res.send("Insert user with ID ${userId}"));
 });
 

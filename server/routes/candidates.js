@@ -12,15 +12,8 @@ router.get("/get_list_of_candidates_by_category/:userId/:categoryName", (req, re
     });
 });
 
-router.get("/sort_candidates_in_a_category_by_preferences", (req, res) => {
-  var userId = req.params.userId;
-  var categoryName = req.params.categoryName;
-
-  const tagWeights = {
-    "Tag 1": 0.4,
-    "Tag 2": 0.3,
-    "Tag 3": 0.3,
-  };
+router.get("/sort_candidates_in_a_category_by_preferences/:tagWeights", (req, res) => {
+  var tagWeights = req.params.tagWeights;
 
   getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
       console.log(Object.values(candidates))
