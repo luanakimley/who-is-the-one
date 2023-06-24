@@ -21,6 +21,23 @@ router.get("/sort_candidates/:tagWeights", (req, res) => {
     });
 });
 
+router.post("/insert_candidate", (req, res) => {
+  const candidateName = req.body.candidateName;
+  categoryId = req.body.categoryId;
+  let candidateId = "";
+
+  let query = "INSERT INTO candidates (candidate_name) VALUES (?);";
+
+  database.query(query, [candidateName], (result) => {
+
+    candidateId = result.candidate_id;
+    res.send('Insert candidates with candidate_name ${categoryName}')
+    });
+
+  query = "INSERT INTO candidates_in_categories (category_id, candidate_id) VALUES (?, ?);";
+  database.query(query, [categoryId, candidateId], (result) =>res.send('Insert candidates_in_categories with category_id ${category_id}'));
+});
+
 
 function getListOfCandidatesByCategory(userId, categoryName, callback)
 {
@@ -29,7 +46,6 @@ function getListOfCandidatesByCategory(userId, categoryName, callback)
   database.query(query, [userId, categoryName], (result) => {
     const candidates = {};
 
-    // Iterate over the query result
     result.forEach((row) => {
       const candidateId = row.candidate_id;
       const candidateName = row.candidate_name;
@@ -45,7 +61,6 @@ function getListOfCandidatesByCategory(userId, categoryName, callback)
         };
       }
 
-      // Add the tag to the candidate's tags array
       candidates[candidateId].tags.push(tagName);
     });
 

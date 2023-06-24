@@ -25,7 +25,7 @@ CREATE TABLE users
 /*CREATE candidates table*/
 CREATE TABLE candidates
 (
-  candidate_id INT NOT NULL,
+  candidate_id INT NOT NULL AUTO_INCREMENT,
   candidate_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (candidate_id)
 );
@@ -33,7 +33,7 @@ CREATE TABLE candidates
 /*CREATE categories table*/
 CREATE TABLE categories
 (
-  category_id INT NOT NULL,
+  category_id INT NOT NULL AUTO_INCREMENT,
   category_name VARCHAR(255) NOT NULL,
   user_id VARCHAR(255) NOT NULL,
   PRIMARY KEY (category_id),
@@ -54,7 +54,7 @@ CREATE TABLE candidates_in_categories
 /*CREATE tags table*/
 CREATE TABLE tags
 (
-  tag_id INT NOT NULL,
+  tag_id INT NOT NULL AUTO_INCREMENT,
   tag_description VARCHAR(255) NOT NULL,
   PRIMARY KEY (tag_id),
   UNIQUE (tag_description)
