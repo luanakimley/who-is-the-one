@@ -11,6 +11,8 @@ class Database
       password: '',
       database: 'voting_system'
     });
+
+    this.connect();
   }
 
   connect()
@@ -34,7 +36,22 @@ query(sql, values, callback) {
 
   this.connection.query(sql, values, (err, result) => {
     if (err) throw err;
-    callback(result);
+
+        if (Array.isArray(result) && result.length > 0)
+        {
+          if (result[0] instanceof Array)
+          {
+            callback(result[0]);
+          }
+          else
+          {
+            callback(result);
+          }
+        }
+        else
+        {
+          callback([]);
+        }
   });
 }
 
