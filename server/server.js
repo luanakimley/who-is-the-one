@@ -2,6 +2,7 @@ const express = require("express");
 const usersRoutes = require("./routes/users");
 const candidatesRoutes = require("./routes/candidates");
 const tagsRoutes = require("./routes/tags");
+const categoriesRoutes = require("./routes/categories");
 const cors = require("cors");
 
 const app = express();
@@ -14,6 +15,7 @@ app
   .use(usersRoutes)
   .use(candidatesRoutes)
   .use(tagsRoutes)
+  .use(categoriesRoutes)
   .use((req, res) => {
     res.status(404);
     res.json({
