@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Database = require("./Database");
 const database = new Database();
-const axios = require('axios');
 
 router.get("/get_list_of_candidates_by_category/:userId/:categoryName", (req, res) => {
   const userId = req.params.userId;
@@ -33,7 +32,7 @@ router.get("/sort_of_candidates_in_a_category_by_preferences", (req, res) => {
 
 function getListOfCandidatesByCategory(userId, categoryName, callback)
 {
-  const query = "CALL get_list_of_candidates_by_category(?, ?)";
+  const query = "CALL get_all_of_candidates_by_category(?, ?)";
 
   database.query(query, [userId, categoryName], (result) => {
     const candidates = {};
