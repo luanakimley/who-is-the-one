@@ -7,6 +7,7 @@ import AddCandidates from "./components/AddCandidates";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LogOut from "./components/LogOut";
 import AddCandidateTags from "./components/AddCandidateTags";
+import Categories from "./components/Categories";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           path="/add_candidate_tags"
           element={<AddCandidateTags />}
         />
+      </Route>
+      <Route exact path="/categories" element={<ProtectedRoute />}>
+        <Route exact path="/categories" element={<Categories />} />
       </Route>
     </Routes>
   );
