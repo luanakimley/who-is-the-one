@@ -23,7 +23,7 @@ router.get("/sort_candidates/:tagWeights", (req, res) => {
 
 router.post("/insert_candidate", (req, res) => {
   const candidateName = req.body.candidateName;
-  categoryId = req.body.categoryId;
+  const categoryId = req.body.categoryId;
   let candidateId = "";
 
   let query = "INSERT INTO candidates (candidate_name) VALUES (?);";
@@ -31,7 +31,7 @@ router.post("/insert_candidate", (req, res) => {
   database.query(query, [candidateName], (result) => {
 
     candidateId = result.candidate_id;
-    res.send('Insert candidates with candidate_name ${categoryName}')
+    res.json(candidateId);
     });
 
   query = "INSERT INTO candidates_in_categories (category_id, candidate_id) VALUES (?, ?);";
