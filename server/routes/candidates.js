@@ -3,7 +3,7 @@ const router = express.Router();
 const Database = require("./Database");
 const database = new Database();
 
-router.get("/get_list_of_candidates_by_category/:userId/:categoryName", (req, res) => {
+router.get("/candidates/:userId/:categoryName", (req, res) => {
   const userId = req.params.userId;
   const categoryName = req.params.categoryName;
 
@@ -12,11 +12,10 @@ router.get("/get_list_of_candidates_by_category/:userId/:categoryName", (req, re
     });
 });
 
-router.get("/sort_candidates_in_a_category_by_preferences/:tagWeights", (req, res) => {
-  var tagWeights = req.params.tagWeights;
+router.get("/sort_candidates/:tagWeights", (req, res) => {
+  const tagWeights = req.params.tagWeights;
 
   getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
-      console.log(Object.values(candidates))
       const rankedCandidates = rankListOfCandidates(tagWeights, Object.values(candidates));
       res.json(rankedCandidates);
     });
