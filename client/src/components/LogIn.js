@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
@@ -47,6 +47,7 @@ export default function LogIn() {
         <label>Password</label>
         <input type="password" onChange={handlePasswordChange} />
         <button onClick={logIn}>Log In</button>
+        <Link to="/register">I don't have an account</Link>
       </form>
     </div>
   );

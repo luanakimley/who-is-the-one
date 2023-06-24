@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SERVER_HOST } from "../config/global_constants";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -56,6 +56,8 @@ export default function Register() {
         <input type="password" onChange={handlePasswordChange} />
 
         <button onClick={registerUser}>Register</button>
+
+        <Link to="/login">I have an account</Link>
       </form>
     </div>
   );

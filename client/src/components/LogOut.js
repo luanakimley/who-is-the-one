@@ -8,8 +8,6 @@ export default function LogOut() {
 
   removeCookie("userId");
 
-  removeCookie("userId");
-
   useEffect(() => {
     navigate("/login");
   }, [navigate]); // Empty dependency array to run the effect only once
