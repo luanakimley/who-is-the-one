@@ -19,7 +19,7 @@ export default function Register() {
     formData.append("password", password);
 
     axios
-      .post(`${SERVER_HOST}/register_user`, formData, {
+      .post(`${SERVER_HOST}/register`, formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {

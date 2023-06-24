@@ -18,7 +18,7 @@ export default function LogIn() {
     formData.append("password", password);
 
     axios
-      .post(`${SERVER_HOST}/get_user_by_email_password`, formData, {
+      .post(`${SERVER_HOST}/login`, formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
