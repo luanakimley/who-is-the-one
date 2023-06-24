@@ -18,19 +18,17 @@ router.post("/register_user", (req, res) => {
 
   var query =
     "INSERT INTO users (user_id, email, user_password) VALUES (?, ?, ?);";
-  database.query(query, [userName, email, password], (result) =>
-    res.json(result)
-  );
+  database.query(query, [userName, email, password], (result) =>res.send("Insert user with ID ${userId}"));
 });
 
-router.get("/remove_user/:userId", (req, res) => {
-  var userId = req.body.userId;
+router.delete("/remove_user/:userId", (req, res) => {
+  var userId = req.params.userId;
   var query = "DELETE FROM users WHERE user_id = ?";
-  database.query(query, (result) => res.json(result));
+  database.query(query, (result) => res.send("Delete user with ID ${userId}"));
 });
 
 router.get("/get_list_of_users", (req, res) => {
-  let query = "SELECT * FROM users";
+  var query = "SELECT * FROM users";
   database.query(query, (result) => res.json(result));
 });
 
