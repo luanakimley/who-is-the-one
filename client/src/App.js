@@ -6,6 +6,7 @@ import AddCategory from "./components/AddCategory";
 import AddCandidates from "./components/AddCandidates";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LogOut from "./components/LogOut";
+import AddCandidateTags from "./components/AddCandidateTags";
 
 function App() {
   return (
@@ -23,6 +24,13 @@ function App() {
       </Route>
       <Route exact path="/logout" element={<ProtectedRoute />}>
         <Route exact path="/logout" element={<LogOut />} />
+      </Route>
+      <Route exact path="/add_candidate_tags" element={<ProtectedRoute />}>
+        <Route
+          exact
+          path="/add_candidate_tags"
+          element={<AddCandidateTags />}
+        />
       </Route>
     </Routes>
   );
