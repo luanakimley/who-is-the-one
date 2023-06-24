@@ -14,12 +14,13 @@ router.post("/insert_category", (req, res) => {
         const userId = req.body.userId;
         let categoryId = "";
 
-        const query = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
-        database.query(query, [categoryName, userId], (result) =>{
+        let query = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
+        database.query(query, [categoryName, userId], (result) =>{});
 
-            categoryId = result.category_id;
-            res.json(categoryId);
-        });
+        query = "SELECT categories.category_id FROM categories WHERE category_name = ? AND user_id = ?";
+
+        database.query(query, [categoryName, userId], (result) =>res.json(result));
+
       });
 
 module.exports = router;
