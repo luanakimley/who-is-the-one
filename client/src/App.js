@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import LogOut from "./components/LogOut";
 import AddCandidateTags from "./components/AddCandidateTags";
 import Categories from "./components/Categories";
+import Tags from "./components/Tags";
+import UserPreferences from "./components/UserPreferences";
 
 function App() {
   return (
@@ -35,6 +37,12 @@ function App() {
       </Route>
       <Route exact path="/categories" element={<ProtectedRoute />}>
         <Route exact path="/categories" element={<Categories />} />
+      </Route>
+      <Route exact path="/tags" element={<ProtectedRoute />}>
+        <Route exact path="/tags" element={<Tags />} />
+      </Route>
+      <Route exact path="/user_preferences" element={<ProtectedRoute />}>
+        <Route exact path="/user_preferences" element={<UserPreferences />} />
       </Route>
     </Routes>
   );
