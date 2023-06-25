@@ -19,6 +19,33 @@ router.get("/tags_by_category/:categoryId", (req, res) => {
         database.query(query, [userId], (result) => res.json(result));
       });
 
+router.get("/tags_by_candidate/:candidateId", (req, res) => {
+        const candidateId = req.params.candidateId;
+
+        const query = "SELECT tags.* FROM tags " + "\n" +
+                              "JOIN tags_in_candidates ON tags.tag_id = tags_in_candidates.tag_id " + "\n" +
+                              "WHERE tags_in_candidates.candidate_id = ?;"
+
+        database.query(query, [candidateId], (result) => res.json(result));
+});
+
+router.get("/insert_tag", (req, res) => {
+        const tagDescription = req.body.tagDescription;
+        const candidateId = req.body.candidateId;
+        let tagId = 0;
+
+        let query = "INSERT INTO tags (tag_description) VALUES (?);";
+        database.query(query, [tagDescription], (result) =>{});
+
+        query = "SELECT * FROM tags WHERE tag_description = ?;"
+        database.query(query, [tagDescription], (result) => {
+        tagId = result.tag_id;
+
+        query = "INSERT INTO tags_in_candidates (tag_id, candidate_id) VALUES (?, ?);";
+
+        database.query(query, [tagId, candidateId], (result) =>res.send("Insert tag complete"));
+        });
+});
 
 router.get("/user_preference/:categoryId", (req, res) => {
         const categoryId = req.params.categoryId;

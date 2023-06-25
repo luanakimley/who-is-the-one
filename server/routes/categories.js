@@ -12,7 +12,7 @@ router.get("/categories/:userId", (req, res) => {
 router.post("/insert_category", (req, res) => {
         const categoryName = req.body.categoryName;
         const userId = req.body.userId;
-        let categoryId = "";
+        let categoryId = 0;
 
         let query = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
         database.query(query, [categoryName, userId], (result) =>{});
