@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -76,13 +77,16 @@ export default function AddCandidates() {
       </form>
       <button onClick={doneAddCandidates}>Done</button>
 
+    <div>
       {candidates.length
         ? candidates.map((candidate) => (
-            <div id={candidate.candidate_id} onClick={addCandidateTags}>
+            <div key={candidate.candidate_id} id={candidate.candidate_id} onClick={addCandidateTags}>
               {candidate.candidate_name}
             </div>
           ))
         : null}
+        </div>
+            <Footer/>
     </div>
   );
 }

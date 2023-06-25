@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
+import Navbar from "./NavBar";
+import Footer from "./Footer";
+
 
 export default function LogIn() {
   const [cookies, setCookie] = useCookies(["userId"]);
@@ -40,15 +43,29 @@ export default function LogIn() {
 
   return (
     <div>
+        <div class="container-sm">
+    <h1> WITO </h1>
+
       <h1>Log In</h1>
       <form>
-        <label>Email</label>
-        <input type="email" onChange={handleEmailChange} />
-        <label>Password</label>
-        <input type="password" onChange={handlePasswordChange} />
-        <button onClick={logIn}>Log In</button>
+      <div class="mb-3">
+
+         <label class="form-label">Email address</label>
+        <input class="form-control" type="email" onChange={handleEmailChange} />
+        </div>
+
+<div class="mb-3">
+        <label class="form-label">Password</label>
+        <input class="form-control" type="password" onChange={handlePasswordChange} />
+</div>
+        <button class="btn btn-primary" onClick={logIn}>Log In</button>
+
+<div class="mb-3">
         <Link to="/register">I don't have an account</Link>
+        </div>
       </form>
+    </div>
+    <Footer/>
     </div>
   );
 }

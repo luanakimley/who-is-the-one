@@ -40,7 +40,8 @@ export default function AddCategory() {
 
   return (
     <div>
-      <NavBar />
+          <NavBar />
+          <div class="container">
       <h1>Add Category</h1>
       <form>
         <input
@@ -51,5 +52,7 @@ export default function AddCategory() {
         <button onClick={addCategory}>Done</button>
       </form>
     </div>
+    </div>
+
   );
 }
