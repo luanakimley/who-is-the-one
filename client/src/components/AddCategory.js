@@ -6,26 +6,31 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 
 export default function AddCategory() {
-  const [category, setCategory] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const [cookies] = useCookies(["userId"]);
   const navigate = useNavigate();
 
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
+  const handleCategoryNameChange = (e) => {
+    setCategoryName(e.target.value);
   };
 
   const addCategory = (e) => {
     e.preventDefault();
 
     let formData = new FormData();
-    formData.append("categoryName", category);
+    formData.append("categoryName", categoryName);
     formData.append("userId", cookies.userId);
 
     axios
       .post(`${SERVER_HOST}/insert_category`, formData, {
         headers: { "Content-Type": "application/json" },
       })
-      .then(() => {
+      .then((res) => {
+        const categoryId = res.data[0].category_id;
+        const category = {
+          id: categoryId,
+          name: categoryName,
+        };
         navigate("/add_candidates", { state: category });
       })
       .catch((error) => {
@@ -41,7 +46,7 @@ export default function AddCategory() {
         <input
           type="text"
           placeholder="Category name"
-          onChange={handleCategoryChange}
+          onChange={handleCategoryNameChange}
         />
         <button onClick={addCategory}>Done</button>
       </form>
