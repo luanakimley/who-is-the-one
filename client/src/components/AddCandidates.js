@@ -17,15 +17,9 @@ export default function AddCandidates() {
 
   async function getCandidatesForCategory() {
     const candidates = await axios.get(
-      `${SERVER_HOST}/candidates/${cookies.userId}/${category.name}`
+      `${SERVER_HOST}/candidates/${category.id}`
     );
-    setCandidates([
-      { candidate_id: 1, candidate_name: "Luana Kimley" },
-      { candidate_id: 2, candidate_name: "Niall O'Reilly" },
-      { candidate_id: 3, candidate_name: "Nathan Field" },
-      { candidate_id: 4, candidate_name: "Luana" },
-    ]);
-    // setCandidates(candidates.data);
+    setCandidates(candidates.data);
   }
 
   useEffect(() => {
@@ -114,12 +108,7 @@ export default function AddCandidates() {
                     <CandidateTagBox
                       key={candidate.candidate_id}
                       candidate={candidate}
-                      tags={[
-                        { tag_id: 1, tag_description: "Economy" },
-                        { tag_id: 2, tag_description: "Cool" },
-                        { tag_id: 3, tag_description: "Politics" },
-                        { tag_id: 4, tag_description: "Tag" },
-                      ]}
+                      tags={candidate.tags}
                       handleClick={navigateToAddCandidateTags}
                     />
                   ))
