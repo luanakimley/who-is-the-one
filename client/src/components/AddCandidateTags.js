@@ -9,12 +9,7 @@ import TagBox from "./TagBox";
 
 export default function AddCandidateTags() {
   const [tags, setTags] = useState([]);
-  const [candidateTags, setCandidateTags] = useState([
-    { tag_id: 1, tag_description: "Economy" },
-    { tag_id: 2, tag_description: "Cool" },
-    { tag_id: 3, tag_description: "Politics" },
-    { tag_id: 4, tag_description: "Tag" },
-  ]);
+  const [candidateTags, setCandidateTags] = useState([]);
   const [cookies] = useCookies(["userId"]);
   const location = useLocation();
   const state = location.state;
@@ -22,6 +17,7 @@ export default function AddCandidateTags() {
 
   useEffect(() => {
     getTags();
+    getTagsByCandidate();
   });
 
   async function getTags() {
@@ -31,7 +27,14 @@ export default function AddCandidateTags() {
     setTags(tags.data);
   }
 
-  async function getTagsByCandidate() {}
+  async function getTagsByCandidate() {
+    const tags = await axios.get(
+      `${SERVER_HOST}/tags_by_candidate/${state.candidate.id}`
+    );
+    if (tags.data.length) {
+      setCandidateTags(tags.data[0]);
+    }
+  }
 
   const navigateToAddCandidates = () => {
     navigate("/add_candidates", { state: state.category });
@@ -79,7 +82,9 @@ export default function AddCandidateTags() {
           <div className="w-50 m-5 align-self-center">
             <div className="row">
               {candidateTags.length
-                ? candidateTags.map((tag) => <TagBox tag={tag} />)
+                ? candidateTags.map((tag) => (
+                    <TagBox key={tag.tag_id} id={tag.tag_id} tag={tag} />
+                  ))
                 : null}
             </div>
           </div>
