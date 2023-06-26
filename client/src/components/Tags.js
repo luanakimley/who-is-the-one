@@ -7,12 +7,7 @@ import Footer from "./Footer";
 import TagBox from "./TagBox";
 
 export default function Tags() {
-  const [tags, setTags] = useState([
-    { tag_id: 1, tag_description: "Economy" },
-    { tag_id: 2, tag_description: "Cool" },
-    { tag_id: 3, tag_description: "Politics" },
-    { tag_id: 4, tag_description: "Tag" },
-  ]);
+  const [tags, setTags] = useState([]);
   const [tagName, setTagName] = useState("");
   const [cookies] = useCookies(["userId"]);
 
@@ -24,7 +19,7 @@ export default function Tags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_users/${cookies.userId}`
     );
-    // setTags(tags);
+    setTags(tags.data[0]);
   }
 
   const handleTagNameChange = (e) => {
@@ -63,7 +58,9 @@ export default function Tags() {
           </div>
           <div className="w-50 m-5 align-self-center">
             <div className="row">
-              {tags.length ? tags.map((tag) => <TagBox tag={tag} />) : null}
+              {tags.length
+                ? tags.map((tag) => <TagBox key={tag.tag_id} tag={tag} />)
+                : null}
             </div>
           </div>
         </div>
