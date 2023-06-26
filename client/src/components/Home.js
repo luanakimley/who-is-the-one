@@ -11,9 +11,12 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <div className="container">
-        <h1>Home</h1>
-        <h2>Hello {cookies.userId}!</h2>
+
+      <div className="p-3 mb-2 bg-primary text-white">
+        <div className="container">
+          <h1>Home</h1>
+          <h2>Hello {cookies.userId}!</h2>
+        </div>
       </div>
       <Footer />
     </div>

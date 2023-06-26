@@ -46,35 +46,45 @@ export default function Categories() {
   return (
     <div>
       <NavBar />
-      <div className="container">
-        <h1>Categories</h1>
-        <ul>
-          {categories.length
-            ? categories.map((category) => (
-                <div key={category.category_id}>
-                  <li
-                    key={category.category_id}
-                    id={category.category_id}
-                    onClick={navigateToAddCandidatesForCategory}
-                  >
-                    {category.category_name}
-                  </li>
-                  <button
-                    className="btn btn-danger"
-                    key={category.category_name}
-                    id={category.category_id}
-                    onClick={deleteCategory}
-                  >
-                    X
-                  </button>
-                </div>
-              ))
-            : null}
-        </ul>
+      <div className="p-4 mb-2 bg-primary text-black">
+        <div className="container">
+          <h1>Categories</h1>
 
-        <button className="btn btn-primary" onClick={navigateToAddCategory}>
-          Add category
-        </button>
+          <div className="row">
+            {categories.length
+              ? categories.map((category) => (
+                  <div className="col col-lg-3 p-4">
+                    <div className="card">
+                      <div className="card-body">
+                        <div
+                          key={category.category_id}
+                          id={category.category_id}
+                          onClick={navigateToAddCandidatesForCategory}
+                        >
+                          <h3>{category.category_name}</h3>
+                        </div>
+                        <button
+                          className="btn btn-danger position-absolute top-0 end-0"
+                          key={category.category_name}
+                          id={category.category_id}
+                          onClick={deleteCategory}
+                        >
+                          <i className="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              : null}
+            <button
+              class="btn btn-light col col-lg-3 p-4 float-right"
+              onClick={navigateToAddCategory}
+            >
+              <i className="bi bi-plus-circle"></i>
+              Add
+            </button>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

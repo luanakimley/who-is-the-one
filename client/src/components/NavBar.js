@@ -13,31 +13,37 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary rounded">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
-          Which Is The One
+        <a className="navbar-brand col-lg-3 me-0" href="/">
+          <h2>Which Is The One?</h2>
         </a>
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-            <Link className="nav-link active" to="/">
-              Home
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link active" to="/categories">
-              Categories
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link active" to="/tags">
-              Tags
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Search />
-          </li>
-        </ul>
+
+        <div
+          className="collapse navbar-collapse d-lg-flex"
+          id="navbarsExample11"
+        >
+          <ul className="navbar-nav col-lg-6 justify-content-lg-center">
+            <li className="nav-item">
+              <Link className="nav-link active" to="/">
+                <h3>Home</h3>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link active" to="/categories">
+                <h3>Categories</h3>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link active" to="/tags">
+                <h3>Tags</h3>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Search />
+            </li>
+          </ul>
+        </div>
 
         <button className="btn btn-primary" onClick={handleLogOut}>
           Log out

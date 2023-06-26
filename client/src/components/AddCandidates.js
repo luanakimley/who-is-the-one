@@ -63,36 +63,55 @@ export default function AddCandidates() {
     });
   };
 
+  const removeTagFromCategory = (e) => {
+    navigate("/add_candidate_tags", {
+      //todo
+    });
+  };
+
   return (
     <div>
       <NavBar />
-      <h2>{category.name}</h2>
-      <h1>Add Candidates</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="Candidate name"
-          onChange={handleCandidateNameChange}
-        />
-        <button disabled={candidateName.length === 0} onClick={addCandidate}>
-          Add
-        </button>
-      </form>
-      <button onClick={doneAddCandidates}>Done</button>
+      <div className="p-4 mb-2 bg-primary text-black">
+        <div className="container">
+          <h2>{category.name}</h2>
 
-      <div>
-        {candidates.length
-          ? candidates.map((candidate) => (
-              <CandidateTagBox
-                key={candidate.candidate_id}
-                candidate={candidate}
-                tags={[{ tag_id: 1, tag_description: "Tag" }]}
-                handleClick={navigateToAddCandidateTags}
+          <div className="container bg-white rounded">
+            <h1>Add Candidates</h1>
+            <form>
+              <input
+                type="text"
+                placeholder="Candidate name"
+                onChange={handleCandidateNameChange}
               />
-            ))
-          : null}
+              <button
+                className="btn btn-primary"
+                disabled={candidateName.length === 0}
+                onClick={addCandidate}
+              >
+                Add
+              </button>
+            </form>
+            <button className="btn btn-success" onClick={doneAddCandidates}>
+              Done
+            </button>
+          </div>
+
+          <div>
+            {candidates.length
+              ? candidates.map((candidate) => (
+                  <CandidateTagBox
+                    key={candidate.candidate_id}
+                    candidate={candidate}
+                    tags={[{ tag_id: 1, tag_description: "Tag" }]}
+                    handleClick={navigateToAddCandidateTags}
+                  />
+                ))
+              : null}
+          </div>
+          <Footer />
+        </div>
       </div>
-      <Footer />
     </div>
   );
 }
