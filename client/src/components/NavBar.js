@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import Match from "./Match";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -37,6 +38,11 @@ export default function NavBar() {
             <li className="nav-item">
               <Link className="nav-link active" to="/tags">
                 <h3>Tags</h3>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link active" to="/match">
+                 <h3>Match</h3>
               </Link>
             </li>
           </ul>

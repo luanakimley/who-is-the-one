@@ -7,6 +7,7 @@ import DeleteCategory from "./components/Delete";
 import AddCandidates from "./components/AddCandidates";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Search from "./components/Search";
+import Match from "./components/Match";
 import SuccessMessage from "./components/SuccessMessage";
 import AddCandidateTags from "./components/AddCandidateTags";
 import Categories from "./components/Categories";
@@ -47,6 +48,9 @@ function App() {
       <Route exact path="/search" element={<ProtectedRoute />}>
         <Route exact path="/search" element={<Search />} />
       </Route>
+      <Route exact path="/match" element={<ProtectedRoute />}>
+              <Route exact path="/match" element={<Match />} />
+            </Route>
       <Route exact path="/success_message" element={<ProtectedRoute />}>
         <Route exact path="/success_message" element={<SuccessMessage />} />
       </Route>
