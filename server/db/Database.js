@@ -40,12 +40,10 @@ query(sql, values, callback)
     {
         console.log(err);
     }
-
         if (Array.isArray(result) && result.length > 0)
         {
           if (result[0] instanceof Array)
           {
-
             callback(result[0]);
           }
           else
@@ -66,5 +64,5 @@ query(sql, values, callback)
   }
 }
 
-module.exports = Database;
+module.exports = new Database();
 
