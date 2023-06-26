@@ -14,12 +14,11 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary rounded">
+    <nav className="fixed-top bg-white navbar navbar-expand-lg bg-body-tertiary rounded">
       <div className="container-fluid">
         <a className="navbar-brand col-lg-3 me-0" href="/">
           <h2>Which Is The One?</h2>
         </a>
-
         <div
           className="collapse navbar-collapse d-lg-flex"
           id="navbarsExample11"
@@ -42,8 +41,8 @@ export default function NavBar() {
             </li>
           </ul>
         </div>
-
-        <button className="btn btn-primary" onClick={handleLogOut}>
+        <h5 className="text-secondary">Hello, {cookies.userId}!</h5>&ensp;&ensp;
+        <button className="btn btn-primary ml-5" onClick={handleLogOut}>
           Log out
         </button>
       </div>

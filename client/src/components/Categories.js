@@ -48,10 +48,9 @@ export default function Categories() {
   return (
     <div>
       <NavBar />
-      <div className="p-4 mb-2 bg-primary text-black">
-        <div className="container">
-          <h1>Categories</h1>
-
+      <div className="vh-100 p-4 mb-2 bg-primary">
+        <div className="top-margin container">
+          <h1 className="text-white text-center mb-5">Categories</h1>
           <div className="row">
             {categories.length
               ? categories.map((category) => (
@@ -72,22 +71,26 @@ export default function Categories() {
                           id={category.category_id}
                           onClick={deleteCategory}
                         >
-                          <i className="bi bi-trash"></i>
+                          <i
+                            id={category.category_id}
+                            className="bi bi-trash"
+                          ></i>
                         </button>
                       </div>
                     </div>
                   </div>
                 ))
               : null}
-            <button
-              className="btn btn-light col col-lg-3 p-4 float-right"
-              onClick={navigateToAddCategory}
-            >
-              <i className="bi bi-plus-circle"></i>
-              Add
-            </button>
           </div>
         </div>
+        <button
+          onClick={navigateToAddCategory}
+          className="float border border-white text-primary"
+        >
+          <h5>
+            <i className="bi bi-plus-circle"></i>&ensp;Add
+          </h5>
+        </button>
       </div>
       <Footer />
     </div>
