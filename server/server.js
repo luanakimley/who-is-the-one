@@ -3,7 +3,8 @@ const cors = require("cors");
 const usersRoutes = require("./routes/users");
 const candidatesRoutes = require("./routes/candidates");
 const tagsRoutes = require("./routes/tags");
-const categoriesRoutes = require("./routes/categories");
+const categoriesRoutes = require("./routes/user_preferences");
+const userPreferencesRoutes = require("./routes/user_preferences");
 const app = express();
 const port = 8000;
 
@@ -15,6 +16,7 @@ app
   .use(candidatesRoutes)
   .use(tagsRoutes)
   .use(categoriesRoutes)
+  .use(userPreferencesRoutes)
   .use((req, res) => {
     res.status(404);
     res.json({
