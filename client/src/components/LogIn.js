@@ -6,7 +6,6 @@ import axios from "axios";
 import Navbar from "./NavBar";
 import Footer from "./Footer";
 
-
 export default function LogIn() {
   const [cookies, setCookie] = useCookies(["userId"]);
   const [email, setEmail] = useState("");
@@ -25,7 +24,7 @@ export default function LogIn() {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-        setCookie("userId", res.data[0].user_id);
+        setCookie("userId", res.data[0][0].user_id);
         navigate("/");
       })
       .catch((error) => {
@@ -43,29 +42,38 @@ export default function LogIn() {
 
   return (
     <div>
-        <div class="container-sm">
-    <h1> WITO </h1>
+      <div class="container-sm">
+        <h1> WITO </h1>
 
-      <h1>Log In</h1>
-      <form>
-      <div class="mb-3">
+        <h1>Log In</h1>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input
+              class="form-control"
+              type="email"
+              onChange={handleEmailChange}
+            />
+          </div>
 
-         <label class="form-label">Email address</label>
-        <input class="form-control" type="email" onChange={handleEmailChange} />
-        </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input
+              class="form-control"
+              type="password"
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button class="btn btn-primary" onClick={logIn}>
+            Log In
+          </button>
 
-<div class="mb-3">
-        <label class="form-label">Password</label>
-        <input class="form-control" type="password" onChange={handlePasswordChange} />
-</div>
-        <button class="btn btn-primary" onClick={logIn}>Log In</button>
-
-<div class="mb-3">
-        <Link to="/register">I don't have an account</Link>
-        </div>
-      </form>
-    </div>
-    <Footer/>
+          <div class="mb-3">
+            <Link to="/register">I don't have an account</Link>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }
