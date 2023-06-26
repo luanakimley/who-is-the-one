@@ -81,13 +81,12 @@ exports.addTagForCandidate = (req, res) => {
 }
 
 exports.addTagForUser = (req, res) => {
-     const userId = req.body.userId;
-     const tagDescription = req.body.tagDescription;
-     const candidateId = req.body.candidateId;
+     const userId = "user1";
+     const tagDescription = "req.body.tagDescription";
 
-     const query = "INSERT INTO tags (user_id, tag_description) VALUES (?);";
+     const query = "INSERT INTO tags (user_id, tag_description) VALUES (?, ?);";
 
-     database.query(query, [tagDescription], (insertResult) => {
+     database.query(query, [userId, tagDescription], (insertResult) => {
 
        selectTagsByDescription(tagDescription, (selectAfterInsertResult) => {
            res.json(selectAfterInsertResult[0]);

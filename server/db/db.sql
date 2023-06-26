@@ -41,7 +41,7 @@ CREATE TABLE candidates
   candidate_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (candidate_id),
   FOREIGN KEY (category_id) REFERENCES categories(category_id),
-  UNIQUE (candidate_name)
+  UNIQUE (category_id, candidate_name)
 );
 
 /*CREATE tags table*/
@@ -52,7 +52,7 @@ CREATE TABLE tags
   tag_description VARCHAR(255) NOT NULL,
   PRIMARY KEY (tag_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
-  UNIQUE (tag_description)
+  UNIQUE (user_id, tag_description)
 );
 
 /*CREATE tags_in_candidates table*/
