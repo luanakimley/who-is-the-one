@@ -25,14 +25,14 @@ exports.addCandidate = (req, res) => {
     });
 }
 
-//router.get("/sort_candidates/:tagWeights", (req, res) => {
+exports.getCandidatesByPreference = (req, res) => {
 //  const tagWeights = req.params.tagWeights;
 //
 //  getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
 //      const rankedCandidates = rankListOfCandidates(tagWeights, Object.values(candidates));
 //      res.json(rankedCandidates);
 //    });
-//});
+}
 
 function getListOfCandidatesByCategory(categoryId, callback)
 {
@@ -45,8 +45,13 @@ function getListOfCandidatesByCategory(categoryId, callback)
     result.forEach((row) => {
       const candidateId = row.candidate_id;
       const candidateName = row.candidate_name;
+      const tagId = row.tag_id;
       const tagDescription = row.tag_description;
 
+      const tag = {
+        tag_id: tagId,
+        tag_description: tagDescription
+      }
 
       if (!candidates[candidateId])
       {
@@ -57,7 +62,7 @@ function getListOfCandidatesByCategory(categoryId, callback)
         };
       }
 
-      candidates[candidateId].tags.push(tagDescription);
+      candidates[candidateId].tags.push(tag);
     });
 
     callback(candidates);

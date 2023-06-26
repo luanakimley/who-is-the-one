@@ -140,7 +140,7 @@ DROP PROCEDURE IF EXISTS get_all_candidates_by_category;
 DELIMITER //
 CREATE PROCEDURE get_all_candidates_by_category(IN category_id INT)
 BEGIN
-  SELECT candidates.*, tags.tag_description FROM candidates
+  SELECT candidates.*, tags.tag_id, tags.tag_description FROM candidates
   JOIN categories ON candidates.category_id = categories.category_id
   LEFT JOIN tags_in_candidates ON candidates.candidate_id = tags_in_candidates.candidate_id
   LEFT JOIN tags ON tags_in_candidates.tag_id = tags.tag_id
