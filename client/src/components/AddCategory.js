@@ -26,7 +26,7 @@ export default function AddCategory() {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-        const categoryId = res.data[0].category_id;
+        const categoryId = res.data[0][0].category_id;
         const category = {
           id: categoryId,
           name: categoryName,
