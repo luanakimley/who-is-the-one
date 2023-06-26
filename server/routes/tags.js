@@ -30,22 +30,57 @@ router.get("/tags_by_candidate/:candidateId", (req, res) => {
 });
 
 router.get("/insert_tag", (req, res) => {
-        const tagDescription = req.body.tagDescription;
-        const candidateId = req.body.candidateId;
-        let tagId = 0;
 
-        let query = "INSERT INTO tags (tag_description) VALUES (?);";
-        database.query(query, [tagDescription], (result) =>{});
+      const tagDescription = req.body.tagDescription;
+      const candidateId = req.body.candidateId;
+      let tagId = 0;
 
-        query = "SELECT * FROM tags WHERE tag_description = ?;"
-        database.query(query, [tagDescription], (result) => {
-        tagId = result.tag_id;
+      selectTagsByDescription(tagDescription, (result) => {
 
-        query = "INSERT INTO tags_in_candidates (tag_id, candidate_id) VALUES (?, ?);";
+          if(result.length !== 0)
+          {
+             tagId = result[0].tag_id;
+          }
 
-        database.query(query, [tagId, candidateId], (result) =>res.send("Insert tag complete"));
-        });
+          if (tagId === 0)
+          {
+                const queryInsert = "INSERT INTO tags (tag_description) VALUES (?);";
+
+                database.query(queryInsert, [tagDescription], (insertResult) => {
+
+                  selectTagsByDescription(tagDescription, (selectAfterInsertResult) => {
+                      tagId = selectAfterInsertResult[0].candidate_id;
+                      insertIntoTagsCandidates(tagId, candidateId);
+                      res.json(selectAfterInsertResult[0]);
+                  });
+
+              });
+          }
+          else
+          {
+              insertIntoTagsCandidates(tagId, candidateId);
+              res.json(result[0]);
+          }
+
+
+      });
 });
+
+function insertIntoTagsCandidates(tagId, candidateId)
+{
+  const query = "INSERT INTO tags_in_candidates (tag_id, candidate_id) VALUES (?, ?);";
+
+  database.query(query, [tagId, candidateId], (result) => {});
+}
+
+function selectTagsByDescription(tagDescription, callback)
+{
+     const query = "SELECT * FROM tags WHERE tag_description = ?;";
+
+     database.query(query, [tagDescription], (result) => {
+        callback(result)
+     });
+}
 
 router.get("/user_preference/:categoryId", (req, res) => {
         const categoryId = req.params.categoryId;
