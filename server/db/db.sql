@@ -27,7 +27,8 @@ CREATE TABLE candidates
 (
   candidate_id INT NOT NULL AUTO_INCREMENT,
   candidate_name VARCHAR(255) NOT NULL,
-  PRIMARY KEY (candidate_id)
+  PRIMARY KEY (candidate_id),
+  UNIQUE (candidate_name)
 );
 
 /*CREATE categories table*/
@@ -81,7 +82,32 @@ CREATE TABLE users_categories_preferences
   UNIQUE (category_id, tag_id)
 );
 
+
+/*-----------------------------------------------------------------TRIGGERS-------------------------------------------------------------------------------------*/
+
+/*DELETE TRIGGERS to remove categories details*/
+DROP TRIGGER IF EXISTS delete_categories_foreign_key_candidates_in_categories;
+
+CREATE TRIGGER delete_categories_foreign_key_candidates_in_categories
+
+BEFORE DELETE ON categories
+FOR EACH ROW
+
+DELETE FROM candidates_in_categories WHERE candidates_in_categories.category_id = OLD.category_id;
+
+
+DROP TRIGGER IF EXISTS delete_categories_foreign_key_users_categories_preferences;
+
+CREATE TRIGGER delete_categories_foreign_key_users_categories_preferences
+
+BEFORE DELETE ON categories
+FOR EACH ROW
+
+DELETE FROM users_categories_preferences WHERE users_categories_preferences.category_id = OLD.category_id;
+
+
 /*-----------------------------------------------------------------PROCEDURES-------------------------------------------------------------------------------------*/
+
 DROP PROCEDURE IF EXISTS get_all_tags_by_user_id;
 
 DELIMITER //
