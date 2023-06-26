@@ -48,8 +48,10 @@ CREATE TABLE candidates
 CREATE TABLE tags
 (
   tag_id INT NOT NULL AUTO_INCREMENT,
+  user_id VARCHAR(255) NOT NULL,
   tag_description VARCHAR(255) NOT NULL,
   PRIMARY KEY (tag_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
   UNIQUE (tag_description)
 );
 
@@ -98,22 +100,27 @@ FOR EACH ROW
 DELETE FROM users_categories_preferences WHERE users_categories_preferences.category_id = OLD.category_id;
 
 
+/*DELETE TRIGGERS to remove tags details*/
+DROP TRIGGER IF EXISTS delete_tags_foreign_key_tags_in_candidates;
+
+CREATE TRIGGER delete_tags_foreign_key_tags_in_candidates
+
+BEFORE DELETE ON tags
+FOR EACH ROW
+
+DELETE FROM tags_in_candidates WHERE tags_in_candidates.tag_id = OLD.tag_id;
+
+
+DROP TRIGGER IF EXISTS delete_tags_foreign_key_users_categories_preferences;
+
+CREATE TRIGGER delete_tags_foreign_key_users_categories_preferences
+
+BEFORE DELETE ON tags
+FOR EACH ROW
+
+DELETE FROM users_categories_preferences WHERE users_categories_preferences.tag_id = OLD.tag_id;
+
 /*-----------------------------------------------------------------PROCEDURES-------------------------------------------------------------------------------------*/
-
-DROP PROCEDURE IF EXISTS get_all_tags_by_user_id;
-
-DELIMITER //
-CREATE PROCEDURE get_all_tags_by_user_id(IN user_id VARCHAR(255))
-BEGIN
-  SELECT DISTINCT tags.*
-  FROM tags
-  JOIN tags_in_candidates ON tags.tag_id = tags_in_candidates.tag_id
-  JOIN candidates ON tags_in_candidates.candidate_id = candidates.candidate_id
-  JOIN categories ON candidates.category_id = categories.category_id
-  WHERE categories.user_id = user_id;
-END //
-DELIMITER ;
-
 
 DROP PROCEDURE IF EXISTS get_all_tags_for_a_category;
 
@@ -128,17 +135,16 @@ BEGIN
 END //
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS get_all_of_candidates_by_category;
+DROP PROCEDURE IF EXISTS get_all_candidates_by_category;
 
 DELIMITER //
-CREATE PROCEDURE get_all_of_candidates_by_category(IN user_id VARCHAR(255), IN category_name VARCHAR(255))
+CREATE PROCEDURE get_all_candidates_by_category(IN category_id INT)
 BEGIN
   SELECT candidates.*, tags.tag_description FROM candidates
-  JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id
-  JOIN categories ON candidates_in_categories.category_id = categories.category_id
-  JOIN tags_in_candidates ON candidates.candidate_id = tags_in_candidates.candidate_id
-  JOIN tags ON tags_in_candidates.tag_id = tags.tag_id
-  WHERE categories.user_id = user_id AND categories.category_name = category_name;
+  JOIN categories ON candidates.category_id = categories.category_id
+  LEFT JOIN tags_in_candidates ON candidates.candidate_id = tags_in_candidates.candidate_id
+  LEFT JOIN tags ON tags_in_candidates.tag_id = tags.tag_id
+  WHERE candidates.category_id = category_id;
 END //
 DELIMITER ;
 
