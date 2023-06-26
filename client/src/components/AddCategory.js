@@ -41,18 +41,23 @@ export default function AddCategory() {
   return (
     <div>
       <NavBar />
-      <div className="container">
-        <h1>Add Category</h1>
-        <form>
+      <div className="bg-primary vh-100 d-flex align-items-center justify-content-center">
+        <div className="bg-white p-5 rounded-box">
+          <h1 className="text-primary mb-4">Add Category</h1>
           <input
             type="text"
             placeholder="Category name"
             onChange={handleCategoryNameChange}
+            className="px-4 border border-secondary rounded-pill p-2 w-100 mb-3"
           />
-          <button disabled={categoryName.length === 0} onClick={addCategory}>
+          <button
+            className="btn btn-primary mt-4 w-25"
+            disabled={categoryName.length === 0}
+            onClick={addCategory}
+          >
             Done
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

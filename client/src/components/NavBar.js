@@ -14,7 +14,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary rounded">
+    <nav className="fixed-top bg-white navbar navbar-expand-lg bg-body-tertiary rounded">
       <div className="container-fluid">
         <a className="navbar-brand col-lg-3 me-0" href="/">
           <h2>Which Is The One?</h2>

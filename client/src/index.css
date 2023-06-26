@@ -24,3 +24,22 @@ code {
 * {
   list-style-type: none;
 }
+
+.top-margin {
+  margin-top: 100px;
+}
+
+.float {
+  position: fixed;
+  width: 100px;
+  height: 60px;
+  bottom: 80px;
+  right: 40px;
+  background-color: #fff;
+  border-radius: 50px;
+  text-align: center;
+}
+
+.rounded-box {
+  border-radius: 30px;
+}
