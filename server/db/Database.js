@@ -42,14 +42,7 @@ query(sql, values, callback)
     }
         if (Array.isArray(result) && result.length > 0)
         {
-          if (result[0] instanceof Array)
-          {
-            callback(result[0]);
-          }
-          else
-          {
-            callback([result]);
-          }
+           callback(result[0]);
         }
         else
         {

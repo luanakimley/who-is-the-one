@@ -20,7 +20,8 @@ export default function Categories() {
       `${SERVER_HOST}/categories/${cookies.userId}`
     );
     if (categories.data.length) {
-      setCategories(categories.data[0]);
+
+      setCategories(categories.data);
     }
   }
 

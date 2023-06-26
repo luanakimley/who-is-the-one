@@ -21,7 +21,7 @@ exports.addCandidate = (req, res) => {
 
         const querySelect = "SELECT * FROM candidates WHERE candidate_name = ? AND category_id = ?";
 
-        database.query(querySelect, [categoryName, categoryId], (resultSelect) => res.json(resultSelect));
+        database.query(querySelect, [candidateName, categoryId], (resultSelect) => res.json(resultSelect));
     });
 }
 

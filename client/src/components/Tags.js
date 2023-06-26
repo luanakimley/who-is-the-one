@@ -58,7 +58,7 @@ export default function Tags() {
           </div>
           <div className="w-50 m-5 align-self-center">
             <div className="row">
-              {tags.length
+              {tags
                 ? tags.map((tag) => <TagBox key={tag.tag_id} tag={tag} />)
                 : null}
             </div>
