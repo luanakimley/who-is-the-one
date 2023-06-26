@@ -4,9 +4,15 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import Footer from "./Footer";
+import TagBox from "./TagBox";
 
 export default function Tags() {
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([
+    { tag_id: 1, tag_description: "Economy" },
+    { tag_id: 2, tag_description: "Cool" },
+    { tag_id: 3, tag_description: "Politics" },
+    { tag_id: 4, tag_description: "Tag" },
+  ]);
   const [tagName, setTagName] = useState("");
   const [cookies] = useCookies(["userId"]);
 
@@ -18,7 +24,7 @@ export default function Tags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_users/${cookies.userId}`
     );
-    setTags(tags);
+    // setTags(tags);
   }
 
   const handleTagNameChange = (e) => {
@@ -57,25 +63,7 @@ export default function Tags() {
           </div>
           <div className="w-50 m-5 align-self-center">
             <div className="row">
-              {tags.length
-                ? tags.map((tag) => (
-                    <div key={tag.tag_id} className="col col-lg-4 p-4">
-                      <div className="card">
-                        <div className="card-body">
-                          <div>
-                            <h3>{tag.tag_description} </h3>
-                          </div>
-                          <button
-                            id={tag.tag_id}
-                            className="btn btn-danger position-absolute top-0 end-0"
-                          >
-                            <i className="bi bi-trash"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                : null}
+              {tags.length ? tags.map((tag) => <TagBox tag={tag} />) : null}
             </div>
           </div>
         </div>
