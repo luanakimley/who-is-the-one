@@ -19,7 +19,7 @@ console.log("DELETE CATEGORY")
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-            console.log(res)
+            //console.log(res)
 //        const categoryId = res.data[0].category_id;
 //        const category = {
 //          id: categoryId,

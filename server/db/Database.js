@@ -40,17 +40,18 @@ query(sql, values, callback)
     {
         console.log(err);
     }
-        if (Array.isArray(result) && result.length > 0)
+        if (Array.isArray(result))
         {
-          if (result[0] instanceof Array)
-          {
-            callback(result[0]);
-          }
-          else
-          {
-            callback([result]);
-          }
+            if(result.length === 1)
+            {
+                callback(result[0]);
+            }
+            else
+            {
+                callback(result)
+            }
         }
+
         else
         {
           callback([]);

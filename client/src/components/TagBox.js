@@ -11,8 +11,6 @@ const deleteTagEntirely = (e) => {
           headers: { "Content-Type": "application/json" },
         })
         .then((res) => {
-        console.log("DELETED")
-        console.log(res[0])
         })
         .catch((error) => {
           console.error("Error deleting tag:", error);

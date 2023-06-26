@@ -21,7 +21,9 @@ export default function Tags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_users/${cookies.userId}`
     );
-    setTags(tags.data[0]);
+
+    console.log("HMMM", tags)
+    setTags(tags.data);
   }
 
   const handleTagNameChange = (e) => {
@@ -36,11 +38,10 @@ export default function Tags() {
         formData.append("tagDescription", tagName);
 
       axios
-      .post(`${SERVER_HOST}/insert_tag`, formData, {
+      .post(`${SERVER_HOST}/insert_tag_for_user`, formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-      console.log(res[0])
       //Reset TagBox
   inputRef.current.value = '';
 
@@ -79,7 +80,7 @@ export default function Tags() {
           </div>
           <div className="w-50 m-5 align-self-center">
             <div className="row">
-              {tags
+              {tags.length
                 ? tags.map((tag) => <TagBox key={tag.tag_id} tag={tag} />)
                 : null}
             </div>

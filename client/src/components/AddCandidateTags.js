@@ -33,7 +33,7 @@ export default function AddCandidateTags() {
       `${SERVER_HOST}/tags_by_candidate/${state.candidate.id}`
     );
     if (tags.data.length) {
-      setCandidateTags(tags.data[0]);
+      setCandidateTags(tags.data);
     }
   }
 
