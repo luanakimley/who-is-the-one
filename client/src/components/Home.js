@@ -8,17 +8,14 @@ export default function Home() {
   const [cookies] = useCookies(["userId"]);
   const navigate = useNavigate();
 
-
-
   return (
     <div>
       <NavBar />
-       <div class="container">
-      <h1>Home</h1>
-      <h2>Hello {cookies.userId}!</h2>
+      <div className="container">
+        <h1>Home</h1>
+        <h2>Hello {cookies.userId}!</h2>
       </div>
-    <Footer/>
-
+      <Footer />
     </div>
   );
 }
