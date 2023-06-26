@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Database = require("./Database");
-const database = new Database();
+const database = require("./Database");
 
 router.get("/categories/:userId", (req, res) => {
         const userId = req.params.userId;
