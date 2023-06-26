@@ -48,7 +48,9 @@ export default function AddCategory() {
           placeholder="Category name"
           onChange={handleCategoryNameChange}
         />
-        <button onClick={addCategory}>Done</button>
+        <button disabled={categoryName.length === 0} onClick={addCategory}>
+          Done
+        </button>
       </form>
     </div>
   );

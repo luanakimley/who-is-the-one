@@ -37,7 +37,9 @@ export default function Tags() {
       <form>
         <label>Add tags</label>
         <input type="text" onChange={handleTagNameChange} />
-        <button onClick={addTag}>Add</button>
+        <button disabled={tagName.length === 0} onClick={addTag}>
+          Add
+        </button>
       </form>
       <ul>
         {tags.length
