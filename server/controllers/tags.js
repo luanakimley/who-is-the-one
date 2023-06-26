@@ -16,27 +16,27 @@ exports.getTagsByCandidateId = (req, res) => {
                            "WHERE tags_in_candidates.candidate_id = ?;"
 
      database.query(query, [candidateId], (result) => res.json(result));
-};
+}
 
 exports.getTagsByCategoryId = (req, res) => {
     const categoryId = req.params.categoryId;
     const query = "CALL get_all_tags_for_a_category(?);"
 
     database.query(query, [categoryId], (result) => res.json(result));
-    };
+}
 
 exports.deleteTag = (req, res) => {
        const tagId = req.params.tagId;
        const query = "DELETE FROM tags WHERE tag_id = ?";
        database.query(query, [tagId], (result) => res.send(`Delete tag with ID ${tagId}`));
-    };
+}
 
 exports.deleteTagForCandidate = (req, res) => {
       const tagId = req.params.tagId;
       const candidateId = req.params.candidateId;
       const query = "DELETE FROM tags_in_candidates WHERE tag_id = ? AND candidate_id = ?";
       database.query(query, [tagId, candidateId], (result) => res.send(`Delete tag with ID ${tagId} from candidate with ID ${candidateId}`));
-    };
+}
 
 exports.addTag = (req, res) => {
 
@@ -72,13 +72,13 @@ exports.addTag = (req, res) => {
             res.json(result[0]);
         }
     });
-};
+}
 
 exports.addTagForCandidate = (req, res) => {
      const tagId = req.body.tagId;
      const candidateId = req.body.candidateId;
      insertIntoTagsCandidates(tagId, candidateId)
-};
+}
 
 exports.addTagForUser = (req, res) => {
      const userId = req.body.userId;
@@ -93,7 +93,7 @@ exports.addTagForUser = (req, res) => {
            res.json(selectAfterInsertResult[0]);
        });
     });
-};
+}
 
 function insertIntoTagsCandidates(tagId, candidateId)
 {

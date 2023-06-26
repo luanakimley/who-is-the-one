@@ -10,7 +10,7 @@ const {
 router
   .get("/candidates/:categoryId", getCandidatesByCategoryId)
   .delete("/remove_candidate/:categoryId", deleteCandidate)
-  .post("/insert_candidate", addCandidate);
+  .post("/insert_candidate", addCandidate)
 
 module.exports = router;
 

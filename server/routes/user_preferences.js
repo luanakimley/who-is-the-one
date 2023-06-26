@@ -10,6 +10,6 @@ const {
 router
   .get("/user_preferences/:categoryId", getUserPreferencesByCategoryId)
   .post("/insert_user_preference", addUserPreference)
-  .delete("/remove_user_preference/:categoryId/:tagId", deleteUserPreference);
+  .delete("/remove_user_preference/:categoryId/:tagId", deleteUserPreference)
 
 module.exports = router;

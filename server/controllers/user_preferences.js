@@ -44,4 +44,3 @@ exports.deleteUserPreference = (req, res) => {
   const query = "DELETE FROM users_categories_preferences WHERE category_id = ? AND tag_id = ?";
   database.query(query, [categoryId, tagId], (result) => res.send(`Delete user preference with tag with ID ${tagId} and category with ID ${categoryId}`));
 }
-;
