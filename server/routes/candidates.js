@@ -22,22 +22,62 @@ router.get("/sort_candidates/:tagWeights", (req, res) => {
 });
 
 router.post("/insert_candidate", (req, res) => {
-  const candidateName = req.body.candidateName;
-  const categoryId = req.body.categoryId;
-  let candidateId = "";
+      const candidateName = req.body.candidateName;
+      const categoryId = req.body.categoryId;
+      let candidateId = 0;
 
-  let query = "INSERT INTO candidates (candidate_name) VALUES (?);";
+    selectCandidateByName(candidateName, (result) =>
+    {
+        if(result.length !== 0)
+        {
+           candidateId = result[0].candidate_id;
+        }
 
-  database.query(query, [candidateName], (result) => {
+        if (candidateId === 0)
+        {
+            const queryInsert = "INSERT INTO candidates (candidate_name) VALUES (?);";
+            database.query(queryInsert, [candidateName], (insertResult) => {
 
-    candidateId = result.candidate_id;
-    res.json(candidateId);
+                selectCandidateByName(candidateName, (selectAfterInsertResult) =>
+                {
+                    candidateId = selectAfterInsertResult[0].candidate_id;
+                    insertIntoCandidatesInCategories(categoryId, candidateId);
+                    res.json(selectAfterInsertResult[0]);
+                });
+
+            });
+        }
+        else
+        {
+            insertIntoCandidatesInCategories(categoryId, candidateId);
+            res.json(result[0]);
+        }
     });
 
-  query = "INSERT INTO candidates_in_categories (category_id, candidate_id) VALUES (?, ?);";
-  database.query(query, [categoryId, candidateId], (result) =>res.send('Insert candidates_in_categories with category_id ${category_id}'));
-});
+    });
 
+function selectCandidateByName(candidateName, callback)
+{
+     const query = "SELECT * FROM candidates WHERE candidate_name = ?;";
+
+     database.query(query, [candidateName], (result) =>
+     {
+        callback(result)
+     });
+}
+
+function insertIntoCandidatesInCategories(categoryId, candidateId)
+{
+  const query = "INSERT INTO candidates_in_categories (category_id, candidate_id) VALUES (?, ?);";
+
+  database.query(query, [categoryId, candidateId], (result) => {
+
+    console.log("Candidate inserted");
+    const querySelectCandidate = "SELECT * FROM candidates WHERE candidate_id = ?;";
+    database.query(querySelectCandidate, [candidateId], (selectResult) => {});
+  });
+
+}
 
 function getListOfCandidatesByCategory(userId, categoryName, callback)
 {

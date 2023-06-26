@@ -23,7 +23,8 @@ class Database
     });
   }
 
-query(sql, values, callback) {
+query(sql, values, callback)
+{
   if (typeof values === 'function')
   {
     callback = values;
@@ -35,17 +36,21 @@ query(sql, values, callback) {
   }
 
   this.connection.query(sql, values, (err, result) => {
-    if (err) throw err;
+    if (err)
+    {
+        console.log(err);
+    }
 
         if (Array.isArray(result) && result.length > 0)
         {
           if (result[0] instanceof Array)
           {
+
             callback(result[0]);
           }
           else
           {
-            callback(result);
+            callback([result]);
           }
         }
         else
