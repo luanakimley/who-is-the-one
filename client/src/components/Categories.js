@@ -19,7 +19,9 @@ export default function Categories() {
     const categories = await axios.get(
       `${SERVER_HOST}/categories/${cookies.userId}`
     );
-    setCategories(categories.data[0]);
+    if (categories.data.length) {
+      setCategories(categories.data[0]);
+    }
   }
 
   const navigateToAddCategory = () => {
@@ -53,15 +55,16 @@ export default function Categories() {
           <div className="row">
             {categories.length
               ? categories.map((category) => (
-                  <div className="col col-lg-3 p-4">
+                  <div key={category.category_id} className="col col-lg-3 p-4">
                     <div className="card">
                       <div className="card-body">
-                        <div
-                          key={category.category_id}
-                          id={category.category_id}
-                          onClick={navigateToAddCandidatesForCategory}
-                        >
-                          <h3>{category.category_name}</h3>
+                        <div>
+                          <h3
+                            id={category.category_id}
+                            onClick={navigateToAddCandidatesForCategory}
+                          >
+                            {category.category_name}
+                          </h3>
                         </div>
                         <button
                           className="btn btn-danger position-absolute top-0 end-0"
@@ -77,7 +80,7 @@ export default function Categories() {
                 ))
               : null}
             <button
-              class="btn btn-light col col-lg-3 p-4 float-right"
+              className="btn btn-light col col-lg-3 p-4 float-right"
               onClick={navigateToAddCategory}
             >
               <i className="bi bi-plus-circle"></i>
