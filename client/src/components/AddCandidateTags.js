@@ -10,6 +10,7 @@ import TagBox from "./TagBox";
 export default function AddCandidateTags() {
   const [tags, setTags] = useState([]);
   const [candidateTags, setCandidateTags] = useState([]);
+  const [tagDescription, setTagDescription] = useState("");
   const [cookies] = useCookies(["userId"]);
   const location = useLocation();
   const state = location.state;
@@ -36,6 +37,30 @@ export default function AddCandidateTags() {
     }
   }
 
+  async function addTagToCandidate() {
+      let formData = new FormData();
+//          formData.append("userId", cookies.userId);
+//          formData.append("tagDesc", tagDescription);
+//          formData.append("candidateId", candidateId);
+
+          axios
+            .post(`${SERVER_HOST}/insert_tag`, formData, {
+              headers: { "Content-Type": "application/json" },
+            })
+            .then((res) => {
+            console.log(res)
+//              const categoryId = res.data[0][0].category_id;
+//              const category = {
+//                id: categoryId,
+//                name: categoryName,
+////              };
+//              navigate("/add_candidates", { state: category });
+            })
+            .catch((error) => {
+              console.error("Error adding category:", error);
+            });
+    }
+
   const navigateToAddCandidates = () => {
     navigate("/add_candidates", { state: state.category });
   };
@@ -57,7 +82,10 @@ export default function AddCandidateTags() {
                 className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
               />
               <br />
-              <button className="btn btn-primary mt-4 w-25">Add</button>
+              <button className="btn btn-primary mt-4 w-25"
+              onClick={addTagToCandidate}>Add</button>
+
+
               <h4 className="my-4 text-center text-primary">or</h4>
               <select
                 className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"

@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import Candidate from "./Candidate";
 
 export default function Match() {
   const [cookies] = useCookies(["userId"]);
@@ -18,6 +19,7 @@ export default function Match() {
           <h2>Hello {cookies.userId}!, based on your preferences, we recommend the following: </h2>
 
 
+        <Candidate/>
 
 
 
