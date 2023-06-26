@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { CandidateTagBox } from "./CandidateTagsBox";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
@@ -49,7 +50,8 @@ export default function AddCandidates() {
     navigate("/user_preferences", { state: category });
   };
 
-  const addCandidateTags = (e) => {
+  const navigateToAddCandidateTags = (e) => {
+    console.log(e.target.innerHTML);
     navigate("/add_candidate_tags", {
       state: {
         category: category,
@@ -72,15 +74,19 @@ export default function AddCandidates() {
           placeholder="Candidate name"
           onChange={handleCandidateNameChange}
         />
-        <button onClick={addCandidate}>Add</button>
+        <button disabled={candidateName.length === 0} onClick={addCandidate}>
+          Add
+        </button>
       </form>
       <button onClick={doneAddCandidates}>Done</button>
 
       {candidates.length
         ? candidates.map((candidate) => (
-            <div id={candidate.candidate_id} onClick={addCandidateTags}>
-              {candidate.candidate_name}
-            </div>
+            <CandidateTagBox
+              candidate={candidate}
+              tags={[{ tag_description: "Tag" }]}
+              handleClick={navigateToAddCandidateTags}
+            />
           ))
         : null}
     </div>
