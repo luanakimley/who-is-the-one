@@ -41,7 +41,7 @@ CREATE TABLE candidates
   candidate_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (candidate_id),
   FOREIGN KEY (category_id) REFERENCES categories(category_id),
-  UNIQUE (candidate_name)
+  UNIQUE (category_id, candidate_name)
 );
 
 /*CREATE tags table*/
@@ -52,7 +52,7 @@ CREATE TABLE tags
   tag_description VARCHAR(255) NOT NULL,
   PRIMARY KEY (tag_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
-  UNIQUE (tag_description)
+  UNIQUE (user_id, tag_description)
 );
 
 /*CREATE tags_in_candidates table*/
@@ -147,61 +147,6 @@ BEGIN
   WHERE candidates.category_id = category_id;
 END //
 DELIMITER ;
-
-
-
-/*-------------------------------------SampleData--------------------------------------------*/
-/* INSERT sample data into users table */
-INSERT INTO users (user_id, email, user_password) VALUES
-('user1', 'user1@example.com', 'password1'),
-('user2', 'user2@example.com', 'password2'),
-('user3', 'user3@example.com', 'password3');
-
-/* INSERT sample data into candidates table */
-INSERT INTO candidates (candidate_name) VALUES
-('Candidate A'),
-('Candidate B'),
-('Candidate C');
-
-/* INSERT sample data into categories table */
-INSERT INTO categories (category_name, user_id) VALUES
-('Category 1', 'user1'),
-('Category 2', 'user1'),
-('Category 1', 'user2');
-
-/* INSERT sample data into candidates_in_categories table */
-INSERT INTO candidates_in_categories (category_id, candidate_id) VALUES
-(1, 1),
-(1, 2),
-(2, 2),
-(3, 3);
-
-/* INSERT sample data into tags table */
-INSERT INTO tags (tag_description) VALUES
-('Tag 1'),
-('Tag 2'),
-('Tag 3');
-
-/* INSERT sample data into tags_in_candidates table */
-INSERT INTO tags_in_candidates (tag_id, candidate_id) VALUES
-(1, 1),
-(2, 1),
-(1, 2),
-(3, 3);
-
-/* INSERT sample data into users_categories_preferences table */
-INSERT INTO users_categories_preferences (category_id, tag_id, weight) VALUES
-(1, 1, 0.5),
-(1, 2, 0.8),
-(2, 1, 0.6),
-(2, 3, 0.9);
-
-/*-------------------------------------DELETE QUERIES--------------------------------------------*/
-
-DELETE FROM users_categories_preferences WHERE category_id = 1;
-DELETE FROM candidates_in_categories WHERE category_id = 1;
-DELETE FROM categories WHERE category_id = 1;
-
 
 
 

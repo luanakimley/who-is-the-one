@@ -7,9 +7,9 @@ exports.getCandidatesByCategoryId = (req, res) => {
 }
 
 exports.deleteCandidate = (req, res) => {
-    const categoryId = req.params.categoryId;
-    const query = "DELETE FROM candidates WHERE category_id = ?";
-    database.query(query, [categoryId], (result) => res.send(`Delete candidate with ID ${candidateId} from category with ID ${categoryId}`));
+    const candidateId = req.params.candidateId;
+    const query = "DELETE FROM candidates WHERE candidate_id = ?";
+    database.query(query, [candidateId], (result) => res.send(`Delete candidate with ID ${candidateId}`));
 }
 
 exports.addCandidate = (req, res) => {
