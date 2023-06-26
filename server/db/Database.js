@@ -65,5 +65,5 @@ query(sql, values, callback)
   }
 }
 
-module.exports = Database;
+module.exports = new Database();
 
