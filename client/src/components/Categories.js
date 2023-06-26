@@ -71,7 +71,10 @@ export default function Categories() {
                           id={category.category_id}
                           onClick={deleteCategory}
                         >
-                          <i className="bi bi-trash"></i>
+                          <i
+                            id={category.category_id}
+                            className="bi bi-trash"
+                          ></i>
                         </button>
                       </div>
                     </div>
