@@ -6,7 +6,7 @@ const database = new Database();
 router.get("/tags_by_users/:userId", (req, res) => {
         const userId = req.params.userId;
 
-        const query = "CALL get_all_tags_by_user_id(?);"
+        const query = "SELECT * FROM tags WHERE user_id = ?"
 
         database.query(query, [userId], (result) => res.json(result));
       });
@@ -38,11 +38,12 @@ router.delete("/remove_tag/:tagId/:candidateId", (req, res) => {
 
 router.post("/insert_tag", (req, res) => {
 
+      const userId = req.body.userId;
       const tagDescription = req.body.tagDescription;
       const candidateId = req.body.candidateId;
       let tagId = 0;
 
-      selectTagsByDescription(tagDescription, (result) => {
+      selectTagsByDescription(userId, tagDescription, (result) => {
 
           if(result.length !== 0)
           {
@@ -51,11 +52,11 @@ router.post("/insert_tag", (req, res) => {
 
           if (tagId === 0)
           {
-                const queryInsert = "INSERT INTO tags (tag_description) VALUES (?);";
+                const queryInsert = "INSERT INTO tags (user_id, tag_description) VALUES (?, ?);";
 
-                database.query(queryInsert, [tagDescription], (insertResult) => {
+                database.query(queryInsert, [userId, tagDescription], (insertResult) => {
 
-                  selectTagsByDescription(tagDescription, (selectAfterInsertResult) => {
+                  selectTagsByDescription(userId, tagDescription, (selectAfterInsertResult) => {
                       tagId = selectAfterInsertResult[0].candidate_id;
                       insertIntoTagsCandidates(tagId, candidateId);
                       res.json(selectAfterInsertResult[0]);
@@ -68,8 +69,29 @@ router.post("/insert_tag", (req, res) => {
               insertIntoTagsCandidates(tagId, candidateId);
               res.json(result[0]);
           }
+      });
+});
 
+router.post("/insert_tag_for_candidate", (req, res) => {
 
+      const tagId = req.body.tagId;
+      const candidateId = req.body.candidateId;
+      insertIntoTagsCandidates(tagId, candidateId)
+});
+
+router.post("/insert_tag_for_user", (req, res) => {
+
+      const userId = req.body.userId;
+      const tagDescription = req.body.tagDescription;
+      const candidateId = req.body.candidateId;
+
+      const query = "INSERT INTO tags (user_id, tag_description) VALUES (?);";
+
+      database.query(query, [tagDescription], (insertResult) => {
+
+          selectTagsByDescription(tagDescription, (selectAfterInsertResult) => {
+              res.json(selectAfterInsertResult[0]);
+          });
       });
 });
 
@@ -80,11 +102,11 @@ function insertIntoTagsCandidates(tagId, candidateId)
   database.query(query, [tagId, candidateId], (result) => {});
 }
 
-function selectTagsByDescription(tagDescription, callback)
+function selectTagsByDescription(userId, tagDescription, callback)
 {
-     const query = "SELECT * FROM tags WHERE tag_description = ?;";
+     const query = "SELECT * FROM tags WHERE user_id = ? AND tag_description = ?;";
 
-     database.query(query, [tagDescription], (result) => {
+     database.query(query, [userId, tagDescription], (result) => {
         callback(result)
      });
 }
