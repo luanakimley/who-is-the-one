@@ -42,33 +42,33 @@ export default function LogIn() {
 
   return (
     <div>
-      <div class="container-sm">
+      <div className="container-sm">
         <h1> WITO </h1>
 
         <h1>Log In</h1>
         <form>
-          <div class="mb-3">
-            <label class="form-label">Email address</label>
+          <div className="mb-3">
+            <label className="form-label">Email address</label>
             <input
-              class="form-control"
+              className="form-control"
               type="email"
               onChange={handleEmailChange}
             />
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Password</label>
+          <div className="mb-3">
+            <label className="form-label">Password</label>
             <input
-              class="form-control"
+              className="form-control"
               type="password"
               onChange={handlePasswordChange}
             />
           </div>
-          <button class="btn btn-primary" onClick={logIn}>
+          <button className="btn btn-primary" onClick={logIn}>
             Log In
           </button>
 
-          <div class="mb-3">
+          <div className="mb-3">
             <Link to="/register">I don't have an account</Link>
           </div>
         </form>

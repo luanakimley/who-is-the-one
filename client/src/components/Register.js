@@ -45,32 +45,44 @@ export default function Register() {
 
   return (
     <div>
-    <div class="container">
-      <h1>Register</h1>
-      <form>
-        <div class="mb-3">
-
-                 <label class="form-label">Username</label>
-                <input class="form-control" type="email" onChange={handleUsernameChange} />
-        </div>
-
-        <div class="mb-3">
-                         <label class="form-label">Email Address</label>
-                        <input class="form-control" type="email" onChange={handleEmailChange} />
-                        </div>
-        <div class="mb-3">
-
-                         <label class="form-label">Password</label>
-                        <input class="form-control" type="password" onChange={handlePasswordChange} />
-                        </div>
-        <button class="btn btn-primary" onClick={registerUser}>Register</button>
-        <div>
-        <Link to="/login">I have an account</Link>
-        </div>
-      </form>
+      <div className="container">
+        <h1>Register</h1>
+        <form>
+          <div className="mb-3">
+            <label className="form-label">Username</label>
+            <input
+              className="form-control"
+              type="email"
+              onChange={handleUsernameChange}
+            />
           </div>
 
-      <Footer/>
+          <div className="mb-3">
+            <label className="form-label">Email Address</label>
+            <input
+              className="form-control"
+              type="email"
+              onChange={handleEmailChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input
+              className="form-control"
+              type="password"
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button className="btn btn-primary" onClick={registerUser}>
+            Register
+          </button>
+          <div>
+            <Link to="/login">I have an account</Link>
+          </div>
+        </form>
+      </div>
+
+      <Footer />
     </div>
   );
 }
