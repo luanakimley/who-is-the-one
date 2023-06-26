@@ -9,8 +9,8 @@ router.get("/categories/:userId", (req, res) => {
         database.query(query, [userId], (result) => res.json(result));
       });
 
-router.get("/insert_category", (req, res) => {
-        const categoryName = req.body.candidateName;
+router.post("/insert_category", (req, res) => {
+        const categoryName = req.body.categoryName;
         const userId = req.body.userId;
 
         const queryInsert = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
@@ -23,10 +23,9 @@ router.get("/insert_category", (req, res) => {
         });
  });
 
-router.get("/remove_category/:categoryId", (req, res) => {
-  const categoryId = 2;
+router.delete("/remove_category/:categoryId", (req, res) => {
+  const categoryId = req.params.categoryId;
   const query = "DELETE FROM categories WHERE category_id = ?";
-  console.log("YEs")
   database.query(query, [categoryId], (result) => res.send(`Delete category with ID ${categoryId}`));
 });
 

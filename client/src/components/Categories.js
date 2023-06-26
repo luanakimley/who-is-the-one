@@ -35,11 +35,12 @@ export default function Categories() {
   };
 
   const deleteCategory = (e) => {
-    const category = {
-      id: e.target.id,
-      name: e.target.innerHTML,
-    };
-    navigate("/delete_category", { state: category });
+    axios
+      .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
+      .then((res) => {})
+      .catch((error) => {
+        console.error("Error deleting category:", error);
+      });
   };
 
   return (
