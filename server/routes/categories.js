@@ -13,9 +13,9 @@ router.post("/insert_category", (req, res) => {
         const categoryName = req.body.categoryName;
         const userId = req.body.userId;
 
-        const queryInsert = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
+        const queryInsert = "INSERT INTO categories (user_id, category_name) VALUES (?, ?);";
 
-        database.query(queryInsert, [categoryName, userId], (result) => {
+        database.query(queryInsert, [userId, categoryName], (result) => {
 
             const querySelect = "SELECT * FROM categories WHERE category_name = ? AND user_id = ?";
 

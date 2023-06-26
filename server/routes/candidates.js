@@ -21,63 +21,27 @@ router.get("/sort_candidates/:tagWeights", (req, res) => {
     });
 });
 
+router.delete("/remove_candidate/:categoryId", (req, res) => {
+  const categoryId = req.params.categoryId;
+
+  const query = "DELETE FROM candidates WHERE category_id = ?";
+  database.query(query, [categoryId], (result) => res.send(`Delete candidate with ID ${candidateId} from category with ID ${categoryId}`));
+});
+
+
 router.post("/insert_candidate", (req, res) => {
-      const candidateName = req.body.candidateName;
-      const categoryId = req.body.categoryId;
-      let candidateId = 0;
+        const categoryId = req.body.categoryId;
+        const candidateName = req.body.candidateName;
 
-    selectCandidateByName(candidateName, (result) =>
-    {
-        if(result.length !== 0)
-        {
-           candidateId = result[0].candidate_id;
-        }
+        const queryInsert = "INSERT INTO candidates (category_id, candidate_name) VALUES (?, ?);";
 
-        if (candidateId === 0)
-        {
-            const queryInsert = "INSERT INTO candidates (candidate_name) VALUES (?);";
-            database.query(queryInsert, [candidateName], (insertResult) => {
+        database.query(queryInsert, [categoryId, candidateName], (result) => {
 
-                selectCandidateByName(candidateName, (selectAfterInsertResult) =>
-                {
-                    candidateId = selectAfterInsertResult[0].candidate_id;
-                    insertIntoCandidatesInCategories(categoryId, candidateId);
-                    res.json(selectAfterInsertResult[0]);
-                });
+            const querySelect = "SELECT * FROM categories WHERE candidate_name = ? AND category_id = ?";
 
-            });
-        }
-        else
-        {
-            insertIntoCandidatesInCategories(categoryId, candidateId);
-            res.json(result[0]);
-        }
-    });
-
-    });
-
-function selectCandidateByName(candidateName, callback)
-{
-     const query = "SELECT * FROM candidates WHERE candidate_name = ?;";
-
-     database.query(query, [candidateName], (result) =>
-     {
-        callback(result)
-     });
-}
-
-function insertIntoCandidatesInCategories(categoryId, candidateId)
-{
-  const query = "INSERT INTO candidates_in_categories (category_id, candidate_id) VALUES (?, ?);";
-
-  database.query(query, [categoryId, candidateId], (result) => {
-
-    console.log("Candidate inserted");
-    const querySelectCandidate = "SELECT * FROM candidates WHERE candidate_id = ?;";
-    database.query(querySelectCandidate, [candidateId], (selectResult) => {});
-  });
-
-}
+            database.query(querySelect, [categoryName, categoryId], (resultSelect) => res.json(resultSelect));
+        });
+ });
 
 function getListOfCandidatesByCategory(userId, categoryName, callback)
 {

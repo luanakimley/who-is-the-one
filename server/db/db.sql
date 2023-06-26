@@ -10,7 +10,7 @@ CREATE DATABASE IF NOT EXISTS voting_system DEFAULT CHARACTER SET utf8 COLLATE u
 USE voting_system;
 
 /*DROPS any of the tables that may already exists*/
-DROP TABLE IF EXISTS users_categories_preferences, tags_in_candidates, tags, candidates_in_categories, categories, candidates, users;
+DROP TABLE IF EXISTS users_categories_preferences, tags_in_candidates, tags, candidates, categories, users;
 
 /*CREATE users table*/
 CREATE TABLE users
@@ -22,34 +22,26 @@ CREATE TABLE users
   UNIQUE (email)
 );
 
-/*CREATE candidates table*/
-CREATE TABLE candidates
-(
-  candidate_id INT NOT NULL AUTO_INCREMENT,
-  candidate_name VARCHAR(255) NOT NULL,
-  PRIMARY KEY (candidate_id),
-  UNIQUE (candidate_name)
-);
-
 /*CREATE categories table*/
 CREATE TABLE categories
 (
   category_id INT NOT NULL AUTO_INCREMENT,
-  category_name VARCHAR(255) NOT NULL,
   user_id VARCHAR(255) NOT NULL,
+  category_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (category_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   UNIQUE (category_name, user_id)
 );
 
-/*CREATE candidates_in_categories table*/
-CREATE TABLE candidates_in_categories
+/*CREATE candidates table*/
+CREATE TABLE candidates
 (
+  candidate_id INT NOT NULL AUTO_INCREMENT,
   category_id INT NOT NULL,
-  candidate_id INT NOT NULL,
+  candidate_name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (candidate_id),
   FOREIGN KEY (category_id) REFERENCES categories(category_id),
-  FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id),
-  UNIQUE (category_id, candidate_id)
+  UNIQUE (candidate_name)
 );
 
 /*CREATE tags table*/
@@ -86,14 +78,14 @@ CREATE TABLE users_categories_preferences
 /*-----------------------------------------------------------------TRIGGERS-------------------------------------------------------------------------------------*/
 
 /*DELETE TRIGGERS to remove categories details*/
-DROP TRIGGER IF EXISTS delete_categories_foreign_key_candidates_in_categories;
+DROP TRIGGER IF EXISTS delete_categories_foreign_key_candidates;
 
-CREATE TRIGGER delete_categories_foreign_key_candidates_in_categories
+CREATE TRIGGER delete_categories_foreign_key_candidates
 
 BEFORE DELETE ON categories
 FOR EACH ROW
 
-DELETE FROM candidates_in_categories WHERE candidates_in_categories.category_id = OLD.category_id;
+DELETE FROM candidates WHERE candidates.category_id = OLD.category_id;
 
 
 DROP TRIGGER IF EXISTS delete_categories_foreign_key_users_categories_preferences;
@@ -117,8 +109,7 @@ BEGIN
   FROM tags
   JOIN tags_in_candidates ON tags.tag_id = tags_in_candidates.tag_id
   JOIN candidates ON tags_in_candidates.candidate_id = candidates.candidate_id
-  JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id
-  JOIN categories ON candidates_in_categories.category_id = categories.category_id
+  JOIN categories ON candidates.category_id = categories.category_id
   WHERE categories.user_id = user_id;
 END //
 DELIMITER ;
@@ -133,8 +124,7 @@ BEGIN
     FROM tags
     JOIN tags_in_candidates ON tags.tag_id = tags_in_candidates.tag_id
     JOIN candidates ON tags_in_candidates.candidate_id = candidates.candidate_id
-    JOIN candidates_in_categories ON candidates.candidate_id = candidates_in_categories.candidate_id
-    WHERE candidates_in_categories.category_id = category_id;
+    WHERE candidates.category_id = category_id;
 END //
 DELIMITER ;
 
