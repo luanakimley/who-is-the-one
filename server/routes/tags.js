@@ -11,6 +11,12 @@ router.get("/tags_by_users/:userId", (req, res) => {
         database.query(query, [userId], (result) => res.json(result));
       });
 
+router.delete("/remove_tag/:tagId/:candidateId", (req, res) => {
+  const tagId = req.params.tagId;
+  const candidateId = req.params.candidateId;
+  const query = "DELETE FROM tags_in_candidates WHERE tag_id = ? AND candidate_id = ?";
+  database.query(query, [tagId, candidateId], (result) => res.send(`Delete tag with ID ${tagId} from candidate with ID ${candidateId}`));
+});
 
 router.get("/tags_by_category/:categoryId", (req, res) => {
         const categoryId = req.params.categoryId;

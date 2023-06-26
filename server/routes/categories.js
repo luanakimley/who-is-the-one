@@ -23,10 +23,9 @@ router.get("/insert_category", (req, res) => {
         });
  });
 
-router.get("/remove_category/:categoryId", (req, res) => {
-  const categoryId = 2;
+router.delete("/remove_category/:categoryId", (req, res) => {
+  const categoryId = req.params.categoryId;
   const query = "DELETE FROM categories WHERE category_id = ?";
-  console.log("YEs")
   database.query(query, [categoryId], (result) => res.send(`Delete category with ID ${categoryId}`));
 });
 
