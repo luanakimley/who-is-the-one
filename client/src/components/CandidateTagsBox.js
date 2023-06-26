@@ -3,7 +3,7 @@ import React from "react";
 export function CandidateTagBox(props) {
   return (
     <div>
-      <button>X</button>
+
       <h2 id={props.candidate.candidate_id} onClick={props.handleClick}>
         {props.candidate.candidate_name}
       </h2>
