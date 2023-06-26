@@ -9,18 +9,25 @@ router.get("/categories/:userId", (req, res) => {
         database.query(query, [userId], (result) => res.json(result));
       });
 
-router.post("/insert_category", (req, res) => {
-        const categoryName = req.body.categoryName;
+router.get("/insert_category", (req, res) => {
+        const categoryName = req.body.candidateName;
         const userId = req.body.userId;
-        let categoryId = 0;
 
-        let query = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
-        database.query(query, [categoryName, userId], (result) =>{});
+        const queryInsert = "INSERT INTO categories (category_name, user_id) VALUES (?, ?);";
 
-        query = "SELECT categories.category_id FROM categories WHERE category_name = ? AND user_id = ?";
+        database.query(queryInsert, [categoryName, userId], (result) => {
 
-        database.query(query, [categoryName, userId], (result) =>res.json(result));
+            const querySelect = "SELECT * FROM categories WHERE category_name = ? AND user_id = ?";
 
-      });
+            database.query(querySelect, [categoryName, userId], (resultSelect) => res.json(resultSelect));
+        });
+ });
+
+router.get("/remove_category/:categoryId", (req, res) => {
+  const categoryId = 2;
+  const query = "DELETE FROM categories WHERE category_id = ?";
+  console.log("YEs")
+  database.query(query, [categoryId], (result) => res.send(`Delete category with ID ${categoryId}`));
+});
 
 module.exports = router;
