@@ -3,11 +3,11 @@ const router = express.Router();
 const Database = require("./Database");
 const database = new Database();
 
-router.get("/candidates/:userId/:categoryName", (req, res) => {
+router.get("/candidates/:categoryId", (req, res) => {
   const userId = req.params.userId;
-  const categoryName = req.params.categoryName;
+  const categoryId = req.params.categoryId;
 
-  getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
+  getListOfCandidatesByCategory(categoryId, (candidates) => {
       res.json(Object.values(candidates));
     });
 });
@@ -43,17 +43,18 @@ router.post("/insert_candidate", (req, res) => {
         });
  });
 
-function getListOfCandidatesByCategory(userId, categoryName, callback)
+function getListOfCandidatesByCategory(categoryId, callback)
 {
-  const query = "CALL get_all_of_candidates_by_category(?, ?)";
+  const query = "CALL get_all_candidates_by_category(?)";
 
-  database.query(query, [userId, categoryName], (result) => {
+  database.query(query, [categoryId], (result) => {
+    console.log(result)
     const candidates = {};
 
     result.forEach((row) => {
       const candidateId = row.candidate_id;
       const candidateName = row.candidate_name;
-      const tagName = row.tag_description;
+      const tagDescription = row.tag_description;
 
 
       if (!candidates[candidateId])
@@ -65,7 +66,7 @@ function getListOfCandidatesByCategory(userId, categoryName, callback)
         };
       }
 
-      candidates[candidateId].tags.push(tagName);
+      candidates[candidateId].tags.push(tagDescription);
     });
 
     callback(candidates);
