@@ -8,7 +8,7 @@ export function CandidateTagBox(props) {
         {props.candidate.candidate_name}
       </h2>
       {props.tags.map((tag) => (
-        <span>
+        <span key={tag.tag_id}>
           {tag.tag_description}&ensp;
           <button>X</button>
         </span>

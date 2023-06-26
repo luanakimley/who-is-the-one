@@ -34,13 +34,13 @@ export default function Tags() {
   return (
     <div>
       <NavBar />
-      <div class="container">
+      <div className="container">
         <h1>Tags</h1>
         <form>
           <label>Add tags</label>
           <input type="text" onChange={handleTagNameChange} />
           <button
-            class="btn btn-primary"
+            className="btn btn-primary"
             disabled={tagName.length === 0}
             onClick={addTag}
           >

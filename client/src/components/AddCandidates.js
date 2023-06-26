@@ -81,18 +81,19 @@ export default function AddCandidates() {
       </form>
       <button onClick={doneAddCandidates}>Done</button>
 
-    <div>
-      {candidates.length
-        ? candidates.map((candidate) => (
-            <CandidateTagBox
-              candidate={candidate}
-              tags={[{ tag_description: "Tag" }]}
-              handleClick={navigateToAddCandidateTags}
-            />
-          ))
-        : null}
-        </div>
-            <Footer/>
+      <div>
+        {candidates.length
+          ? candidates.map((candidate) => (
+              <CandidateTagBox
+                key={candidate.candidate_id}
+                candidate={candidate}
+                tags={[{ tag_id: 1, tag_description: "Tag" }]}
+                handleClick={navigateToAddCandidateTags}
+              />
+            ))
+          : null}
+      </div>
+      <Footer />
     </div>
   );
 }
