@@ -21,6 +21,13 @@ router.get("/sort_candidates/:tagWeights", (req, res) => {
     });
 });
 
+router.delete("/remove_candidate/:candidateId/:categoryId", (req, res) => {
+  const candidateId = req.params.candidateId;
+  const categoryId = req.params.categoryId;
+  const query = "DELETE FROM candidates_in_categories WHERE candidate_id = ? AND category_id = ?";
+  database.query(query, [candidateId, categoryId], (result) => res.send(`Delete candidate with ID ${candidateId} from category with ID ${categoryId}`));
+});
+
 router.post("/insert_candidate", (req, res) => {
       const candidateName = req.body.candidateName;
       const categoryId = req.body.categoryId;
