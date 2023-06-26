@@ -21,7 +21,7 @@ router.get("/sort_candidates/:tagWeights", (req, res) => {
     });
 });
 
-router.get("/insert_candidate", (req, res) => {
+router.post("/insert_candidate", (req, res) => {
       const candidateName = req.body.candidateName;
       const categoryId = req.body.categoryId;
       let candidateId = 0;

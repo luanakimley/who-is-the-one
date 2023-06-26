@@ -16,7 +16,7 @@ router.get("/tags_by_category/:categoryId", (req, res) => {
         const categoryId = req.params.categoryId;
         const query = "CALL get_all_tags_for_a_category(?);"
 
-        database.query(query, [userId], (result) => res.json(result));
+        database.query(query, [categoryId], (result) => res.json(result));
       });
 
 router.get("/tags_by_candidate/:candidateId", (req, res) => {
@@ -29,7 +29,7 @@ router.get("/tags_by_candidate/:candidateId", (req, res) => {
         database.query(query, [candidateId], (result) => res.json(result));
 });
 
-router.get("/insert_tag", (req, res) => {
+router.post("/insert_tag", (req, res) => {
 
       const tagDescription = req.body.tagDescription;
       const candidateId = req.body.candidateId;
