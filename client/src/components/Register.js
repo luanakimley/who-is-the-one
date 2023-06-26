@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SERVER_HOST } from "../config/global_constants";
 import { Link, useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 import axios from "axios";
 
@@ -44,21 +45,44 @@ export default function Register() {
 
   return (
     <div>
-      <h1>Register</h1>
-      <form>
-        <label>Username</label>
-        <input type="text" onChange={handleUsernameChange} />
+      <div className="container">
+        <h1>Register</h1>
+        <form>
+          <div className="mb-3">
+            <label className="form-label">Username</label>
+            <input
+              className="form-control"
+              type="email"
+              onChange={handleUsernameChange}
+            />
+          </div>
 
-        <label>Email</label>
-        <input type="email" onChange={handleEmailChange} />
+          <div className="mb-3">
+            <label className="form-label">Email Address</label>
+            <input
+              className="form-control"
+              type="email"
+              onChange={handleEmailChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input
+              className="form-control"
+              type="password"
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button className="btn btn-primary" onClick={registerUser}>
+            Register
+          </button>
+          <div>
+            <Link to="/login">I have an account</Link>
+          </div>
+        </form>
+      </div>
 
-        <label>Password</label>
-        <input type="password" onChange={handlePasswordChange} />
-
-        <button onClick={registerUser}>Register</button>
-
-        <Link to="/login">I have an account</Link>
-      </form>
+      <Footer />
     </div>
   );
 }

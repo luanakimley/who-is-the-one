@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { CandidateTagBox } from "./CandidateTagsBox";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
@@ -15,7 +17,7 @@ export default function AddCandidates() {
 
   async function getCandidatesForCategory() {
     const candidates = await axios.get(
-      `${SERVER_HOST}/candidates/${cookies.userId}/${category.name}`
+      `${SERVER_HOST}/candidates/${category.id}`
     );
     setCandidates(candidates.data);
   }
@@ -49,7 +51,7 @@ export default function AddCandidates() {
     navigate("/user_preferences", { state: category });
   };
 
-  const addCandidateTags = (e) => {
+  const navigateToAddCandidateTags = (e) => {
     navigate("/add_candidate_tags", {
       state: {
         category: category,
@@ -61,28 +63,62 @@ export default function AddCandidates() {
     });
   };
 
+  const removeTagFromCategory = (e) => {
+    navigate("/add_candidate_tags", {
+      //todo
+    });
+  };
+
   return (
     <div>
       <NavBar />
-      <h2>{category.name}</h2>
-      <h1>Add Candidates</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="Candidate name"
-          onChange={handleCandidateNameChange}
-        />
-        <button onClick={addCandidate}>Add</button>
-      </form>
-      <button onClick={doneAddCandidates}>Done</button>
+      <div className="vh-100 p-4 mb-2 bg-primary">
+        <div className="d-flex w-100 h-100">
+          <div className="w-50 m-5 align-self-center">
+            <h2 className="text-white text-center">{category.name}</h2>
+            <div className="bg-white p-5 rounded-box mt-4">
+              <h1 className="text-primary mb-4">Add Candidates</h1>
+              <input
+                type="text"
+                placeholder="Candidate name"
+                onChange={handleCandidateNameChange}
+                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
+              />
+              <br />
 
-      {candidates.length
-        ? candidates.map((candidate) => (
-            <div id={candidate.candidate_id} onClick={addCandidateTags}>
-              {candidate.candidate_name}
+              <button
+                className="btn btn-primary mt-4 w-25"
+                disabled={candidateName.length === 0}
+                onClick={addCandidate}
+              >
+                Add
+              </button>
             </div>
-          ))
-        : null}
+            <button
+              className="btn btn-outline-light mt-5 w-50 mx-auto d-block"
+              onClick={doneAddCandidates}
+            >
+              Done
+            </button>
+          </div>
+          <div className="w-50 m-5 align-self-center">
+            <div className="row">
+              {candidates.length
+                ? candidates.map((candidate) => (
+                    <CandidateTagBox
+                      key={candidate.candidate_id}
+                      candidate={candidate}
+                      tags={candidate.tags}
+                      handleClick={navigateToAddCandidateTags}
+                    />
+                  ))
+                : null}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 }

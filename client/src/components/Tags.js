@@ -3,6 +3,8 @@ import NavBar from "./NavBar";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
+import Footer from "./Footer";
+import TagBox from "./TagBox";
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
@@ -17,7 +19,7 @@ export default function Tags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_users/${cookies.userId}`
     );
-    setTags(tags.data);
+    setTags(tags.data[0]);
   }
 
   const handleTagNameChange = (e) => {
@@ -33,17 +35,37 @@ export default function Tags() {
   return (
     <div>
       <NavBar />
-      <h1>Tags</h1>
-      <form>
-        <label>Add tags</label>
-        <input type="text" onChange={handleTagNameChange} />
-        <button onClick={addTag}>Add</button>
-      </form>
-      <ul>
-        {tags.length
-          ? tags.map((tag) => <li key={tag.tag_id}>{tag.tag_description}</li>)
-          : null}
-      </ul>
+      <div className="vh-100 p-4 mb-2 bg-primary">
+        <div className="d-flex w-100 h-100">
+          <div className="w-50 m-5 align-self-center">
+            <div className="bg-white p-5 rounded-box">
+              <h1 className="text-primary mb-4">Add tags</h1>
+              <input
+                type="text"
+                onChange={handleTagNameChange}
+                placeholder="Tag name"
+                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
+              />
+              <br />
+              <button
+                className="btn btn-primary mt-4 w-25"
+                disabled={tagName.length === 0}
+                onClick={addTag}
+              >
+                Add
+              </button>
+            </div>
+          </div>
+          <div className="w-50 m-5 align-self-center">
+            <div className="row">
+              {tags.length
+                ? tags.map((tag) => <TagBox key={tag.tag_id} tag={tag} />)
+                : null}
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
+import Navbar from "./NavBar";
+import Footer from "./Footer";
 
 export default function LogIn() {
   const [cookies, setCookie] = useCookies(["userId"]);
@@ -22,7 +24,7 @@ export default function LogIn() {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-        setCookie("userId", res.data[0].user_id);
+        setCookie("userId", res.data[0][0].user_id);
         navigate("/");
       })
       .catch((error) => {
@@ -40,15 +42,38 @@ export default function LogIn() {
 
   return (
     <div>
-      <h1>Log In</h1>
-      <form>
-        <label>Email</label>
-        <input type="email" onChange={handleEmailChange} />
-        <label>Password</label>
-        <input type="password" onChange={handlePasswordChange} />
-        <button onClick={logIn}>Log In</button>
-        <Link to="/register">I don't have an account</Link>
-      </form>
+      <div className="container-sm">
+        <h1> WITO </h1>
+
+        <h1>Log In</h1>
+        <form>
+          <div className="mb-3">
+            <label className="form-label">Email address</label>
+            <input
+              className="form-control"
+              type="email"
+              onChange={handleEmailChange}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input
+              className="form-control"
+              type="password"
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button className="btn btn-primary" onClick={logIn}>
+            Log In
+          </button>
+
+          <div className="mb-3">
+            <Link to="/register">I don't have an account</Link>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </div>
   );
 }

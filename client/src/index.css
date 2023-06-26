@@ -1,13 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&family=Lilita+One&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lilita One", cursive;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Comfortaa", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+* {
+  list-style-type: none;
+}
+
+.top-margin {
+  margin-top: 100px;
+}
+
+.float {
+  position: fixed;
+  width: 100px;
+  height: 60px;
+  bottom: 80px;
+  right: 40px;
+  background-color: #fff;
+  border-radius: 50px;
+  text-align: center;
+}
+
+.rounded-box {
+  border-radius: 30px;
 }
