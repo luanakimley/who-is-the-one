@@ -19,7 +19,7 @@ export default function Categories() {
     const categories = await axios.get(
       `${SERVER_HOST}/categories/${cookies.userId}`
     );
-    setCategories(categories.data);
+    setCategories(categories.data[0]);
   }
 
   const navigateToAddCategory = () => {
@@ -35,49 +35,47 @@ export default function Categories() {
   };
 
   const deleteCategory = (e) => {
-      const category = {
-        id: e.target.id,
-        name: e.target.innerHTML,
-      };
-      console.log(category)
-      navigate("/delete_category", { state: category });
+    const category = {
+      id: e.target.id,
+      name: e.target.innerHTML,
     };
+    navigate("/delete_category", { state: category });
+  };
 
   return (
-  <div>
-        <NavBar />
-         <div class="container">
-      <h1>Categories</h1>
-      <ul>
-        {categories.length
-          ? categories.map((category) => (
+    <div>
+      <NavBar />
+      <div className="container">
+        <h1>Categories</h1>
+        <ul>
+          {categories.length
+            ? categories.map((category) => (
+                <div key={category.category_id}>
+                  <li
+                    key={category.category_id}
+                    id={category.category_id}
+                    onClick={navigateToAddCandidatesForCategory}
+                  >
+                    {category.category_name}
+                  </li>
+                  <button
+                    className="btn btn-danger"
+                    key={category.category_name}
+                    id={category.category_id}
+                    onClick={deleteCategory}
+                  >
+                    X
+                  </button>
+                </div>
+              ))
+            : null}
+        </ul>
 
-              <div key={category.category_id}>
-              <li
-                key={category.category_id}
-                id={category.category_id}
-                onClick={navigateToAddCandidatesForCategory}
-              >
-                {category.category_name}
-
-              </li>
-               <button class="btn btn-danger"
-                   key={category.category_name}
-                   id={category.category_id}
-                   onClick={deleteCategory}
-               >X
-              </button>
-              </div>
-
-
-            ))
-          : null}
-
-      </ul>
-
-      <button class="btn btn-primary" onClick={navigateToAddCategory}>Add category</button>
-    </div>
-    <Footer/>
+        <button className="btn btn-primary" onClick={navigateToAddCategory}>
+          Add category
+        </button>
+      </div>
+      <Footer />
     </div>
   );
 }
