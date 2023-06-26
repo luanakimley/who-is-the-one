@@ -6,7 +6,6 @@ import AddCategory from "./components/AddCategory";
 import DeleteCategory from "./components/Delete";
 import AddCandidates from "./components/AddCandidates";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
-import LogOut from "./components/LogOut";
 import Search from "./components/Search";
 import SuccessMessage from "./components/SuccessMessage";
 import AddCandidateTags from "./components/AddCandidateTags";
@@ -29,9 +28,6 @@ function App() {
       <Route exact path="/add_candidates" element={<ProtectedRoute />}>
         <Route exact path="/add_candidates" element={<AddCandidates />} />
       </Route>
-      <Route exact path="/logout" element={<ProtectedRoute />}>
-        <Route exact path="/logout" element={<LogOut />} />
-      </Route>
       <Route exact path="/add_candidate_tags" element={<ProtectedRoute />}>
         <Route
           exact
@@ -49,12 +45,11 @@ function App() {
         <Route exact path="/user_preferences" element={<UserPreferences />} />
       </Route>
       <Route exact path="/search" element={<ProtectedRoute />}>
-              <Route exact path="/search" element={<Search />} />
-            </Route>
+        <Route exact path="/search" element={<Search />} />
+      </Route>
       <Route exact path="/success_message" element={<ProtectedRoute />}>
-              <Route exact path="/success_message" element={<SuccessMessage />} />
-            </Route>
-
+        <Route exact path="/success_message" element={<SuccessMessage />} />
+      </Route>
     </Routes>
   );
 }

@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 export default function NavBar() {
-  const [cookies] = useCookies(["userId"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    navigate("/logout");
+    removeCookie("userId");
+    navigate("/login");
   };
 
   return (
@@ -38,9 +39,6 @@ export default function NavBar() {
               <Link className="nav-link active" to="/tags">
                 <h3>Tags</h3>
               </Link>
-            </li>
-            <li className="nav-item">
-              <Search />
             </li>
           </ul>
         </div>
