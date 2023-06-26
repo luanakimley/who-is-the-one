@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -33,24 +34,50 @@ export default function Categories() {
     navigate("/add_candidates", { state: category });
   };
 
+  const deleteCategory = (e) => {
+      const category = {
+        id: e.target.id,
+        name: e.target.innerHTML,
+      };
+      console.log(category)
+      navigate("/delete_category", { state: category });
+    };
+
   return (
-    <div>
-      <NavBar />
+  <div>
+        <NavBar />
+         <div class="container">
       <h1>Categories</h1>
       <ul>
         {categories.length
           ? categories.map((category) => (
+
+              <div key={category.category_id}>
               <li
                 key={category.category_id}
                 id={category.category_id}
                 onClick={navigateToAddCandidatesForCategory}
               >
                 {category.category_name}
+
               </li>
+               <button class="btn btn-danger"
+                   key={category.category_name}
+                   id={category.category_id}
+                   onClick={deleteCategory}
+               >X
+              </button>
+              </div>
+
+
             ))
           : null}
+
       </ul>
-      <button onClick={navigateToAddCategory}>Add category</button>
+
+      <button class="btn btn-primary" onClick={navigateToAddCategory}>Add category</button>
+    </div>
+    <Footer/>
     </div>
   );
 }
