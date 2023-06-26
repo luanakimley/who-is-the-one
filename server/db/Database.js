@@ -44,7 +44,6 @@ query(sql, values, callback)
         {
           if (result[0] instanceof Array)
           {
-
             callback(result[0]);
           }
           else

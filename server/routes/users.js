@@ -9,9 +9,9 @@ const {
 } = require("../controllers/users");
 
 router
-.post("/login", userLogin)
-.post("/register", userRegister)
-.get("/users", getAllUsers)
-.delete("/users/:userId", deleteUser);
+  .post("/login", userLogin)
+  .post("/register", userRegister)
+  .get("/users", getAllUsers)
+  .delete("/users/:userId", deleteUser);
 
 module.exports = router;
