@@ -31,7 +31,7 @@ router.get("/tags_by_category/:categoryId", (req, res) => {
 router.delete("/remove_tag/:tagId", (req, res) => {
   const tagId = req.params.tagId;
   const query = "DELETE FROM tags WHERE tag_id = ?";
-  database.query(query, [tagId, candidateId], (result) => res.send(`Delete tag with ID ${tagId}`));
+  database.query(query, [tagId], (result) => res.send(`Delete tag with ID ${tagId}`));
 });
 
 router.delete("/remove_tag_for_candidate/:tagId/:candidateId", (req, res) => {
