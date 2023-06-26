@@ -52,7 +52,6 @@ export default function AddCandidates() {
   };
 
   const navigateToAddCandidateTags = (e) => {
-    console.log(e.target.innerHTML);
     navigate("/add_candidate_tags", {
       state: {
         category: category,

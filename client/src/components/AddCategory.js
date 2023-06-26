@@ -40,21 +40,20 @@ export default function AddCategory() {
 
   return (
     <div>
-          <NavBar />
-          <div class="container">
-      <h1>Add Category</h1>
-      <form>
-        <input
-          type="text"
-          placeholder="Category name"
-          onChange={handleCategoryNameChange}
-        />
-        <button disabled={categoryName.length === 0} onClick={addCategory}>
-          Done
-        </button>
-      </form>
+      <NavBar />
+      <div className="container">
+        <h1>Add Category</h1>
+        <form>
+          <input
+            type="text"
+            placeholder="Category name"
+            onChange={handleCategoryNameChange}
+          />
+          <button disabled={categoryName.length === 0} onClick={addCategory}>
+            Done
+          </button>
+        </form>
+      </div>
     </div>
-    </div>
-
   );
 }
