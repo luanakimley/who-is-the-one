@@ -73,6 +73,11 @@ export default function AddCandidates() {
         valid = false;
       }
     });
+
+    if (!candidates.length) {
+      valid = false;
+    }
+
     setDone(valid);
   }
 
