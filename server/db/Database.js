@@ -51,14 +51,8 @@ query(sql, values, callback)
               return acc;
           }, []);
 
-            if(filteredResult.length === 1)
-            {
-                callback(filteredResult[0]);
-            }
-            else
-            {
-                callback(filteredResult)
-            }
+          callback(filteredResult)
+
         }
         else
         {

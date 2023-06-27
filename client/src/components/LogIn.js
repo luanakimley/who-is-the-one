@@ -24,7 +24,7 @@ export default function LogIn() {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-        setCookie("userId", res.data.user_id);
+        setCookie("userId", res.data[0].user_id);
         navigate("/");
       })
       .catch((error) => {

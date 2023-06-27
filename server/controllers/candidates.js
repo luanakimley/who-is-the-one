@@ -25,10 +25,10 @@ exports.addCandidate = (req, res) => {
 }
 
 exports.getCandidatesByPreference = (req, res) => {
-  const userPreference = req.params.userPreference;
+  const userPreference = req.body.userPreference;
 
-  getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
-      const rankedCandidates = rankListOfCandidates(tagWeights, Object.values(candidates));
+  getListOfCandidatesByCategory(userPreference.categoryId, (candidates) => {
+      const rankedCandidates = rankListOfCandidates(userPreference.weights, Object.values(candidates));
       res.json(rankedCandidates);
     });
 }
@@ -40,7 +40,7 @@ function getListOfCandidatesByCategory(categoryId, callback)
   database.query(query, [categoryId], (result) => {
     const candidates = {};
 
-    result.forEach((row) => {
+    result[0].forEach((row) => {
       const candidateId = row.candidate_id;
       const candidateName = row.candidate_name;
       const tagId = row.tag_id;
@@ -74,6 +74,8 @@ function rankListOfCandidates(tagWeights, categoryList)
 {
   const rankedCandidates = [];
 
+  console.log(tagWeights)
+
   for (const candidate of categoryList)
   {
     const candidateId = candidate.candidate_id;
@@ -84,9 +86,9 @@ function rankListOfCandidates(tagWeights, categoryList)
 
     for (const tag of tags)
     {
-      if (tagWeights.hasOwnProperty(tag))
+      if (tagWeights.hasOwnProperty(tag.tag_id))
       {
-        score += tagWeights[tag];
+        score += tagWeights[tag.tag_id];
       }
     }
 
@@ -100,9 +102,6 @@ function rankListOfCandidates(tagWeights, categoryList)
     }
     );
   }
-
-  // Sort candidates based on score in descending order
-  rankedCandidates.sort((a, b) => b.score - a.score);
 
   return rankedCandidates;
 }
