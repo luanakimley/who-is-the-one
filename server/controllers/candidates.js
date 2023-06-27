@@ -2,7 +2,9 @@ const database = require("../db/Database");
 
 exports.getCandidatesByCategoryId = (req, res) => {
     const categoryId = req.params.categoryId;
-    getListOfCandidatesByCategory(categoryId, (candidates) => res.json(Object.values(candidates)));
+    getListOfCandidatesByCategory(categoryId, (candidates) => {
+    res.json(Object.values(candidates))
+    });
 }
 
 exports.deleteCandidate = (req, res) => {
@@ -40,7 +42,7 @@ function getListOfCandidatesByCategory(categoryId, callback)
   database.query(query, [categoryId], (result) => {
     const candidates = {};
 
-    result.forEach((row) => {
+    result[0].forEach((row) => {
       const candidateId = row.candidate_id;
       const candidateName = row.candidate_name;
       const tagId = row.tag_id;
