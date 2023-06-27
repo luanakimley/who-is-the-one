@@ -33,7 +33,7 @@ code {
   position: fixed;
   width: 100px;
   height: 60px;
-  bottom: 80px;
+  bottom: 40px;
   right: 40px;
   background-color: #fff;
   border-radius: 50px;
@@ -107,6 +107,6 @@ input:checked + .slider:before {
 
 .pagination-float {
   position: fixed;
-  bottom: 60px;
+  bottom: 10px;
   left: 40px;
 }

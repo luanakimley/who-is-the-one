@@ -113,7 +113,7 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
       <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
 <button
                      className="btn btn-primary" onClick={backToCategory}>
-                     Back to Category
+                <i className="bi bi-arrow-return-left"></i>
                      </button>
 
       <h1>My Preferences</h1>
