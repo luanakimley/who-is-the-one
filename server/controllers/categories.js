@@ -12,6 +12,14 @@ exports.getCategoriesByUserId = (req, res) => {
     database.query(query, [userId, categoriesLimit, offset], (result) => res.json(result));
 }
 
+exports.getCategoriesCountByUserId = (req, res) => {
+     const userId = req.params.userId;
+
+     const query = "SELECT COUNT(*) AS total_categories FROM categories WHERE user_id = ?;"
+     database.query(query, [userId], (result) => res.json(result[0].total_categories));
+
+}
+
 exports.addCategory = (req, res) => {
     const categoryName = req.body.categoryName;
     const userId = req.body.userId;
