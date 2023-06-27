@@ -26,12 +26,14 @@ export default function AddCategory() {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-        const categoryId = res.data.category_id;
-        const category = {
-          id: categoryId,
-          name: categoryName,
-        };
-        navigate("/add_candidates", { state: category });
+        if (res.data) {
+          const category = {
+            id: res.data[0].category_id,
+            name: res.data[0].category_name,
+          };
+          console.log(category);
+          navigate("/add_candidates", { state: category });
+        }
       })
       .catch((error) => {
         console.error("Error adding category:", error);

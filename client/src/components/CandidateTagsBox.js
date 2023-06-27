@@ -4,7 +4,9 @@ import axios from "axios";
 
 export function CandidateTagBox(props) {
   const deleteCandidate = () => {
-    axios.delete(`${SERVER_HOST}/remove_candidate/${props.categoryId}`);
+    axios.delete(
+      `${SERVER_HOST}/remove_candidate/${props.candidate.candidate_id}`
+    );
   };
 
   return (

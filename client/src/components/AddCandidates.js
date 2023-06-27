@@ -16,9 +16,11 @@ export default function AddCandidates() {
   const inputRef = useRef(null);
 
   async function getCandidatesForCategory() {
+    console.log(category.id);
     const candidates = await axios.get(
       `${SERVER_HOST}/candidates/${category.id}`
     );
+    console.log(candidates);
     setCandidates(candidates.data);
   }
 
