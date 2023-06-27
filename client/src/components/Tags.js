@@ -21,7 +21,6 @@ export default function Tags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_users/${cookies.userId}`
     );
-
     setTags(tags.data);
   }
 
