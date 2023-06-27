@@ -3,7 +3,8 @@ const database = require("../db/Database");
 exports.getUserPreferencesByCategoryId = (req, res) => {
         const categoryId = req.params.categoryId;
 
-        const query = "SELECT * FROM users_categories_preferences WHERE category_id = ?;"
+        const query = "SELECT users_categories_preferences.*, tags.tag_description FROM users_categories_preferences " + "\n" +
+                       "JOIN tags on users_categories_preferences.tag_id = tags.tag_id WHERE category_id = ?;"
 
         database.query(query, [categoryId], (result) => {
         if (result.length === 0) {
@@ -12,13 +13,21 @@ exports.getUserPreferencesByCategoryId = (req, res) => {
         }
         const preferences = {
           categoryId: result[0].category_id,
-          weights: {},
+          tagWeights: [],
         };
 
         result.forEach((row) => {
           const tagId = row.tag_id;
+          const tagDescription = row.tag_description;
           const weight = row.weight;
-          preferences.weights[tagId] = weight;
+
+          const tagWeight = {
+          tag_id: tagId,
+          tag_description: tagDescription,
+          weight: weight
+          }
+
+          preferences.tagWeights.push(tagWeight);
         });
 
         res.json(preferences);
