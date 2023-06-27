@@ -33,6 +33,14 @@ exports.getCandidatesByPreference = (req, res) => {
     });
 }
 
+exports.editCandidate = (req, res) => {
+    const candidateId = req.body.categoryId;
+    const newCategoryName = req.body.candidateName;
+
+    const query = "UPDATE candidates SET candidate_name = ? WHERE candidate_id = ?";
+    database.query(query, [categoryId], (result) => res.send(`Update candidate_name with ID ${candidateId}`));
+}
+
 function getListOfCandidatesByCategory(categoryId, callback)
 {
   const query = "CALL get_all_candidates_by_category(?)";

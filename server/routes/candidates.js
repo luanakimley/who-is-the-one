@@ -5,7 +5,8 @@ const {
   getCandidatesByCategoryId,
   getCandidatesByPreference,
   deleteCandidate,
-  addCandidate
+  addCandidate,
+  editCandidate
 } = require("../controllers/candidates");
 
 router
@@ -13,6 +14,7 @@ router
   .get("/candidates_by_preference/:userPreference", getCandidatesByPreference)
   .delete("/remove_candidate/:candidateId", deleteCandidate)
   .post("/insert_candidate", addCandidate)
+  .put("edit_category", editCandidate)
 
 module.exports = router;
 
