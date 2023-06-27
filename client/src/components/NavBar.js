@@ -37,7 +37,7 @@ export default function NavBar() {
             </li>
             <li className="nav-item">
               <Link className="nav-link active" to="/tags">
-                <h3>Tags</h3>
+                <h3>All Tags</h3>
               </Link>
             </li>
             <li className="nav-item">

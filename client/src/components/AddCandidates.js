@@ -21,11 +21,15 @@ export default function AddCandidates() {
     );
     setCandidates(candidates.data);
   }
-
   useEffect(() => {
     getCandidatesForCategory();
     validateAllCandidatesHasTag();
   });
+
+const backToCategories = (e) => {
+          navigate("/categories", { state: category })
+      }
+
 
   const handleCandidateNameChange = (e) => {
     setCandidateName(e.target.value);
@@ -66,6 +70,8 @@ export default function AddCandidates() {
     });
   };
 
+
+
   function validateAllCandidatesHasTag() {
     let valid = true;
     candidates.forEach((candidate) => {
@@ -89,6 +95,10 @@ export default function AddCandidates() {
           <div className="w-50 m-5 align-self-center">
             <h2 className="text-white text-center">{category.name}</h2>
             <div className="bg-white p-5 rounded-box mt-4">
+                <button
+                className="btn btn-primary" onClick={backToCategories}>
+                <i className="bi bi-arrow-return-left"></i>
+                </button>
               <h1 className="text-primary mb-4">Add Candidates</h1>
               <input
                 ref={inputRef}
@@ -112,7 +122,7 @@ export default function AddCandidates() {
               onClick={doneAddCandidates}
               disabled={!done}
             >
-              Done
+              Set your Preferences
             </button>
           </div>
           <div className="w-50 m-5 align-self-center">

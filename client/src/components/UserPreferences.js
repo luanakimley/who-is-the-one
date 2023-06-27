@@ -14,6 +14,7 @@ export default function UserPreferences() {
   const [preference, setPreference] = useState([]);
   const [selectedTag, setSelectedTag] = useState("");
   const [tagWeight, setTagWeight] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTagsByCategory();
@@ -56,6 +57,36 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
 
   };
 
+  const calculateMatch = (e) => {
+      const formData = new FormData();
+      formData.append("userPreference", preference)
+
+    console.log(preference)
+
+    axios
+      .get(`${SERVER_HOST}/candidates_by_preference/${preference}`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        if (res.data) {
+        console.log(res.data)
+//          const category = {
+//            id: res.data[0].category_id,
+//            name: res.data[0].category_name,
+//          };
+//          navigate("/add_candidates", { state: category });
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding category:", error);
+      });
+
+    };
+
+    const backToCategory = (e) => {
+        navigate("/add_candidates", { state: category })
+    }
+
   const validateSelectedTag = () => selectedTag !== "";
 
   const validateTagWeight = () => tagWeight !== 0;
@@ -80,6 +111,10 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
       <h2>Category: {category.name}</h2>
 <div className="row">
       <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
+<button
+                     className="btn btn-primary" onClick={backToCategory}>
+                     Back to Category
+                     </button>
 
       <h1>My Preferences</h1>
       <select
@@ -114,7 +149,7 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
 </div>
                 <div className="container p-4">
                 <button
-                     className="btn btn-primary" disabled={!inputsAreAllValid} onClick={insertPreferences}>
+                     className="btn btn-primary" onClick={calculateMatch}>
                      Calculate
                      </button>
                 </div>
@@ -133,20 +168,17 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
               </select>
 
               {
-              preference.weights ?
-//              preference.weights.map((category) => (
-//                <h1>WORKED</h1>
-//
-//              )
-            <h1>Worked</h1>
+              preference.tagWeights ?
+              preference.tagWeights.map((tags) => (
+
+              <TagWeightBox key={tags.tag_id} tag={tags} categoryId={preference.categoryId}/>
+
+              ))
  : <h2>DID Not</h2>}
 
 
 
-          {TagWeightBox()}
-          {TagWeightBox()}
-          {TagWeightBox()}
-          {TagWeightBox()}
+
 </div>
 
 

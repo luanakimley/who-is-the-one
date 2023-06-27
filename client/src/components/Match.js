@@ -62,9 +62,9 @@ export default function Match() {
 
                   <div className="text-center p-2">
                                       <label className="p-2">Descending Order</label>
-                                      <label class="switch">
+                                      <label className="switch">
                                         <input type="checkbox"/>
-                                        <span class="slider round"></span>
+                                        <span className="slider round"></span>
                                       </label>
                                       </div>
                   <div className="row">

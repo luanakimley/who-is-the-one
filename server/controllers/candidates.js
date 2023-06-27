@@ -25,7 +25,9 @@ exports.addCandidate = (req, res) => {
 }
 
 exports.getCandidatesByPreference = (req, res) => {
-  const userPreference = req.body.userPreference;
+console.log("TEST")
+  const userPreference = req.params.userPreference;
+  console.log(userPreference)
 
   getListOfCandidatesByCategory(userPreference.categoryId, (candidates) => {
       const rankedCandidates = rankListOfCandidates(userPreference.tagWeights, Object.values(candidates));
