@@ -104,3 +104,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.pagination-float {
+  position: fixed;
+  bottom: 60px;
+  left: 40px;
+}
