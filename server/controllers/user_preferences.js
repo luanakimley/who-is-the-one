@@ -3,8 +3,7 @@ const database = require("../db/Database");
 exports.getUserPreferencesByCategoryId = (req, res) => {
         const categoryId = req.params.categoryId;
 
-        const query = "SELECT categories.category_id, categories.category_name, tag_id, weight FROM users_categories_preferences " + "\n" +
-                    "JOIN categories ON users_categories_preferences.category_id = categories.category_id WHERE categories.category_id = ?;"
+        const query = "SELECT * FROM users_categories_preferences WHERE category_id = ?;"
 
         database.query(query, [categoryId], (result) => {
         if (result.length === 0) {
@@ -13,7 +12,6 @@ exports.getUserPreferencesByCategoryId = (req, res) => {
         }
         const preferences = {
           categoryId: result[0].category_id,
-          categoryName: result[0].category_name,
           weights: {},
         };
 
