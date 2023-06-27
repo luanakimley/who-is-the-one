@@ -4,7 +4,7 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import Footer from "./Footer";
-import TagBox from "./TagBox";
+import TagBoxReset from "./TagBoxReset";
 import { useRef } from "react";
 
 export default function Tags() {
@@ -76,7 +76,7 @@ export default function Tags() {
           <div className="w-50 m-5 align-self-center">
             <div className="row">
               {tags.length
-                ? tags.map((tag) => <TagBox key={tag.tag_id} tag={tag} />)
+                ? tags.map((tag) => <TagBoxReset key={tag.tag_id} tag={tag} />)
                 : null}
             </div>
           </div>

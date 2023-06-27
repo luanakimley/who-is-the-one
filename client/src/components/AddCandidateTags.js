@@ -116,7 +116,7 @@ export default function AddCandidateTags() {
             <div className="row">
               {candidateTags.length
                 ? candidateTags.map((tag) => (
-                    <TagBox key={tag.tag_id} id={tag.tag_id} tag={tag} />
+                    <TagBox key={tag.tag_id} id={tag.tag_id} tag={tag} candidateId={state.candidate.id} />
                   ))
                 : null}
             </div>
