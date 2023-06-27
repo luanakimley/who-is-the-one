@@ -35,7 +35,7 @@ export default function AddCandidateTags() {
     );
 
     if (tags.data.length) {
-      setCandidateTags(tags.data[0]);
+      setCandidateTags(tags.data);
     }
   }
 

@@ -49,7 +49,7 @@ exports.addTag = (req, res) => {
 
         if(result.length !== 0)
         {
-           tagId = result[0].tag_id;
+           tagId = result.tag_id;
         }
 
         if (tagId === 0)
@@ -59,9 +59,9 @@ exports.addTag = (req, res) => {
               database.query(queryInsert, [userId, tagDescription], (insertResult) => {
 
                 selectTagsByDescription(userId, tagDescription, (selectAfterInsertResult) => {
-                    tagId = selectAfterInsertResult[0].candidate_id;
+                    tagId = selectAfterInsertResult.tag_id;
                     insertIntoTagsCandidates(tagId, candidateId);
-                    res.json(selectAfterInsertResult[0]);
+                    res.json(selectAfterInsertResult);
                 });
 
             });
@@ -69,7 +69,7 @@ exports.addTag = (req, res) => {
         else
         {
             insertIntoTagsCandidates(tagId, candidateId);
-            res.json(result[0]);
+            res.json(result);
         }
     });
 }
@@ -83,14 +83,13 @@ exports.addTagForCandidate = (req, res) => {
 exports.addTagForUser = (req, res) => {
      const userId = req.body.userId;
      const tagDescription = req.body.tagDescription;
-     const candidateId = req.body.candidateId;
 
-     const query = "INSERT INTO tags (user_id, tag_description) VALUES (?);";
+     const query = "INSERT INTO tags (user_id, tag_description) VALUES (?, ?);";
 
-     database.query(query, [tagDescription], (insertResult) => {
+     database.query(query, [userId, tagDescription], (insertResult) => {
 
-       selectTagsByDescription(tagDescription, (selectAfterInsertResult) => {
-           res.json(selectAfterInsertResult[0]);
+       selectTagsByDescription(userId, tagDescription, (selectAfterInsertResult) => {
+           res.json(selectAfterInsertResult);
        });
     });
 }

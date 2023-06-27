@@ -5,6 +5,7 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import { TagWeightBox } from "./TagWeightBox";
+import Footer from "./Footer";
 
 export default function UserPreferences() {
   const location = useLocation();
@@ -59,31 +60,66 @@ export default function UserPreferences() {
   return (
     <div>
       <NavBar />
+      <div className="p-4 mb-2 bg-primary text-white rounded">
+      <div className="container">
+
       <h2>{category.name}</h2>
+<div className="row">
+      <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
+
       <h1>My Preferences</h1>
-      <select onChange={handleSelectTagChange} defaultValue="Select tags">
-        <option disabled value="Select tags">
-          Select tags
-        </option>
-        {tagsByCategory.length
-          ? tagsByCategory.map((tag) => (
-              <option key={tag.tag_id} value={tag.tag_id}>
-                {tag.tag_description}
-              </option>
-            ))
-          : null}
+      <select
+      className="form-control me-2 w-25 p-3"
+      onChange={handleSelectTagChange} defaultValue="Select tags">
+
+            <option
+            disabled value="Select tags">
+              Select tags
+            </option>
+                {tagsByCategory.length
+                  ? tagsByCategory.map((tag) => (
+                  <option key={tag.tag_id} value={tag.tag_id}>
+                  {tag.tag_description}
+                  </option>
+                  ))
+                  : null}
       </select>
       <input
+        className="p-4"
         onChange={handleTagWeightChange}
         type="range"
         min={0}
         max={100}
         defaultValue={0}
       ></input>
-      <button disabled={!inputsAreAllValid} onClick={insertPreferences}>
-        Add
-      </button>
-      {TagWeightBox()}
+      <div>
+          <button
+          className="btn btn-success" disabled={!inputsAreAllValid} onClick={insertPreferences}>
+            Add
+          </button>
+</div>
+                <div className="container p-4">
+                <button
+                     className="btn btn-primary" disabled={!inputsAreAllValid} onClick={insertPreferences}>
+                     Calculate
+                     </button>
+                </div>
+          </div>
+
+
+<div className="w-50">
+          {TagWeightBox()}
+          {TagWeightBox()}
+          {TagWeightBox()}
+          {TagWeightBox()}
+</div>
+
+
+
+          </div>
+          </div>
+          </div>
+    <Footer/>
     </div>
   );
 }
