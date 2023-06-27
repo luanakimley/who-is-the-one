@@ -11,7 +11,7 @@ export function CandidateTagBox(props) {
 
   return (
     <div key={props.candidate.candidate_id} className="col col-lg-4 p-4">
-      <div className="card">
+      <div className="card p-3">
         <div className="card-body">
           <div>
             <h2 id={props.candidate.candidate_id} onClick={props.handleClick}>

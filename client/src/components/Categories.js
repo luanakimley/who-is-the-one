@@ -74,7 +74,7 @@ export default function Categories() {
             {categories.length
               ? categories.map((category) => (
                   <div key={category.category_id} className="col col-lg-3 p-4">
-                    <div className="card">
+                    <div className="card p-3">
                       <div className="card-body">
                         <div>
                           <h3
