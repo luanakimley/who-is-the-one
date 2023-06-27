@@ -2,8 +2,14 @@ const database = require("../db/Database");
 
 exports.getCategoriesByUserId = (req, res) => {
     const userId = req.params.userId;
-    const query = "SELECT categories.category_id, categories.category_name FROM categories WHERE user_id = ?"
-    database.query(query, [userId], (result) => res.json(result));
+    const categoriesLimit = parseInt(req.query.limit);
+    const pageIndex = parseInt(req.query.page);
+    const offset = (pageIndex - 1) * categoriesLimit;
+
+
+    const query = "SELECT categories.category_id, categories.category_name FROM categories " + "\n" +
+                   "WHERE user_id = ? LIMIT ? OFFSET ?;"
+    database.query(query, [userId, categoriesLimit, offset], (result) => res.json(result));
 }
 
 exports.addCategory = (req, res) => {
