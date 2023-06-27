@@ -5,23 +5,42 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import Pagination from "./Pagination";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [cookies] = useCookies(["userId"]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [listLength, setListLength] = useState(0);
   const navigate = useNavigate();
+  const limit = 12;
 
   useEffect(() => {
     getCategories();
   });
 
+  useEffect(() => {
+    getCategoriesCount();
+  }, []);
+
+  const handleCurrentPage = (data) => {
+    setCurrentPage(data);
+  };
+
   async function getCategories() {
     const categories = await axios.get(
-      `${SERVER_HOST}/categories/${cookies.userId}`
+      `${SERVER_HOST}/categories/${cookies.userId}?limit=${limit}&page=${currentPage}`
     );
     if (categories.data.length) {
       setCategories(categories.data);
     }
+  }
+
+  async function getCategoriesCount() {
+    const count = await axios.get(
+      `${SERVER_HOST}/categories_count/${cookies.userId}`
+    );
+    setListLength(count.data);
   }
 
   const navigateToAddCategory = () => {
@@ -91,6 +110,12 @@ export default function Categories() {
             <i className="bi bi-plus-circle"></i>&ensp;Add
           </h5>
         </button>
+        <Pagination
+          currentPage={currentPage}
+          listLength={listLength}
+          limit={limit}
+          pageChange={handleCurrentPage}
+        />
       </div>
       <Footer />
     </div>

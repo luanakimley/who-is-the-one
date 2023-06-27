@@ -43,3 +43,9 @@ code {
 .rounded-box {
   border-radius: 30px;
 }
+
+.pagination-float {
+  position: fixed;
+  bottom: 60px;
+  left: 40px;
+}
