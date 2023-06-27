@@ -25,9 +25,9 @@ exports.addCandidate = (req, res) => {
 }
 
 exports.getCandidatesByPreference = (req, res) => {
-  const userPreference = req.body.userPreference;
+  const userPreference = req.params.userPreference;
 
-  getListOfCandidatesByCategory(userPreference.categoryId, (candidates) => {
+  getListOfCandidatesByCategory(userPreference.category_id, (candidates) => {
       const rankedCandidates = rankListOfCandidates(userPreference.tagWeights, Object.values(candidates));
       res.json(rankedCandidates);
     });
@@ -65,7 +65,6 @@ function getListOfCandidatesByCategory(categoryId, callback)
         candidates[candidateId].tags.push(tag);
       }
     });
-
     callback(candidates);
   });
 }
@@ -90,14 +89,14 @@ function rankListOfCandidates(tagWeights, categoryList)
       }
     }
 
-    rankedCandidates.push(
-    {
+    const rankedCandidate = {
       candidate_id: candidateId,
       candidate_name: candidateName,
       tags: tags,
-      score: score,
+      score: score
     }
-    );
+
+    rankedCandidates.push(rankedCandidate);
   }
 
   return rankedCandidates;

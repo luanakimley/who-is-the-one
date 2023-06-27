@@ -12,7 +12,7 @@ exports.getUserPreferencesByCategoryId = (req, res) => {
           return;
         }
         const preferences = {
-          categoryId: result[0].category_id,
+          category_id: result[0].category_id,
           tagWeights: [],
         };
 
