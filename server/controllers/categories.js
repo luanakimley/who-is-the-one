@@ -4,7 +4,7 @@ exports.getCategoriesByUserId = (req, res) => {
     const userId = req.params.userId;
     const categoriesLimit = parseInt(req.query.limit);
     const pageIndex = parseInt(req.query.page);
-    const offset = pageIndex * categoriesLimit;
+    const offset = (pageIndex - 1) * categoriesLimit;
 
 
     const query = "SELECT categories.category_id, categories.category_name FROM categories " + "\n" +
