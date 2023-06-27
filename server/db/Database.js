@@ -40,18 +40,26 @@ query(sql, values, callback)
     {
         console.log(err);
     }
+
         if (Array.isArray(result))
         {
-            if(result.length === 1)
+          const filteredResult = result.reduce((acc, item) => {
+              if (!('fieldCount' in item && 'affectedRows' in item))
+              {
+                acc.push(item);
+              }
+              return acc;
+          }, []);
+
+            if(filteredResult.length === 1)
             {
-                callback(result[0]);
+                callback(filteredResult[0]);
             }
             else
             {
-                callback(result)
+                callback(filteredResult)
             }
         }
-
         else
         {
           callback([]);
