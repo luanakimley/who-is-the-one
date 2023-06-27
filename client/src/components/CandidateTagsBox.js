@@ -1,6 +1,12 @@
 import React from "react";
+import { SERVER_HOST } from "../config/global_constants";
+import axios from "axios";
 
 export function CandidateTagBox(props) {
+  const deleteCandidate = () => {
+    axios.delete(`${SERVER_HOST}/remove_candidate/${props.categoryId}`);
+  };
+
   return (
     <div key={props.candidate.candidate_id} className="col col-lg-4 p-4">
       <div className="card">
@@ -10,7 +16,10 @@ export function CandidateTagBox(props) {
               {props.candidate.candidate_name}
             </h2>
           </div>
-          <button className="btn btn-danger position-absolute top-0 end-0">
+          <button
+            onClick={deleteCandidate}
+            className="btn btn-danger position-absolute top-0 end-0"
+          >
             <i className="bi bi-trash"></i>
           </button>
           {props.tags.length
