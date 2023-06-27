@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
@@ -14,12 +14,13 @@ export default function AddCandidates() {
   const navigate = useNavigate();
   const location = useLocation();
   const category = location.state;
+  const inputRef = useRef(null);
 
   async function getCandidatesForCategory() {
     const candidates = await axios.get(
       `${SERVER_HOST}/candidates/${category.id}`
     );
-    setCandidates(candidates.data);
+    setCandidates(candidates);
   }
 
   useEffect(() => {
@@ -41,7 +42,9 @@ export default function AddCandidates() {
       .post(`${SERVER_HOST}/insert_candidate`, formData, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((res) => {})
+      .then((res) => {
+        inputRef.current.value = "";
+      })
       .catch((error) => {
         console.error("Error adding candidate:", error);
       });
@@ -79,6 +82,7 @@ export default function AddCandidates() {
             <div className="bg-white p-5 rounded-box mt-4">
               <h1 className="text-primary mb-4">Add Candidates</h1>
               <input
+                ref={inputRef}
                 type="text"
                 placeholder="Candidate name"
                 onChange={handleCandidateNameChange}
