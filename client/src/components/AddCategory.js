@@ -31,7 +31,6 @@ export default function AddCategory() {
             id: res.data[0].category_id,
             name: res.data[0].category_name,
           };
-          console.log(category);
           navigate("/add_candidates", { state: category });
         }
       })

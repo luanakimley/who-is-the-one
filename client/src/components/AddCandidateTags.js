@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import axios from "axios";
@@ -16,6 +16,7 @@ export default function AddCandidateTags() {
   const location = useLocation();
   const state = location.state;
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     getTags();
@@ -53,9 +54,13 @@ export default function AddCandidateTags() {
     formData.append("tagDescription", tagName);
     formData.append("candidateId", state.candidate.id);
 
-    axios.post(`${SERVER_HOST}/insert_tag`, formData, {
-      headers: { "Content-Type": "application/json" },
-    });
+    axios
+      .post(`${SERVER_HOST}/insert_tag`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        inputRef.current.value = "";
+      });
   };
 
   const addTagToCandidate = () => {
@@ -84,6 +89,7 @@ export default function AddCandidateTags() {
             <div className="bg-white p-5 rounded-box mt-4">
               <h1 className="text-primary mb-4">Add Tags</h1>
               <input
+                ref={inputRef}
                 type="text"
                 placeholder="Tag name"
                 className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"

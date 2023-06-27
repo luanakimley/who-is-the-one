@@ -11,7 +11,7 @@ const {
 router
   .get("/candidates/:categoryId", getCandidatesByCategoryId)
   .get("/candidates_by_preference/:userPreference", getCandidatesByPreference)
-  .delete("/remove_candidate/:categoryId", deleteCandidate)
+  .delete("/remove_candidate/:candidateId", deleteCandidate)
   .post("/insert_candidate", addCandidate)
 
 module.exports = router;

@@ -120,6 +120,17 @@ FOR EACH ROW
 
 DELETE FROM users_categories_preferences WHERE users_categories_preferences.tag_id = OLD.tag_id;
 
+
+/*DELETE TRIGGERS to remove candidates details*/
+DROP TRIGGER IF EXISTS delete_candidates_foreign_key_tags_in_candidates;
+
+CREATE TRIGGER delete_candidates_foreign_key_tags_in_candidates
+
+BEFORE DELETE ON candidates
+FOR EACH ROW
+
+DELETE FROM tags_in_candidates WHERE tags_in_candidates.candidate_id = OLD.candidate_id;
+
 /*-----------------------------------------------------------------PROCEDURES-------------------------------------------------------------------------------------*/
 
 DROP PROCEDURE IF EXISTS get_all_tags_for_a_category;
