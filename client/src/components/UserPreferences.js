@@ -64,7 +64,7 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
     console.log(preference)
 
     axios
-      .get(`${SERVER_HOST}/candidates_by_preference/${preference}`, formData, {
+      .get(`${SERVER_HOST}/candidates_by_preference/userPreference?object=${preference}`, formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
