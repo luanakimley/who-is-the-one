@@ -10,6 +10,8 @@ import TagBox from "./TagBox";
 export default function AddCandidateTags() {
   const [tags, setTags] = useState([]);
   const [candidateTags, setCandidateTags] = useState([]);
+  const [tagName, setTagName] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
   const [cookies] = useCookies(["userId"]);
   const location = useLocation();
   const state = location.state;
@@ -31,10 +33,31 @@ export default function AddCandidateTags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_candidate/${state.candidate.id}`
     );
+
     if (tags.data.length) {
       setCandidateTags(tags.data[0]);
     }
   }
+
+  const handleTagNameChange = (e) => {
+    setTagName(e.target.value);
+  };
+
+  const handleSelectedTagChange = (e) => {
+    setSelectedTag(e.target.value);
+    console.log(selectedTag);
+  };
+
+  const addTagToUserAndCandidate = () => {
+    const formData = new FormData();
+    formData.append("userId", cookies.userId);
+    formData.append("tagDescription", tagName);
+    formData.append("candidateId", state.candidate.id);
+
+    axios.post(`${SERVER_HOST}/insert_tag`, formData, {
+      headers: { "Content-Type": "application/json" },
+    });
+  };
 
   const navigateToAddCandidates = () => {
     navigate("/add_candidates", { state: state.category });
@@ -55,11 +78,18 @@ export default function AddCandidateTags() {
                 type="text"
                 placeholder="Tag name"
                 className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
+                onChange={handleTagNameChange}
               />
               <br />
-              <button className="btn btn-primary mt-4 w-25">Add</button>
+              <button
+                onClick={addTagToUserAndCandidate}
+                className="btn btn-primary mt-4 w-25"
+              >
+                Add
+              </button>
               <h4 className="my-4 text-center text-primary">or</h4>
               <select
+                onChange={handleSelectedTagChange}
                 className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
                 defaultValue="Select tags"
               >
@@ -75,7 +105,10 @@ export default function AddCandidateTags() {
               <br />
               <button className="btn btn-primary mt-4 w-25">Add</button>
             </div>
-            <button className="btn btn-outline-light mt-5 w-50 mx-auto d-block">
+            <button
+              onClick={navigateToAddCandidates}
+              className="btn btn-outline-light mt-5 w-50 mx-auto d-block"
+            >
               Done
             </button>
           </div>
