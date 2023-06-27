@@ -19,7 +19,9 @@ export default function Tags() {
     const tags = await axios.get(
       `${SERVER_HOST}/tags_by_users/${cookies.userId}`
     );
-    setTags(tags.data[0]);
+    if (tags.data.length) {
+      setTags(tags.data[0]);
+    }
   }
 
   const handleTagNameChange = (e) => {
@@ -29,7 +31,13 @@ export default function Tags() {
   const addTag = (e) => {
     e.preventDefault();
 
-    console.log("Add tag logic here");
+    const formData = new FormData();
+    formData.append("userId", cookies.userId);
+    formData.append("tagDescription", tagName);
+
+    axios.post(`${SERVER_HOST}/insert_tag_for_user`, formData, {
+      headers: { "Content-Type": "application/json" },
+    });
   };
 
   return (
