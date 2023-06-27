@@ -112,13 +112,19 @@ export default function AddCandidateTags() {
                 defaultValue="Select tags"
               >
                 <option disabled>Select tags</option>
-                {tags.length
-                  ? tags.map((tag) => (
+                {tags.length &&
+                  tags
+                    .filter(
+                      (tag) =>
+                        !candidateTags.some(
+                          (candidateTag) => candidateTag.tag_id === tag.tag_id
+                        )
+                    )
+                    .map((tag) => (
                       <option key={tag.tag_id} value={tag.tag_id}>
                         {tag.tag_description}
                       </option>
-                    ))
-                  : null}
+                    ))}
               </select>
               <br />
               <button
