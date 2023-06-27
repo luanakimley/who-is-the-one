@@ -5,7 +5,7 @@ import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import Footer from "./Footer";
 import TagBox from "./TagBox";
-import { useRef } from 'react';
+import { useRef } from "react";
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
@@ -25,30 +25,27 @@ export default function Tags() {
   }
 
   const handleTagNameChange = (e) => {
-  console.log(e.target.value);
     setTagName(e.target.value);
   };
 
   const addTag = (e) => {
     e.preventDefault();
     let formData = new FormData();
-        formData.append("userId", cookies.userId);
-        formData.append("tagDescription", tagName);
+    formData.append("userId", cookies.userId);
+    formData.append("tagDescription", tagName);
 
-      axios
+    axios
       .post(`${SERVER_HOST}/insert_tag_for_user`, formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
-      //Reset TagBox
-  inputRef.current.value = '';
-
+        //Reset TagBox
+        inputRef.current.value = "";
       })
       .catch((error) => {
         console.error("Error adding tag:", error);
       });
   };
-
 
   return (
     <div>
