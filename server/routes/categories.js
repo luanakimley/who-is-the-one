@@ -7,7 +7,8 @@ const {
   deleteCategory
 } = require("../controllers/categories");
 
-router.get("/categories/:userId", getCategoriesByUserId)
+router
+  .get("/categories/:userId", getCategoriesByUserId)
   .post("/insert_category", addCategory)
   .delete("/remove_category/:categoryId", deleteCategory)
 
