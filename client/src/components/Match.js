@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -8,28 +10,74 @@ import Candidate from "./Candidate";
 export default function Match() {
   const [cookies] = useCookies(["userId"]);
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+    useEffect(() => {
+        getCategories();
+    });
+    async function getCategories() {
+        const categories = await axios.get(
+          `${SERVER_HOST}/categories/${cookies.userId}`
+        );
+        if (categories.data.length) {
+          setCategories(categories.data);
+        }
+    }
+
+    const handleSelectedCategoryChange = (e) => {
+        setSelectedCategory(e.target.value);
+    };
 
   return (
     <div>
       <NavBar />
 
-      <div className="vh-100 p-4 mb-2 bg-primary text-white">
-              <div className="top-margin container">
-              <div className="container">
+      <div className="vh-100 p-6 mb-2 bg-primary text-white">
+              <div className="top-margin container p-4">
+              <div className="container p-4">
           <h1>Your Matches!</h1>
           <h2>Hello {cookies.userId}!, based on your preferences, we recommend the following: </h2>
 
+<div className="text-center">
+                      <select
+                        onChange={handleSelectedCategoryChange}
+                        className="px-4 border border-secondary rounded-pill p-2 w-25 mb-3 text-black"
+                        defaultValue="Select tags"
+                      >
+                        <option disabled>Select Category</option>
+                        {categories.length
+                          ? categories.map((category) => (
+                              <option key={category.category_id} value={category.category_id}>
+                                {category.category_name}
+                              </option>
+                            ))
+                          : null}
+                      </select>
 
-        <div className="vh-100 p-4 mb-2 bg-primary">
-                <div className="top-margin container">
-                  <h1 className="text-white text-center mb-5">Candidates</h1>
+
+                    </div>
+
+                  <h1 className="text-white text-center">Candidates</h1>
+
+                  <div className="text-center p-2">
+                                      <label className="p-2">Descending Order</label>
+                                      <label class="switch">
+                                        <input type="checkbox"/>
+                                        <span class="slider round"></span>
+                                      </label>
+                                      </div>
                   <div className="row">
+
+
+
+
         <Candidate/>
         <Candidate/>
         <Candidate/>
         <Candidate/>
-</div>
-</div>
+        <Candidate/>
+        <Candidate/>
 </div>
 
 
