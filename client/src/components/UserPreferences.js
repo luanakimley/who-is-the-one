@@ -11,11 +11,14 @@ export default function UserPreferences() {
   const location = useLocation();
   const category = location.state;
   const [tagsByCategory, setTagsByCategory] = useState([]);
+  const [preference, setPreference] = useState([]);
   const [selectedTag, setSelectedTag] = useState("");
   const [tagWeight, setTagWeight] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTagsByCategory();
+    getUserPreferencesByCategory()
   });
 
   async function getTagsByCategory() {
@@ -25,6 +28,13 @@ export default function UserPreferences() {
     setTagsByCategory(tags.data);
   }
 
+  async function getUserPreferencesByCategory() {
+      const tags = await axios.get(
+        `${SERVER_HOST}/user_preferences/${category.id}`
+      );
+      setPreference(tags.data);
+    }
+
   const handleSelectTagChange = (e) => {
     setSelectedTag(e.target.value);
   };
@@ -33,14 +43,49 @@ export default function UserPreferences() {
     setTagWeight(e.target.value);
   };
 
+  const handleSelectedPreferencesChange = (e) => {
+      setPreference(e.target.value);
+    };
+
   const insertPreferences = (e) => {
     const formData = new FormData();
     formData.append("categoryId", category.id);
     formData.append("tagId", selectedTag);
     formData.append("weight", tagWeight);
 
-    axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Content-Type": "application/json" },});
+axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Content-Type": "application/json" }});
+
   };
+
+  const calculateMatch = (e) => {
+      const formData = new FormData();
+      formData.append("userPreference", preference)
+
+    console.log(preference)
+
+    axios
+      .get(`${SERVER_HOST}/candidates_by_preference/${preference}`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        if (res.data) {
+        console.log(res.data)
+//          const category = {
+//            id: res.data[0].category_id,
+//            name: res.data[0].category_name,
+//          };
+//          navigate("/add_candidates", { state: category });
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding category:", error);
+      });
+
+    };
+
+    const backToCategory = (e) => {
+        navigate("/add_candidates", { state: category })
+    }
 
   const validateSelectedTag = () => selectedTag !== "";
 
@@ -61,11 +106,15 @@ export default function UserPreferences() {
     <div>
       <NavBar />
       <div className="p-4 mb-2 bg-primary text-white rounded">
-      <div className="container">
+      <div className="container p-5">
 
-      <h2>{category.name}</h2>
+      <h2>Category: {category.name}</h2>
 <div className="row">
       <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
+<button
+                     className="btn btn-primary" onClick={backToCategory}>
+                     Back to Category
+                     </button>
 
       <h1>My Preferences</h1>
       <select
@@ -77,8 +126,8 @@ export default function UserPreferences() {
               Select tags
             </option>
                 {tagsByCategory.length
-                  ? tagsByCategory.map((tag) => (
-                  <option key={tag.tag_id} value={tag.tag_id}>
+                  ? tagsByCategory[0].map((tag) => (
+                  <option key={tag.tag_description} value={tag.tag_id}>
                   {tag.tag_description}
                   </option>
                   ))
@@ -100,7 +149,7 @@ export default function UserPreferences() {
 </div>
                 <div className="container p-4">
                 <button
-                     className="btn btn-primary" disabled={!inputsAreAllValid} onClick={insertPreferences}>
+                     className="btn btn-primary" onClick={calculateMatch}>
                      Calculate
                      </button>
                 </div>
@@ -108,10 +157,28 @@ export default function UserPreferences() {
 
 
 <div className="w-50">
-          {TagWeightBox()}
-          {TagWeightBox()}
-          {TagWeightBox()}
-          {TagWeightBox()}
+
+<select
+                onChange={handleSelectedPreferencesChange}
+                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
+                defaultValue="Select tags"
+              >
+                <option disabled>Select Saved Preference</option>
+                {null}
+              </select>
+
+              {
+              preference.tagWeights ?
+              preference.tagWeights.map((tags) => (
+
+              <TagWeightBox key={tags.tag_id} tag={tags} categoryId={preference.categoryId}/>
+
+              ))
+ : <h2>DID Not</h2>}
+
+
+
+
 </div>
 
 

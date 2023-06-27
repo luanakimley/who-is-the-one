@@ -79,6 +79,16 @@ export default function AddCandidateTags() {
     navigate("/add_candidates", { state: state.category });
   };
 
+  const backToCandidates = (e) => {
+
+  const category = {
+        id: location.state.category.id,
+        name: location.state.category.name,
+      };
+  console.log(location.state.category.id)
+            navigate("/add_candidates", { state: category })
+        }
+
   return (
     <div>
       <NavBar />
@@ -89,6 +99,10 @@ export default function AddCandidateTags() {
               {state.category.name} - {state.candidate.name}
             </h2>
             <div className="bg-white p-5 rounded-box mt-4">
+                <button
+                className="btn btn-primary" onClick={backToCandidates}>
+                <i className="bi bi-arrow-return-left"></i>
+                </button>
               <h1 className="text-primary mb-4">Add Tags</h1>
               <input
                 ref={inputRef}
