@@ -42,15 +42,17 @@ export default function NavBar() {
             </li>
             <li className="nav-item">
               <Link className="nav-link active" to="/match">
-                 <h3>Match</h3>
+                <h3>Match</h3>
               </Link>
             </li>
           </ul>
         </div>
-        <h5 className="text-secondary">Hello, {cookies.userId}!</h5>&ensp;&ensp;
-        <button className="btn btn-primary ml-5" onClick={handleLogOut}>
-          Log out
-        </button>
+        <div className="d-lg-flex align-items-center">
+          <h5 className="text-black">Hello, {cookies.userId}!</h5>&ensp;&ensp;
+          <button className="btn btn-primary ml-5" onClick={handleLogOut}>
+            Log out
+          </button>
+        </div>
       </div>
     </nav>
   );
