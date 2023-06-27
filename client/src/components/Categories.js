@@ -16,33 +16,29 @@ export default function Categories() {
   const limit = 12;
 
   useEffect(() => {
+    async function getCategories() {
+      const categories = await axios.get(
+        `${SERVER_HOST}/categories/${cookies.userId}?limit=${limit}&page=${currentPage}`
+      );
+      if (categories.data.length) {
+        setCategories(categories.data);
+      }
+    }
     getCategories();
-  });
 
-  useEffect(() => {
+    async function getCategoriesCount() {
+      const count = await axios.get(
+        `${SERVER_HOST}/categories_count/${cookies.userId}`
+      );
+      setListLength(count.data);
+    }
+
     getCategoriesCount();
-  }, []);
+  }, [currentPage, listLength, cookies.userId]);
 
   const handleCurrentPage = (data) => {
     setCurrentPage(data);
   };
-
-  async function getCategories() {
-    const categories = await axios.get(
-      `${SERVER_HOST}/categories/${cookies.userId}?limit=${limit}&page=${currentPage}`
-    );
-    if (categories.data.length) {
-      setCategories(categories.data);
-    }
-  }
-
-  async function getCategoriesCount() {
-    const count = await axios.get(
-      `${SERVER_HOST}/categories_count/${cookies.userId}`
-    );
-    setListLength(count.data);
-  }
-
   const navigateToAddCategory = () => {
     navigate("/add_category");
   };
@@ -58,7 +54,11 @@ export default function Categories() {
   const deleteCategory = (e) => {
     axios
       .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
-      .then((res) => {})
+      .then((res) => {
+        if ((listLength - 1) % limit === 0) {
+          setCurrentPage((listLength - 1) / limit);
+        }
+      })
       .catch((error) => {
         console.error("Error deleting category:", error);
       });
