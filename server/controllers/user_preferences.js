@@ -33,7 +33,7 @@ exports.addUserPreference = (req, res) => {
   const weight = req.body.weight;
 
   const query = "INSERT INTO users_categories_preferences (category_id, tag_id, weight) VALUES (?, ?, ?);";
-  database.query(query, [categoryId, tagId, weight], (result) =>res.send("Insert user_preferences with weight ${weight}"));
+  database.query(query, [categoryId, tagId, weight], (result) =>res.send(`Insert user_preferences with weight ${weight}`));
 }
 
 

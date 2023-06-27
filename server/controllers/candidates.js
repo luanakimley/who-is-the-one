@@ -1,7 +1,6 @@
 const database = require("../db/Database");
 
 exports.getCandidatesByCategoryId = (req, res) => {
-    const userId = req.params.userId;
     const categoryId = req.params.categoryId;
     getListOfCandidatesByCategory(categoryId, (candidates) => res.json(Object.values(candidates)));
 }
@@ -26,12 +25,12 @@ exports.addCandidate = (req, res) => {
 }
 
 exports.getCandidatesByPreference = (req, res) => {
-//  const tagWeights = req.params.tagWeights;
-//
-//  getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
-//      const rankedCandidates = rankListOfCandidates(tagWeights, Object.values(candidates));
-//      res.json(rankedCandidates);
-//    });
+  const userPreference = req.params.userPreference;
+
+  getListOfCandidatesByCategory(userId, categoryName, (candidates) => {
+      const rankedCandidates = rankListOfCandidates(tagWeights, Object.values(candidates));
+      res.json(rankedCandidates);
+    });
 }
 
 function getListOfCandidatesByCategory(categoryId, callback)
@@ -39,7 +38,6 @@ function getListOfCandidatesByCategory(categoryId, callback)
   const query = "CALL get_all_candidates_by_category(?)";
 
   database.query(query, [categoryId], (result) => {
-    console.log(result)
     const candidates = {};
 
     result.forEach((row) => {
@@ -62,7 +60,10 @@ function getListOfCandidatesByCategory(categoryId, callback)
         };
       }
 
-      candidates[candidateId].tags.push(tag);
+      if (tag.tag_id !== null && tag.tag_description !== null)
+      {
+        candidates[candidateId].tags.push(tag);
+      }
     });
 
     callback(candidates);
