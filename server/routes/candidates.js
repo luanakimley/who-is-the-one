@@ -11,7 +11,7 @@ const {
 
 router
   .get("/candidates/:categoryId", getCandidatesByCategoryId)
-  .get("/candidates_by_preference/:userPreference", getCandidatesByPreference)
+  .post("/candidates_by_preference", getCandidatesByPreference)
   .delete("/remove_candidate/:candidateId", deleteCandidate)
   .post("/insert_candidate", addCandidate)
   .put("edit_category", editCandidate)

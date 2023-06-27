@@ -59,12 +59,11 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
 
   const calculateMatch = (e) => {
       const formData = new FormData();
-      formData.append("userPreference", preference)
-
+      formData.append("userPreference", preference.data)
     console.log(preference)
 
     axios
-      .get(`${SERVER_HOST}/candidates_by_preference/userPreference?object=${preference}`, formData, {
+      .post(`${SERVER_HOST}/candidates_by_preference`, formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {

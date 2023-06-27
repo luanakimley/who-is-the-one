@@ -25,9 +25,11 @@ exports.addCandidate = (req, res) => {
 }
 
 exports.getCandidatesByPreference = (req, res) => {
-  const userPreference = req.params.userPreference;
 
+  const userPreference = req.body.userPreference;
+    console.log(userPreference.category_id)
   getListOfCandidatesByCategory(userPreference.category_id, (candidates) => {
+
       const rankedCandidates = rankListOfCandidates(userPreference.tagWeights, Object.values(candidates));
       res.json(rankedCandidates);
     });
@@ -46,6 +48,7 @@ function getListOfCandidatesByCategory(categoryId, callback)
   const query = "CALL get_all_candidates_by_category(?)";
 
   database.query(query, [categoryId], (result) => {
+
     const candidates = {};
 
     result[0].forEach((row) => {

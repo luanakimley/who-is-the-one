@@ -13,6 +13,8 @@ import AddCandidateTags from "./components/AddCandidateTags";
 import Categories from "./components/Categories";
 import Tags from "./components/Tags";
 import UserPreferences from "./components/UserPreferences";
+import EditPassword from "./components/EditPassword";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   return (
@@ -54,6 +56,12 @@ function App() {
       <Route exact path="/success_message" element={<ProtectedRoute />}>
         <Route exact path="/success_message" element={<SuccessMessage />} />
       </Route>
+      <Route exact path="/edit_password" element={<ProtectedRoute />}>
+              <Route exact path="/edit_password" element={<EditPassword />} />
+      </Route>
+      <Route exact path="/profile_page" element={<ProtectedRoute />}>
+                    <Route exact path="/profile_page" element={<ProfilePage />} />
+            </Route>
     </Routes>
   );
 }

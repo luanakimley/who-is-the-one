@@ -6,6 +6,7 @@ import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import Footer from "./Footer";
 import TagBox from "./TagBox";
+import EditableInput from "./EditableInput";
 
 export default function AddCandidateTags() {
   const [tags, setTags] = useState([]);
@@ -96,8 +97,9 @@ export default function AddCandidateTags() {
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
             <h2 className="text-white text-center my-5">
-              {state.category.name} - {state.candidate.name}
+              Category: {state.category.name}
             </h2>
+            <h2 className="text-white text-center my-5"><EditableInput value={state.candidate.name}/></h2>
             <div className="bg-white p-5 rounded-box mt-4">
                 <button
                 className="btn btn-primary" onClick={backToCandidates}>

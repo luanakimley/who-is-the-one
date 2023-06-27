@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
 import { CandidateTagBox } from "./CandidateTagsBox";
+import EditableInput from "./EditableInput";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
@@ -54,6 +55,10 @@ const backToCategories = (e) => {
       });
   };
 
+    const editCategoryName = (e) => {
+   category.name = "Tits";
+   }
+
   const doneAddCandidates = (e) => {
     navigate("/user_preferences", { state: category });
   };
@@ -93,7 +98,15 @@ const backToCategories = (e) => {
       <div className="vh-100 p-4 mb-2 bg-primary">
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
-            <h2 className="text-white text-center">{category.name}</h2>
+          <div>
+            <h2 className="text-white text-center"> <EditableInput value={category.name}/> </h2>
+
+
+            </div>
+
+
+
+
             <div className="bg-white p-5 rounded-box mt-4">
                 <button
                 className="btn btn-primary" onClick={backToCategories}>
