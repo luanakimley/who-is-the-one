@@ -4,28 +4,27 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 import { CandidateTagBox } from "./CandidateTagsBox";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
   const [candidates, setCandidates] = useState([]);
+  const [done, setDone] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const category = location.state;
   const inputRef = useRef(null);
 
   async function getCandidatesForCategory() {
-    console.log(category.id);
     const candidates = await axios.get(
       `${SERVER_HOST}/candidates/${category.id}`
     );
-    console.log(candidates);
     setCandidates(candidates.data);
   }
 
   useEffect(() => {
     getCandidatesForCategory();
+    validateAllCandidatesHasTag();
   });
 
   const handleCandidateNameChange = (e) => {
@@ -67,6 +66,16 @@ export default function AddCandidates() {
     });
   };
 
+  function validateAllCandidatesHasTag() {
+    let valid = true;
+    candidates.forEach((candidate) => {
+      if (candidate.tags.length === 0) {
+        valid = false;
+      }
+    });
+    setDone(valid);
+  }
+
   return (
     <div>
       <NavBar />
@@ -96,6 +105,7 @@ export default function AddCandidates() {
             <button
               className="btn btn-outline-light mt-5 w-50 mx-auto d-block"
               onClick={doneAddCandidates}
+              disabled={!done}
             >
               Done
             </button>
