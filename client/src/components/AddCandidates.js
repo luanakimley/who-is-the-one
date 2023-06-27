@@ -10,7 +10,6 @@ import { CandidateTagBox } from "./CandidateTagsBox";
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
   const [candidates, setCandidates] = useState([]);
-  const [cookies] = useCookies(["userId"]);
   const navigate = useNavigate();
   const location = useLocation();
   const category = location.state;
@@ -20,7 +19,7 @@ export default function AddCandidates() {
     const candidates = await axios.get(
       `${SERVER_HOST}/candidates/${category.id}`
     );
-    setCandidates(candidates);
+    setCandidates(candidates.data);
   }
 
   useEffect(() => {
@@ -63,12 +62,6 @@ export default function AddCandidates() {
           id: e.target.id,
         },
       },
-    });
-  };
-
-  const removeTagFromCategory = (e) => {
-    navigate("/add_candidate_tags", {
-      //todo
     });
   };
 
