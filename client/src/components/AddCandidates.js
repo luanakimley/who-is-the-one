@@ -131,8 +131,6 @@ export default function AddCandidates() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

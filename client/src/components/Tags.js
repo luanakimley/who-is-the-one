@@ -50,7 +50,7 @@ export default function Tags() {
   return (
     <div>
       <NavBar />
-      <div className="vh-100 p-4 mb-2 bg-primary">
+      <div className="vh-100 p-4 mb-2 page-container">
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
             <div className="bg-white p-5 rounded-box">
@@ -82,7 +82,6 @@ export default function Tags() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

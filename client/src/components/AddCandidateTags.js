@@ -85,10 +85,10 @@ export default function AddCandidateTags() {
       <div className="vh-100 p-4 mb-2 bg-primary">
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
-            <h2 className="text-white text-center">
+            <h2 className="text-white text-center my-5">
               {state.category.name} - {state.candidate.name}
             </h2>
-            <div className="bg-white p-5 rounded-box mt-4">
+            <div className="bg-white p-5 rounded-box">
               <h1 className="text-primary mb-4">Add Tags</h1>
               <input
                 ref={inputRef}
@@ -158,7 +158,6 @@ export default function AddCandidateTags() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
