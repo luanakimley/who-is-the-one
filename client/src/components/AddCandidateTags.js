@@ -45,7 +45,6 @@ export default function AddCandidateTags() {
 
   const handleSelectedTagChange = (e) => {
     setSelectedTag(e.target.value);
-    console.log(selectedTag);
   };
 
   const addTagToUserAndCandidate = () => {
@@ -55,6 +54,16 @@ export default function AddCandidateTags() {
     formData.append("candidateId", state.candidate.id);
 
     axios.post(`${SERVER_HOST}/insert_tag`, formData, {
+      headers: { "Content-Type": "application/json" },
+    });
+  };
+
+  const addTagToCandidate = () => {
+    const formData = new FormData();
+    formData.append("tagId", selectedTag);
+    formData.append("candidateId", state.candidate.id);
+
+    axios.post(`${SERVER_HOST}/insert_tag_for_candidate`, formData, {
       headers: { "Content-Type": "application/json" },
     });
   };
@@ -82,6 +91,7 @@ export default function AddCandidateTags() {
               />
               <br />
               <button
+                disabled={tagName.length === 0}
                 onClick={addTagToUserAndCandidate}
                 className="btn btn-primary mt-4 w-25"
               >
@@ -96,14 +106,20 @@ export default function AddCandidateTags() {
                 <option disabled>Select tags</option>
                 {tags.length
                   ? tags.map((tag) => (
-                      <option key={tag.tag_id} value={tag.tag_description}>
+                      <option key={tag.tag_id} value={tag.tag_id}>
                         {tag.tag_description}
                       </option>
                     ))
                   : null}
               </select>
               <br />
-              <button className="btn btn-primary mt-4 w-25">Add</button>
+              <button
+                onClick={addTagToCandidate}
+                className="btn btn-primary mt-4 w-25"
+                disabled={selectedTag.length === 0}
+              >
+                Add
+              </button>
             </div>
             <button
               onClick={navigateToAddCandidates}
@@ -116,7 +132,12 @@ export default function AddCandidateTags() {
             <div className="row">
               {candidateTags.length
                 ? candidateTags.map((tag) => (
-                    <TagBox key={tag.tag_id} id={tag.tag_id} tag={tag} candidateId={state.candidate.id} />
+                    <TagBox
+                      key={tag.tag_id}
+                      id={tag.tag_id}
+                      tag={tag}
+                      candidateId={state.candidate.id}
+                    />
                   ))
                 : null}
             </div>
