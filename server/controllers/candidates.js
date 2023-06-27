@@ -28,7 +28,7 @@ exports.getCandidatesByPreference = (req, res) => {
   const userPreference = req.body.userPreference;
 
   getListOfCandidatesByCategory(userPreference.categoryId, (candidates) => {
-      const rankedCandidates = rankListOfCandidates(userPreference.weights, Object.values(candidates));
+      const rankedCandidates = rankListOfCandidates(userPreference.tagWeights, Object.values(candidates));
       res.json(rankedCandidates);
     });
 }
@@ -74,8 +74,6 @@ function rankListOfCandidates(tagWeights, categoryList)
 {
   const rankedCandidates = [];
 
-  console.log(tagWeights)
-
   for (const candidate of categoryList)
   {
     const candidateId = candidate.candidate_id;
@@ -86,19 +84,18 @@ function rankListOfCandidates(tagWeights, categoryList)
 
     for (const tag of tags)
     {
-      if (tagWeights.hasOwnProperty(tag.tag_id))
+      if (tagWeights.tag_id === tag.tag_id)
       {
-        score += tagWeights[tag.tag_id];
+        score += tagWeights.weight;
       }
     }
-
-    const percentageScore = score * 100;
 
     rankedCandidates.push(
     {
       candidate_id: candidateId,
       candidate_name: candidateName,
-      score: percentageScore,
+      tags: tags,
+      score: score,
     }
     );
   }
