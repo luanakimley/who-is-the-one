@@ -117,7 +117,6 @@ export default function Categories() {
           pageChange={handleCurrentPage}
         />
       </div>
-      <Footer />
     </div>
   );
 }

@@ -141,8 +141,6 @@ const backToCategories = (e) => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

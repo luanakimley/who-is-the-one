@@ -95,7 +95,7 @@ export default function AddCandidateTags() {
       <div className="vh-100 p-4 mb-2 bg-primary">
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
-            <h2 className="text-white text-center">
+            <h2 className="text-white text-center my-5">
               {state.category.name} - {state.candidate.name}
             </h2>
             <div className="bg-white p-5 rounded-box mt-4">
@@ -126,13 +126,19 @@ export default function AddCandidateTags() {
                 defaultValue="Select tags"
               >
                 <option disabled>Select tags</option>
-                {tags.length
-                  ? tags.map((tag) => (
+                {tags.length &&
+                  tags
+                    .filter(
+                      (tag) =>
+                        !candidateTags.some(
+                          (candidateTag) => candidateTag.tag_id === tag.tag_id
+                        )
+                    )
+                    .map((tag) => (
                       <option key={tag.tag_id} value={tag.tag_id}>
                         {tag.tag_description}
                       </option>
-                    ))
-                  : null}
+                    ))}
               </select>
               <br />
               <button
@@ -166,7 +172,6 @@ export default function AddCandidateTags() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
