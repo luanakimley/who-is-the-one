@@ -68,12 +68,8 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
       })
       .then((res) => {
         if (res.data) {
-        console.log(res.data)
-//          const category = {
-//            id: res.data[0].category_id,
-//            name: res.data[0].category_name,
-//          };
-//          navigate("/add_candidates", { state: category });
+
+          navigate("/match", { state: res.data });
         }
       })
       .catch((error) => {
@@ -163,17 +159,20 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
                 defaultValue="Select tags"
               >
                 <option disabled>Select Saved Preference</option>
-                {null}
+
               </select>
 
-              {
+
+
+
+              {preference ?
               preference.tagWeights ?
               preference.tagWeights.map((tags) => (
 
               <TagWeightBox key={tags.tag_id} tag={tags} categoryId={preference.categoryId}/>
 
               ))
- : <h2>DID Not</h2>}
+ : <h2>DID Not</h2> : null}
 
 
 

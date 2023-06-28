@@ -7,8 +7,10 @@ exports.getCategoriesByUserId = (req, res) => {
     const offset = (pageIndex - 1) * categoriesLimit;
 
 
-    const query = "SELECT categories.category_id, categories.category_name FROM categories " + "\n" +
-                   "ORDER BY categories.is_favourite DESC WHERE user_id = ? LIMIT ? OFFSET ?;"
+
+
+    const query = "SELECT categories.category_id, categories.category_name FROM categories WHERE user_id = ? ORDER BY categories.is_favourite DESC LIMIT ? OFFSET ?;"
+
     database.query(query, [userId, categoriesLimit, offset], (result) => res.json(result));
 }
 
