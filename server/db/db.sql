@@ -27,9 +27,9 @@ CREATE TABLE users
 CREATE TABLE categories
 (
   category_id INT NOT NULL AUTO_INCREMENT,
-  is_favourite BOOLEAN,
   user_id INT NOT NULL,
   category_name VARCHAR(255) NOT NULL,
+  is_favourite BOOLEAN,
   PRIMARY KEY (category_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   UNIQUE (category_name, user_id)
