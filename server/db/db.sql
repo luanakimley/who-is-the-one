@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS users_categories_preferences, tags_in_candidates, tags, can
 /*CREATE users table*/
 CREATE TABLE users
 (
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL AUTO_INCREMENT,
+  user_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
   PRIMARY KEY (user_id),
@@ -26,7 +27,8 @@ CREATE TABLE users
 CREATE TABLE categories
 (
   category_id INT NOT NULL AUTO_INCREMENT,
-  user_id VARCHAR(255) NOT NULL,
+  is_favourite BOOLEAN,
+  user_id INT NOT NULL,
   category_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (category_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -48,7 +50,7 @@ CREATE TABLE candidates
 CREATE TABLE tags
 (
   tag_id INT NOT NULL AUTO_INCREMENT,
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
   tag_description VARCHAR(255) NOT NULL,
   PRIMARY KEY (tag_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -76,6 +78,29 @@ CREATE TABLE users_categories_preferences
   UNIQUE (category_id, tag_id)
 );
 
+
+/*-----------------------------------------------------------------INDEXES-------------------------------------------------------------------------------------*/
+
+ALTER TABLE candidates
+DROP INDEX IF EXISTS candidates_categories_index;
+
+/*CREATES an index called candidates_categories_index on category_id in candidates*/
+CREATE INDEX candidates_categories_index
+ON candidates(category_id);
+
+ALTER TABLE categories
+DROP INDEX IF EXISTS user_categories_index;
+
+/*CREATES an index called user_categories_index on user_id in categories*/
+CREATE INDEX user_categories_index
+ON categories(user_id);
+
+ALTER TABLE tags
+DROP INDEX IF EXISTS user_tags_index;
+
+/*CREATES an index called user_tags_index on user_id in tags*/
+CREATE INDEX user_tags_index
+ON tags(user_id);
 
 /*-----------------------------------------------------------------TRIGGERS-------------------------------------------------------------------------------------*/
 
@@ -130,6 +155,7 @@ BEFORE DELETE ON candidates
 FOR EACH ROW
 
 DELETE FROM tags_in_candidates WHERE tags_in_candidates.candidate_id = OLD.candidate_id;
+
 
 /*-----------------------------------------------------------------PROCEDURES-------------------------------------------------------------------------------------*/
 

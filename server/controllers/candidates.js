@@ -35,11 +35,11 @@ exports.getCandidatesByPreference = (req, res) => {
 }
 
 exports.editCandidate = (req, res) => {
+    const newCandidateName = req.body.candidateName;
     const candidateId = req.body.categoryId;
-    const newCategoryName = req.body.candidateName;
 
     const query = "UPDATE candidates SET candidate_name = ? WHERE candidate_id = ?";
-    database.query(query, [categoryId], (result) => res.send(`Update candidate_name with ID ${candidateId}`));
+    database.query(query, [newCandidateName, candidateId], (result) => res.send(`Update candidate_name where ID ${candidateId}`));
 }
 
 function getListOfCandidatesByCategory(categoryId, callback)
@@ -82,29 +82,35 @@ function getListOfCandidatesByCategory(categoryId, callback)
 function rankListOfCandidates(tagWeights, categoryList)
 {
   const rankedCandidates = [];
+  const tagWeightsLookup = {};
+
+  for (const tag of tagWeights)
+  {
+    tagWeightsLookup[tag.tag_id] = tag.weight;
+  }
 
   for (const candidate of categoryList)
-  {
+   {
     const candidateId = candidate.candidate_id;
     const candidateName = candidate.candidate_name;
     const tags = candidate.tags;
-
     let score = 0;
 
     for (const tag of tags)
     {
-      if (tagWeights.tag_id === tag.tag_id)
+      if (tag.tag_id in tagWeightsLookup)
       {
-        score += tagWeights.weight;
+        score += tagWeightsLookup[tag.tag_id];
       }
     }
 
-    const rankedCandidate = {
+    const rankedCandidate =
+    {
       candidate_id: candidateId,
       candidate_name: candidateName,
       tags: tags,
       score: score
-    }
+    };
 
     rankedCandidates.push(rankedCandidate);
   }

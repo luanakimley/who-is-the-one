@@ -3,27 +3,55 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import { SERVER_HOST } from "../config/global_constants";
+import axios from "axios";
 
-export default function EditPassword() {
-  const [cookies] = useCookies(["userId"]);
+import { useState } from "react";
+
+export default function EditUser() {
+  const [cookies] = useCookies(["userId", "username", "email"]);
   const navigate = useNavigate();
 
-  return (
-    <div>
+  const handleEditUser = () => {
+    navigate("/edit_user");
+  };
+
+  const handleChangePassword = () => {
+    navigate("/edit_password");
+  };
+
+return (
+  <div className="d-flex align-items-center justify-content-center vh-100">
+    <div className="card p-5">
       <NavBar />
 
-      <div className="p-3 mb-2 bg-primary text-white">
-              <div className="top-margin container">
-
-        <div className="container p-6">
-          <h1>Hello, {cookies.userId}!</h1>
-          <h1>H{cookies.email}</h1>
-
-          <h2>Edit your Password:</h2>
-        </div>
+      <div className="container mt-5">
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            <strong>Username:</strong> {cookies.username}
+          </li>
+          <li className="list-group-item">
+            <strong>Email:</strong> {cookies.email}
+          </li>
+        </ul>
       </div>
+
+      <div className="text-center mt-4">
+        <button className="btn btn-success" onClick={handleEditUser}>
+          <i className="bi bi-pencil-square"></i> Edit Profile
+        </button>
       </div>
-      <Footer />
     </div>
-  );
+  </div>
+);
 }
+
+
+
+
+
+
+
+
+
+

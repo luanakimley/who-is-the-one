@@ -14,6 +14,7 @@ import Categories from "./components/Categories";
 import Tags from "./components/Tags";
 import UserPreferences from "./components/UserPreferences";
 import EditPassword from "./components/EditPassword";
+import EditUser from "./components/EditUser";
 import ProfilePage from "./components/ProfilePage";
 
 function App() {
@@ -59,6 +60,9 @@ function App() {
       <Route exact path="/edit_password" element={<ProtectedRoute />}>
               <Route exact path="/edit_password" element={<EditPassword />} />
       </Route>
+      <Route exact path="/edit_user" element={<ProtectedRoute />}>
+                    <Route exact path="/edit_user" element={<EditUser />} />
+            </Route>
       <Route exact path="/profile_page" element={<ProtectedRoute />}>
                     <Route exact path="/profile_page" element={<ProfilePage />} />
             </Route>

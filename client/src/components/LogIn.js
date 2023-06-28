@@ -7,7 +7,7 @@ import Navbar from "./NavBar";
 import Footer from "./Footer";
 
 export default function LogIn() {
-  const [cookies, setCookie] = useCookies(["userId"]);
+  const [cookies, setCookie] = useCookies(["userId", "email", "username"]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -25,6 +25,8 @@ export default function LogIn() {
       })
       .then((res) => {
         setCookie("userId", res.data[0].user_id);
+        setCookie("username", res.data[0].user_name);
+        setCookie("email", res.data[0].email);
         navigate("/");
       })
       .catch((error) => {
