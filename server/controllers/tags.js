@@ -2,10 +2,14 @@ const database = require("../db/Database");
 
 exports.getTagsByUserId = (req, res) => {
   const userId = req.params.userId;
+  const tagsLimit = parseInt(req.query.limit);
+  const pageIndex = parseInt(req.query.page);
+  const offset = (pageIndex - 1) * categoriesLimit;
 
-  const query = "SELECT * FROM tags WHERE user_id = ?";
+  const query = "SELECT * FROM tags WHERE user_id = ? LIMIT ? OFFSET ?;"
 
-  database.query(query, [userId], (result) => res.json(result));
+  database.query(query, [userId, tagsLimit, offset], (result) => res.json(result));
+
 };
 
 exports.getTagsByCandidateId = (req, res) => {

@@ -169,14 +169,6 @@ export default function UserPreferences() {
             </div>
 
             <div className="w-50">
-              <select
-                onChange={handleSelectedPreferencesChange}
-                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
-                defaultValue="Select tags"
-              >
-                <option disabled>Select Saved Preference</option>
-              </select>
-
               {preference ? (
                 preference.tagWeights ? (
                   preference.tagWeights.map((tags) => (

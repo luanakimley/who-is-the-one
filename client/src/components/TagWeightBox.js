@@ -46,7 +46,6 @@ export function TagWeightBox(props) {
             <h2>{props.tag.tag_description}</h2>
             <label>{pendingWeight}%</label>
             <input
-              className="p-3"
               type="range"
               value={pendingWeight}
               min="0"
