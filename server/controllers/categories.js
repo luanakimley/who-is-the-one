@@ -8,7 +8,7 @@ exports.getCategoriesByUserId = (req, res) => {
 
 
     const query = "SELECT categories.category_id, categories.category_name FROM categories " + "\n" +
-                   "WHERE user_id = ? LIMIT ? OFFSET ?;"
+                   "ORDER BY categories.is_favourite DESC WHERE user_id = ? LIMIT ? OFFSET ?;"
     database.query(query, [userId, categoriesLimit, offset], (result) => res.json(result));
 }
 
@@ -46,4 +46,12 @@ exports.editCategory =  (req, res) => {
 
     const query = "UPDATE categories SET category_name = ? WHERE category_id = ?";
     database.query(query, [newCategoryName, categoryId], (result) => res.send(`Update category_name where ID ${categoryId}`));
+}
+
+exports.editCategoryFavourite =  (req, res) => {
+    const isFavourite = req.body.isFavourite;
+    const categoryId = req.body.categoryId;
+
+    const query = "UPDATE categories SET is_favourite = ? WHERE category_id = ?";
+    database.query(query, [isFavourite, categoryId], (result) => res.send(`Update is_favourite where ID ${categoryId}`));
 }
