@@ -50,21 +50,28 @@ export default function EditUser() {
     navigate("/profile_page");
   };
 
+  const backToProfile = () => {
+    navigate("/profile_page");
+  };
+
   return (
     <div>
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
         <div className="bg-white p-5 rounded-box">
           <h1 className="text-center mb-5 text-primary">
-            Edit User&nbsp;<i className="bi bi-pencil-square"></i>
+            <button className="btn btn-primary" onClick={backToProfile}>
+              <i className="bi bi-arrow-return-left"></i>
+            </button>
+            &nbsp;Edit User
           </h1>
-          <form onSubmit={handleSubmit}>
+          <form>
             <UserInputField
               id="username"
               type="text"
               name="username"
               placeholder="Username"
-              value={newUsername}
+              value={cookies.username}
               onChange={handleUsernameChange}
               label="Username"
               required
@@ -75,20 +82,18 @@ export default function EditUser() {
               type="email"
               name="email"
               placeholder="Email"
-              value={newEmail}
+              value={cookies.email}
               onChange={handleEmailChange}
               label="Email"
               required
             />
             <button
-              type="submit"
               className="btn btn-primary w-100 mt-4"
               onClick={handleEditPassword}
             >
               Edit Password
             </button>
             <button
-              type="submit"
               className="btn btn-primary w-100 mt-2"
               onClick={handleSubmit}
             >

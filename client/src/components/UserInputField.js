@@ -19,7 +19,7 @@ export default function UserInputField({
         type={type}
         name={name}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
         onChange={onChange}
         required={required}
         autoFocus={autoFocus}
