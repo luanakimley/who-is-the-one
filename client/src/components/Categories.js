@@ -22,6 +22,8 @@ export default function Categories() {
       );
       if (categories.data.length) {
         setCategories(categories.data);
+      } else {
+        setCategories([]);
       }
     }
     getCategories();
