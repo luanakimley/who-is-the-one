@@ -8,7 +8,7 @@ exports.getUserPreferencesByCategoryId = (req, res) => {
 
         database.query(query, [categoryId], (result) => {
         if (result.length === 0) {
-          res.status(404).json({ error: "No preferences found for the given category." });
+          res.json(null);
           return;
         }
         const preferences = {

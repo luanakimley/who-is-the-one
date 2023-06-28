@@ -32,6 +32,7 @@ export default function UserPreferences() {
       const tags = await axios.get(
         `${SERVER_HOST}/user_preferences/${category.id}`
       );
+
       setPreference(tags.data);
     }
 
@@ -59,8 +60,7 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
 
   const calculateMatch = (e) => {
       const formData = new FormData();
-      formData.append("userPreference", preference.data)
-    console.log(preference)
+      formData.append("userPreference", JSON.stringify(preference))
 
     axios
       .post(`${SERVER_HOST}/candidates_by_preference`, formData, {
