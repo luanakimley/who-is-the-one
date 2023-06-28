@@ -58,7 +58,27 @@ export default function UserPreferences() {
     });
   };
 
+
+   function getTotalPercentMatch(callback){
+
+    let percent = 0;
+
+    for(const tag in preference.tagWeights)
+    {
+    console.log("HERE")
+        percent += tag.weight;
+    }
+    callback(percent)
+  }
+
   const calculateMatch = (e) => {
+    e.preventDefault();
+
+    getTotalPercentMatch((percent) =>{
+    console.log(percent)
+        return;
+    });
+
     const formData = new FormData();
     formData.append("userPreference", JSON.stringify(preference));
 
@@ -163,7 +183,7 @@ export default function UserPreferences() {
                     <TagWeightBox
                       key={tags.tag_id}
                       tag={tags}
-                      categoryId={preference.categoryId}
+                      category_id={preference.category_id}
                     />
                   ))
                 ) : (

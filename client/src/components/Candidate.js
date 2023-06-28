@@ -8,8 +8,6 @@ import { SERVER_HOST } from "../config/global_constants";
 
 export default function Candidate(props)
 {
-
-    console.log(props.props)
     return <div className="col col-lg-4 p-4">
     <div className="card">
       <div className="card-body">
