@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function UserInputField({
   id,
   type,
@@ -8,8 +6,7 @@ export default function UserInputField({
   value,
   onChange,
   label,
-  required,
-  autoFocus,
+  required
 }) {
   return (
     <div className="form-floating mb-3">
@@ -21,7 +18,7 @@ export default function UserInputField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        required={required}
+        required={required} // Convert the required prop to a boolean value
       />
       <label htmlFor={id}>{label}</label>
     </div>

@@ -26,13 +26,14 @@ export default function EditUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // Handle user edit logic here
-    if (newUsername === "") {
-      return;
+    if (newUsername === "")
+    {
     }
 
-    if (newEmail === "") {
-      return;
+    if (newEmail === "")
+    {
     }
 
     let formData = new FormData();
@@ -47,8 +48,6 @@ export default function EditUser() {
        setCookie("username", newUsername);
        setCookie("email", newEmail);
 
-
-
     navigate("/profile_page");
   };
 
@@ -62,7 +61,7 @@ export default function EditUser() {
             Edit User&nbsp;<i className="bi bi-pencil-square"></i>
           </h1>
           <form onSubmit={handleSubmit}>
-            <UserInputField
+          <UserInputField
               id="username"
               type="text"
               name="username"
@@ -71,8 +70,8 @@ export default function EditUser() {
               onChange={handleUsernameChange}
               label="Username"
               required
-            />
-            <UserInputField
+          />
+          <UserInputField
               id="email"
               type="email"
               name="email"
@@ -81,7 +80,7 @@ export default function EditUser() {
               onChange={handleEmailChange}
               label="Email"
               required
-            />
+           />
           <button type="submit" className="user-button btn btn-primary w-100 mt-2" onClick={handleEditPassword}>
               Edit Password
             </button>

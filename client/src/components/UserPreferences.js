@@ -159,17 +159,13 @@ axios.post(`${SERVER_HOST}/insert_user_preference`, formData, {headers: { "Conte
                 defaultValue="Select tags"
               >
                 <option disabled>Select Saved Preference</option>
-
               </select>
-
-
-
 
               {preference ?
               preference.tagWeights ?
               preference.tagWeights.map((tags) => (
 
-              <TagWeightBox key={tags.tag_id} tag={tags} categoryId={preference.categoryId}/>
+              <TagWeightBox key={tags.tag_id} tag={tags} category_id={preference.category_id}/>
 
               ))
  : <h2>DID Not</h2> : null}

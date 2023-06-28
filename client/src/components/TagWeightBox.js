@@ -7,14 +7,14 @@ export function TagWeightBox(props) {
 
 
 const deleteTagFromPreferences = (e) => {
+
         axios
-          .delete(`${SERVER_HOST}/remove_user_preference/${e.target.id}/${props.tag.tag_id}`)
+          .delete(`${SERVER_HOST}/remove_user_preference/${props.category_id}/${props.tag.tag_id}`)
           .then((res) => {})
           .catch((error) => {
             console.error("Error deleting category:", error);
           });
   };
-
 
   return (
     <div className="col">
@@ -27,8 +27,6 @@ const deleteTagFromPreferences = (e) => {
       <input className="p-3" readOnly type="range" value={props.tag.weight}></input>
       <label>100%</label>
       <i
-      key={props.category}
-       id={props.categoryId}
       onClick={deleteTagFromPreferences}
       className="fa-2x bi bi-trash position-absolute top-0 end-0"></i>
 
