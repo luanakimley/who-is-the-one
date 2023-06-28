@@ -55,14 +55,17 @@ export default function Tags() {
           <div className="w-50 m-5 align-self-center">
             <div className="bg-white p-5 rounded-box">
               <h1 className="text-primary mb-4">Add tags</h1>
-              <input
-                ref={inputRef}
-                type="text"
-                id="tagBox"
-                onChange={handleTagNameChange}
-                placeholder="Tag name"
-                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
-              />
+              <div className="form-floating">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  id="tagBox"
+                  onChange={handleTagNameChange}
+                  placeholder="Tag name"
+                  className="form-control rounded-pill w-75 mb-3"
+                />
+                <label htmlFor="tagBox">Tag name</label>
+              </div>
               <br />
               <button
                 className="btn btn-primary mt-4 w-25"

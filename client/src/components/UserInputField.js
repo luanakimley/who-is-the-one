@@ -14,7 +14,7 @@ export default function UserInputField({
   return (
     <div className="form-floating mb-3">
       <input
-        className="form-control"
+        className="form-control rounded-pill"
         id={id}
         type={type}
         name={name}

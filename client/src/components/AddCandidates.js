@@ -97,23 +97,28 @@ export default function AddCandidates() {
           <div className="w-50 m-5 align-self-center">
             <div>
               <h2 className="text-white text-center">
-                {" "}
                 <EditableInput value={category.name} />{" "}
               </h2>
             </div>
 
             <div className="bg-white p-5 rounded-box mt-4">
-              <button className="btn btn-primary" onClick={backToCategories}>
-                <i className="bi bi-arrow-return-left"></i>
-              </button>
-              <h1 className="text-primary mb-4">Add Candidates</h1>
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Candidate name"
-                onChange={handleCandidateNameChange}
-                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
-              />
+              <h1 className="text-primary mb-5">
+                <button className="btn btn-primary" onClick={backToCategories}>
+                  <i className="bi bi-arrow-return-left"></i>
+                </button>
+                &ensp; Add Candidates
+              </h1>
+              <div className="form-floating">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Candidate name"
+                  onChange={handleCandidateNameChange}
+                  id="candidate"
+                  className="form-control rounded-pill w-75 mb-3"
+                />
+                <label htmlFor="candidate">Candidate name</label>
+              </div>
               <br />
 
               <button

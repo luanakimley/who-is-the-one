@@ -21,33 +21,31 @@ export default function EditUser() {
   };
 
   const handleEditPassword = (e) => {
-      navigate("/edit_password");
-    };
+    navigate("/edit_password");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle user edit logic here
-    if (newUsername === "") {
-      return;
-    }
-
-    if (newEmail === "") {
-      return;
-    }
 
     let formData = new FormData();
-          formData.append("email", newEmail);
-          formData.append("username", newUsername);
-          formData.append("userId", cookies.userId);
+    if (newEmail !== "") {
+      formData.append("email", newEmail);
+      setCookie("email", newEmail);
+    } else {
+      formData.append("email", cookies.email);
+    }
 
-      axios.put(`${SERVER_HOST}/edit_username_email`, formData, {
-          headers: { "Content-Type": "application/json" },
-        })
+    if (newUsername !== "") {
+      formData.append("username", newUsername);
+      setCookie("username", newUsername);
+    } else {
+      formData.append("username", cookies.username);
+    }
+    formData.append("userId", cookies.userId);
 
-       setCookie("username", newUsername);
-       setCookie("email", newEmail);
-
-
+    axios.put(`${SERVER_HOST}/edit_username_email`, formData, {
+      headers: { "Content-Type": "application/json" },
+    });
 
     navigate("/profile_page");
   };
@@ -56,8 +54,8 @@ export default function EditUser() {
     <div>
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
-        <div>
-          <h1 className="text-center mb-4">
+        <div className="bg-white p-5 rounded-box">
+          <h1 className="text-center mb-5 text-primary">
             Edit User&nbsp;<i className="bi bi-pencil-square"></i>
           </h1>
           <form onSubmit={handleSubmit}>
@@ -82,10 +80,18 @@ export default function EditUser() {
               label="Email"
               required
             />
-          <button type="submit" className="btn btn-primary w-100 mt-2" onClick={handleEditPassword}>
+            <button
+              type="submit"
+              className="btn btn-primary w-100 mt-4"
+              onClick={handleEditPassword}
+            >
               Edit Password
             </button>
-            <button type="submit" className="btn btn-primary w-100 mt-2" onClick={handleSubmit}>
+            <button
+              type="submit"
+              className="btn btn-primary w-100 mt-2"
+              onClick={handleSubmit}
+            >
               Save
             </button>
           </form>

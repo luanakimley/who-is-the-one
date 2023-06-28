@@ -49,18 +49,26 @@ export default function LogIn() {
         <div className="w-50 m-5">
           <div className="bg-white p-5 rounded-box mt-4">
             <h1 className="text-primary text-center mb-4">Welcome</h1>
-            <input
-              className="form-control rounded-pill mb-3"
-              type="email"
-              onChange={handleEmailChange}
-              placeholder="E-mail"
-            />
-            <input
-              className="form-control rounded-pill mb-4"
-              type="password"
-              onChange={handlePasswordChange}
-              placeholder="Password"
-            />
+            <div className="form-floating">
+              <input
+                id="email"
+                className="form-control rounded-pill mb-3"
+                type="email"
+                onChange={handleEmailChange}
+                placeholder="E-mail"
+              />
+              <label htmlFor="email">Email</label>
+            </div>
+            <div className="form-floating">
+              <input
+                id="password"
+                className="form-control rounded-pill mb-4"
+                type="password"
+                onChange={handlePasswordChange}
+                placeholder="Password"
+              />
+              <label htmlFor="password">Password</label>
+            </div>
             <div className="mb-3 text-center">
               <Link className="text-secondary" to="/register">
                 I don't have an account

@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 
 export default function Home() {
-  const [cookies] = useCookies(["userId"]);
+  const [cookies] = useCookies(["username"]);
   const navigate = useNavigate();
 
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <div className="p-3 mb-2 bg-primary text-white">
         <div className="container">
           <h1>Home</h1>
-          <h2>Hello {cookies.userId}!</h2>
+          <h2>Hello {cookies.username}!</h2>
         </div>
       </div>
       <Footer />

@@ -81,14 +81,13 @@ export default function AddCandidateTags() {
   };
 
   const backToCandidates = (e) => {
-
-  const category = {
-        id: location.state.category.id,
-        name: location.state.category.name,
-      };
-  console.log(location.state.category.id)
-            navigate("/add_candidates", { state: category })
-        }
+    const category = {
+      id: location.state.category.id,
+      name: location.state.category.name,
+    };
+    console.log(location.state.category.id);
+    navigate("/add_candidates", { state: category });
+  };
 
   return (
     <div>
@@ -96,35 +95,40 @@ export default function AddCandidateTags() {
       <div className="vh-100 p-4 mb-2 bg-primary">
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
-            <h2 className="text-white text-center my-5">
+            <h2 className="text-white text-center mt-5">
               Category: {state.category.name}
+              <EditableInput value={state.candidate.name} />
             </h2>
-            <h2 className="text-white text-center my-5"><EditableInput value={state.candidate.name}/></h2>
             <div className="bg-white p-5 rounded-box mt-4">
-                <button
-                className="btn btn-primary" onClick={backToCandidates}>
-                <i className="bi bi-arrow-return-left"></i>
+              <h1 className="text-primary mb-5">
+                <button className="btn btn-primary" onClick={backToCandidates}>
+                  <i className="bi bi-arrow-return-left"></i>
                 </button>
-              <h1 className="text-primary mb-4">Add Tags</h1>
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Tag name"
-                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
-                onChange={handleTagNameChange}
-              />
+                &ensp; Add Tags
+              </h1>
+              <div className="form-floating">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Tag name"
+                  className="form-control rounded-pill w-75 mb-3"
+                  onChange={handleTagNameChange}
+                  id="tagInput"
+                />
+                <label htmlFor="tagInput">Tag name</label>
+              </div>
               <br />
               <button
                 disabled={tagName.length === 0}
                 onClick={addTagToUserAndCandidate}
-                className="btn btn-primary mt-4 w-25"
+                className="btn btn-primary mt-2 w-25"
               >
                 Add
               </button>
-              <h4 className="my-4 text-center text-primary">or</h4>
+              <h4 className="my-3 text-center text-primary">or</h4>
               <select
                 onChange={handleSelectedTagChange}
-                className="px-4 border border-secondary rounded-pill p-2 w-75 mb-3"
+                className="form-select form-select-lg rounded-pill w-75 mb-3 fs-6"
                 defaultValue="Select tags"
               >
                 <option disabled>Select tags</option>
@@ -145,7 +149,7 @@ export default function AddCandidateTags() {
               <br />
               <button
                 onClick={addTagToCandidate}
-                className="btn btn-primary mt-4 w-25"
+                className="btn btn-primary mt-3 w-25"
                 disabled={selectedTag.length === 0}
               >
                 Add
@@ -153,7 +157,7 @@ export default function AddCandidateTags() {
             </div>
             <button
               onClick={navigateToAddCandidates}
-              className="btn btn-outline-light mt-5 w-50 mx-auto d-block"
+              className="btn btn-outline-light mt-4 w-50 mx-auto d-block"
             >
               Done
             </button>

@@ -51,24 +51,36 @@ export default function Register() {
         <div className="w-50 m-5">
           <div className="bg-white p-5 rounded-box mt-4">
             <h1 className="text-primary text-center mb-4">Welcome</h1>
-            <input
-              className="form-control rounded-pill mb-3"
-              type="text"
-              onChange={handleUsernameChange}
-              placeholder="Username"
-            />
-            <input
-              className="form-control rounded-pill mb-3"
-              type="email"
-              onChange={handleEmailChange}
-              placeholder="E-mail"
-            />
-            <input
-              className="form-control rounded-pill mb-4"
-              type="password"
-              onChange={handlePasswordChange}
-              placeholder="Password"
-            />
+            <div className="form-floating">
+              <input
+                className="form-control rounded-pill mb-3"
+                type="text"
+                onChange={handleUsernameChange}
+                placeholder="Username"
+                id="username"
+              />
+              <label htmlFor="username">Username</label>
+            </div>
+            <div className="form-floating">
+              <input
+                className="form-control rounded-pill mb-3"
+                type="email"
+                onChange={handleEmailChange}
+                placeholder="E-mail"
+                id="email"
+              />
+              <label htmlFor="email">E-mail</label>
+            </div>
+            <div className="form-floating">
+              <input
+                className="form-control rounded-pill mb-4"
+                type="password"
+                onChange={handlePasswordChange}
+                placeholder="Password"
+                id="password"
+              />
+              <label htmlFor="password">Password</label>
+            </div>
             <div className="mb-3 text-center">
               <Link className="text-secondary" to="/login">
                 I have an account
