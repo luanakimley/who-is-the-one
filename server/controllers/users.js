@@ -27,3 +27,29 @@ exports.deleteUser = (req, res) => {
   const query = "DELETE FROM users WHERE user_id = ?";
   database.query(query, [userId], (result) => res.send(`Delete user with ID ${userId}`));
 }
+
+exports.editPassword =  (req, res) => {
+    const newPassword = req.body.password;
+    const userId = req.body.userId;
+
+    const query = "UPDATE users SET user_password = ? WHERE user_id = ?";
+    database.query(query, [newPassword, userId], (result) => res.send(`Update password where ID ${userId}`));
+}
+
+exports.editEmail =  (req, res) => {
+    const newEmail = req.body.email;
+    const userId = req.body.userId;
+
+    const query = "UPDATE users SET email = ? WHERE user_id = ?";
+    database.query(query, [newEmail, userId], (result) => res.send(`Update email where ID ${userId}`));
+}
+
+exports.editUserId =  (req, res) => {
+    const newUserId = req.body.userId;
+    const email = req.body.email;
+
+    const query = "UPDATE users SET user_id = ? WHERE email = ?";
+    database.query(query, [newUserId, email], (result) => res.send("Update user_id"));
+}
+
+

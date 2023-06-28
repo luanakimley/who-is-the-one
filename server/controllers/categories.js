@@ -41,9 +41,9 @@ exports.deleteCategory = (req, res) => {
 }
 
 exports.editCategory =  (req, res) => {
-    const categoryId = req.body.categoryId;
     const newCategoryName = req.body.categoryName;
+    const categoryId = req.body.categoryId;
 
     const query = "UPDATE categories SET category_name = ? WHERE category_id = ?";
-    database.query(query, [categoryId], (result) => res.send(`Update category_name with ID ${categoryId}`));
+    database.query(query, [newCategoryName, categoryId], (result) => res.send(`Update category_name where ID ${categoryId}`));
 }
