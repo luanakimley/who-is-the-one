@@ -3,8 +3,6 @@ import { SERVER_HOST } from "../config/global_constants";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo_WITO_white.png";
 
-import Footer from "./Footer";
-
 import axios from "axios";
 
 export default function Register() {
@@ -100,7 +98,6 @@ export default function Register() {
           <img width={370} src={logo} alt="WITO Logo" />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

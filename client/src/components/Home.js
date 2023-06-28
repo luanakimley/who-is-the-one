@@ -2,7 +2,6 @@ import React from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
-import Footer from "./Footer";
 
 export default function Home() {
   const [cookies] = useCookies(["username"]);
@@ -18,7 +17,6 @@ export default function Home() {
           <h2>Hello {cookies.username}!</h2>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

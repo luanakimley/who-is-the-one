@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import NavBar from "./NavBar";
-import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "./Pagination";

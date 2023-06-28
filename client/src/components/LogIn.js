@@ -5,7 +5,6 @@ import { SERVER_HOST } from "../config/global_constants";
 import logo from "../assets/logo_WITO_white.png";
 
 import axios from "axios";
-import Footer from "./Footer";
 
 export default function LogIn() {
   const [cookies, setCookie] = useCookies(["userId", "email", "username"]);
@@ -85,7 +84,6 @@ export default function LogIn() {
           <img width={370} src={logo} alt="WITO Logo" />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
