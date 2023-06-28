@@ -77,6 +77,29 @@ CREATE TABLE users_categories_preferences
 );
 
 
+/*-----------------------------------------------------------------INDEXES-------------------------------------------------------------------------------------*/
+
+ALTER TABLE candidates
+DROP INDEX IF EXISTS candidates_categories_index;
+
+/*CREATES an index called candidates_categories_index on category_id in candidates*/
+CREATE INDEX candidates_categories_index
+ON candidates(category_id);
+
+ALTER TABLE categories
+DROP INDEX IF EXISTS user_categories_index;
+
+/*CREATES an index called user_categories_index on user_id in categories*/
+CREATE INDEX user_categories_index
+ON categories(user_id);
+
+ALTER TABLE tags
+DROP INDEX IF EXISTS user_tags_index;
+
+/*CREATES an index called user_tags_index on user_id in tags*/
+CREATE INDEX user_tags_index
+ON tags(user_id);
+
 /*-----------------------------------------------------------------TRIGGERS-------------------------------------------------------------------------------------*/
 
 /*DELETE TRIGGERS to remove categories details*/
@@ -130,6 +153,7 @@ BEFORE DELETE ON candidates
 FOR EACH ROW
 
 DELETE FROM tags_in_candidates WHERE tags_in_candidates.candidate_id = OLD.candidate_id;
+
 
 /*-----------------------------------------------------------------PROCEDURES-------------------------------------------------------------------------------------*/
 
