@@ -14,12 +14,14 @@ exports.userLogin = (req, res) => {
 }
 
 exports.userRegister = (req, res) => {
-  const userName = req.body.username;
+  const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
 
-  const query = "INSERT INTO users (user_id, email, user_password) VALUES (?, ?, ?);";
-  database.query(query, [userName, email, password], (result) => res.send(`Insert user with ID ${result.userId}`));
+  console.log(username)
+
+  const query = "INSERT INTO users (user_name, email, user_password) VALUES (?, ?, ?);";
+  database.query(query, [username, email, password], (result) => res.send("Insert user"));
 }
 
 exports.deleteUser = (req, res) => {
