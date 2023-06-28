@@ -6,9 +6,6 @@ exports.getCategoriesByUserId = (req, res) => {
     const pageIndex = parseInt(req.query.page);
     const offset = (pageIndex - 1) * categoriesLimit;
 
-
-
-
     const query = "SELECT categories.category_id, categories.category_name FROM categories WHERE user_id = ? ORDER BY categories.is_favourite DESC LIMIT ? OFFSET ?;"
 
     database.query(query, [userId, categoriesLimit, offset], (result) => res.json(result));
@@ -25,10 +22,11 @@ exports.getCategoriesCountByUserId = (req, res) => {
 exports.addCategory = (req, res) => {
     const categoryName = req.body.categoryName;
     const userId = req.body.userId;
+    const isFavourite = false;
 
-    const queryInsert = "INSERT INTO categories (user_id, category_name) VALUES (?, ?);";
+    const queryInsert = "INSERT INTO categories (user_id, category_name, is_favourite) VALUES (?, ?, ?);";
 
-    database.query(queryInsert, [userId, categoryName], (result) => {
+    database.query(queryInsert, [userId, categoryName, isFavourite], (result) => {
 
         const querySelect = "SELECT * FROM categories WHERE category_name = ? AND user_id = ?";
 
