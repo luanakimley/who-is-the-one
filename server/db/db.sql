@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS users_categories_preferences, tags_in_candidates, tags, can
 /*CREATE users table*/
 CREATE TABLE users
 (
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL AUTO_INCREMENT,
+  user_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
   PRIMARY KEY (user_id),
@@ -26,7 +27,7 @@ CREATE TABLE users
 CREATE TABLE categories
 (
   category_id INT NOT NULL AUTO_INCREMENT,
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
   category_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (category_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -48,7 +49,7 @@ CREATE TABLE candidates
 CREATE TABLE tags
 (
   tag_id INT NOT NULL AUTO_INCREMENT,
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
   tag_description VARCHAR(255) NOT NULL,
   PRIMARY KEY (tag_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
