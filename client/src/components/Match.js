@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import Candidate from "./Candidate";
@@ -12,6 +12,8 @@ export default function Match() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+    const location = useLocation();
+  const results = location.state;
 
     useEffect(() => {
         getCategories();
@@ -69,15 +71,16 @@ export default function Match() {
                                       </div>
                   <div className="row">
 
+        {
+        results.length ?
+        results.map((candidate, index) => (
+                <Candidate key={candidate.candidate_id} props={candidate} index={index + 1}/>
+                )) : null
+        }
 
 
 
-        <Candidate/>
-        <Candidate/>
-        <Candidate/>
-        <Candidate/>
-        <Candidate/>
-        <Candidate/>
+
 </div>
 
 

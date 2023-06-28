@@ -1,29 +1,36 @@
 import React from "react";
 import axios from "axios";
+import { useEffect, useState, useRef } from "react";
+
 import { SERVER_HOST } from "../config/global_constants";
+
+
 
 export default function Candidate(props)
 {
+
+    console.log(props.props)
     return <div className="col col-lg-4 p-4">
     <div className="card">
       <div className="card-body">
         <div>
-          <h3 className="text-primary">Candidate</h3>
+          <h1 className="text-primary">{props.index}</h1>
+          <h3 className="text-primary">{props.props.candidate_name}</h3>
 
 
         </div>
-        <div>
-            <li className="bg-primary rounded p-2 m-2">Tag1</li>
-            <li className="bg-primary rounded p-2 m-2">Tag2</li>
-            <li className="bg-primary rounded p-2 m-2">Tag3</li>
-            <li className="bg-primary rounded p-2 m-2">Tag4</li>
+        <div className="text-primary">
+        <h1>Score: {props.props.score}</h1>
+
+        <div className="text-white">
+
+        {props.props.tags.map((tag) => (
+            <li key= {tag.tag_id} className="bg-primary rounded p-2 m-2">{tag.tag_description}</li>
+            ))
+}
+        </div>
         </div>
 
-        <button
-          className="btn btn-danger position-absolute top-0 end-0"
-        >
-          <i className="bi bi-trash"></i>
-        </button>
       </div>
     </div>
   </div>

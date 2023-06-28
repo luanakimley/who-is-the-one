@@ -40,11 +40,7 @@ export default function NavBar() {
                 <h3>All Tags</h3>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link active" to="/match">
-                <h3>Match</h3>
-              </Link>
-            </li>
+
 
           </ul>
         </div>
