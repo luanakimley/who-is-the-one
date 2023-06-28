@@ -146,6 +146,14 @@ export default function Categories() {
                 ))
               : null}
           </div>
+          <div className="pagination-container text-center">
+            <Pagination
+              currentPage={currentPage}
+              listLength={listLength}
+              limit={limit}
+              pageChange={handleCurrentPage}
+            />
+          </div>
         </div>
         <button
           onClick={navigateToAddCategory}
@@ -155,12 +163,6 @@ export default function Categories() {
             <i className="bi bi-plus-circle"></i>&ensp;Add
           </h5>
         </button>
-        <Pagination
-          currentPage={currentPage}
-          listLength={listLength}
-          limit={limit}
-          pageChange={handleCurrentPage}
-        />
       </div>
     </div>
   );

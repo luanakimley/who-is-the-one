@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Search from "./Search";
-import Match from "./Match";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -18,7 +16,10 @@ export default function NavBar() {
     <nav className="fixed-top bg-white navbar navbar-expand-lg bg-body-tertiary rounded">
       <div className="container-fluid">
         <a className="navbar-brand col-lg-3 me-0" href="/">
-          <h2>Who Is The One?</h2>
+          <div>
+            <span className="fs-3 heading">WITO: &ensp;</span>
+            <span className="question">Who is the one?</span>
+          </div>
         </a>
         <div
           className="collapse navbar-collapse d-lg-flex"

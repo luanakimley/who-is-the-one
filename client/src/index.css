@@ -5,7 +5,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.heading {
   font-family: "Lilita One", cursive;
 }
 
@@ -104,10 +105,12 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.pagination-float {
+.pagination-container {
   position: fixed;
-  top: 130px;
-  left: 40px;
+  bottom: 0;
+  left: 46%;
+  width: 100%;
+  padding: 10px;
 }
 
 .user-button {

@@ -21,7 +21,13 @@ export default function TagBoxReset(props) {
           .delete(`${SERVER_HOST}/remove_tag/${e.target.id}`, {
             headers: { "Content-Type": "application/json" },
           })
-          .then((res) => {})
+          .then((res) => {
+            if (props.listLength) {
+              if ((props.listLength - 1) % props.limit === 0) {
+                props.setCurrentPage((props.listLength - 1) / props.limit);
+              }
+            }
+          })
           .catch((error) => {
             console.error("Error deleting tag:", error);
           });
