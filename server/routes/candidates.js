@@ -14,7 +14,7 @@ router
   .post("/candidates_by_preference", getCandidatesByPreference)
   .delete("/remove_candidate/:candidateId", deleteCandidate)
   .post("/insert_candidate", addCandidate)
-  .put("edit_category", editCandidate)
+  .put("/edit_category", editCandidate)
 
 module.exports = router;
 

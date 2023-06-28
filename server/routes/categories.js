@@ -14,6 +14,6 @@ router
   .get("/categories_count/:userId", getCategoriesCountByUserId)
   .post("/insert_category", addCategory)
   .delete("/remove_category/:categoryId", deleteCategory)
-  .put("edit_category", editCategory)
+  .put("/edit_category", editCategory)
 
 module.exports = router;
