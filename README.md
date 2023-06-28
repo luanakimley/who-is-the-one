@@ -9,6 +9,7 @@ The following technologies are used in this project:
 * CSS
 * SQL
 * JavaScript
+* Node.js
   
 ## Features
 1. User registration and authentication
