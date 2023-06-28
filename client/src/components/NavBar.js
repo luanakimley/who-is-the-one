@@ -50,7 +50,6 @@ export default function NavBar() {
         </div>
 
         <div className="d-lg-flex align-items-center">
-          <h5 className="text-black">Hello, {cookies.userId}!</h5>&ensp;&ensp;
 
           <li className="nav-item">
                                             <Link className="nav-link active" to="/profile_page">

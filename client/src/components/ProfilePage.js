@@ -16,7 +16,7 @@ export default function EditPassword() {
               <div className="top-margin container">
 
         <div className="container p-6">
-          <h1>Hello {cookies.userId}!</h1>
+          <h1>Hello, {cookies.userId}!</h1>
           <h1>H{cookies.email}</h1>
 
           <h2>Edit your Password:</h2>
