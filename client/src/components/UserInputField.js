@@ -18,7 +18,7 @@ export default function UserInputField({
         placeholder={placeholder}
         defaultValue={value}
         onChange={onChange}
-        required={required} // Convert the required prop to a boolean value
+        required={required}
       />
       <label htmlFor={id}>{label}</label>
     </div>
