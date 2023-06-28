@@ -110,3 +110,15 @@ input:checked + .slider:before {
   bottom: 10px;
   left: 40px;
 }
+
+.user-button {
+  border: 3px solid white;
+}
+
+.user-button:hover {
+  border: 3px solid white;
+}
+
+.user-text-heading {
+  color: white;
+}

@@ -55,7 +55,8 @@ export default function EditUser() {
   };
 
   return (
-    <div>
+
+   <div>
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
         <div className="bg-white p-5 rounded-box">
@@ -75,7 +76,6 @@ export default function EditUser() {
               onChange={handleUsernameChange}
               label="Username"
               required
-              autoFocus
             />
             <UserInputField
               id="email"

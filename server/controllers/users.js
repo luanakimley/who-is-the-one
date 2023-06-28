@@ -18,10 +18,15 @@ exports.userRegister = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  console.log(username)
-
   const query = "INSERT INTO users (user_name, email, user_password) VALUES (?, ?, ?);";
   database.query(query, [username, email, password], (result) => res.send("Insert user"));
+}
+
+exports.getUserPassword = (req, res) => {
+  const userId = req.params.userId;
+
+  const query =  "SELECT user_password FROM users WHERE user_id = ?;";
+  database.query(query, [userId], (result) => res.json(result));
 }
 
 exports.deleteUser = (req, res) => {

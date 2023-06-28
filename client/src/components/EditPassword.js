@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import PasswordInput from "./UserInputField";
+import axios from "axios";
+import { useCookies } from "react-cookie";
+import { SERVER_HOST } from "../config/global_constants";
 
 export default function EditPassword() {
+  const [cookies] = useCookies(["userId"]);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -21,25 +25,53 @@ export default function EditPassword() {
     setConfirmNewPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let currentPasswordErr = "";
+    let newPasswordErr = "";
+    let confirmNewPasswordErr = "";
 
-    e.preventDefault();
+    const passwordInDatabase = await axios.get(
+      `${SERVER_HOST}/password/${cookies.userId}`
+    );
+
     // Handle password change logic here
     if (currentPassword === "") {
-      return;
+      currentPasswordErr = "Current password is required!";
+    }
+
+    if (currentPassword !== passwordInDatabase.data[0].user_password) {
+      currentPasswordErr = "Current password is incorrect!";
     }
 
     if (newPassword === "") {
-      return;
+      newPasswordErr = "New password is required!";
     }
 
     if (confirmNewPassword === "") {
-      return;
+      confirmNewPasswordErr = "Confirm new password is required!";
     }
 
     if (newPassword !== confirmNewPassword) {
-      return;
+      confirmNewPasswordErr = "Confirm new password does not match!";
+    }
+
+    if (
+      currentPasswordErr != "" ||
+      newPasswordErr != "" ||
+      confirmNewPasswordErr != ""
+    ) {
+      console.log("Error");
+    } else {
+      let formData = new FormData();
+      formData.append("userId", cookies.userId);
+      formData.append("password", confirmNewPassword);
+
+      axios.put(`${SERVER_HOST}/edit_password`, formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      navigate("/edit_user");
     }
   };
 
@@ -68,7 +100,6 @@ export default function EditPassword() {
               onChange={handleCurrentPasswordChange}
               label="Current Password"
               required
-              autoFocus
             />
             <PasswordInput
               id="new-password"
@@ -90,7 +121,10 @@ export default function EditPassword() {
               label="Confirm New Password"
               required
             />
-            <button type="submit" className="btn btn-primary w-100 mt-4">
+            <button
+              type="submit"
+              className="user-button btn btn-primary w-100 mt-2"
+            >
               Save
             </button>
           </form>
