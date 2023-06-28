@@ -5,6 +5,7 @@ import PasswordInput from "./UserInputField";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
+import Swal from "sweetalert2";
 
 export default function EditPassword() {
   const [cookies] = useCookies(["userId"]);
@@ -57,11 +58,16 @@ export default function EditPassword() {
     }
 
     if (
-      currentPasswordErr != "" ||
-      newPasswordErr != "" ||
-      confirmNewPasswordErr != ""
+      currentPasswordErr !== "" ||
+      newPasswordErr !== "" ||
+      confirmNewPasswordErr !== ""
     ) {
-      console.log("Error");
+      Swal.fire({
+        icon: "error",
+        title: "Passwords doesn't match",
+        text: "Check the entered password!",
+        confirmButtonColor: "#0275d8",
+      });
     } else {
       let formData = new FormData();
       formData.append("userId", cookies.userId);

@@ -5,6 +5,7 @@ import { SERVER_HOST } from "../config/global_constants";
 import UserInputField from "./UserInputField";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function EditUser() {
   const [cookies, setCookie] = useCookies(["userId", "username", "email"]);
@@ -28,24 +29,49 @@ export default function EditUser() {
     e.preventDefault();
 
     let formData = new FormData();
-    if (newEmail !== "") {
+    if (newEmail !== "" && newUsername === "") {
       formData.append("email", newEmail);
       setCookie("email", newEmail);
-    } else {
-      formData.append("email", cookies.email);
-    }
-
-    if (newUsername !== "") {
+    } else if (newUsername !== "" && newEmail === "") {
       formData.append("username", newUsername);
       setCookie("username", newUsername);
-    } else {
-      formData.append("username", cookies.username);
+    } else if (newEmail !== "" && newUsername !== "") {
+      formData.append("email", newEmail);
+      setCookie("email", newEmail);
+      formData.append("username", newUsername);
+      setCookie("username", newUsername);
     }
+
     formData.append("userId", cookies.userId);
 
-    axios.put(`${SERVER_HOST}/edit_username_email`, formData, {
-      headers: { "Content-Type": "application/json" },
-    });
+    axios
+      .put(`${SERVER_HOST}/edit_username_email`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        if (newUsername !== "" && newEmail === "") {
+          Swal.fire({
+            icon: "success",
+            title: "Username changed successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else if (newEmail !== "" && newUsername === "") {
+          Swal.fire({
+            icon: "success",
+            title: "E-mail changed successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else if (newEmail !== "" && newUsername !== "") {
+          Swal.fire({
+            icon: "success",
+            title: "Username and email changed successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
 
     navigate("/profile_page");
   };
@@ -55,8 +81,7 @@ export default function EditUser() {
   };
 
   return (
-
-   <div>
+    <div>
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
         <div className="bg-white p-5 rounded-box">

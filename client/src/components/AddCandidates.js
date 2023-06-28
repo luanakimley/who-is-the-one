@@ -5,6 +5,7 @@ import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
 import { CandidateTagBox } from "./CandidateTagsBox";
 import EditableInput from "./EditableInput";
+import Swal from "sweetalert2";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
@@ -50,6 +51,12 @@ export default function AddCandidates() {
       })
       .catch((error) => {
         console.error("Error adding candidate:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Duplicate candidate name",
+          text: "Check the entered candidate name, category must be unique!",
+          confirmButtonColor: "#0275d8",
+        });
       });
   };
 

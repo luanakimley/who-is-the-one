@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "./Pagination";
+import Swal from "sweetalert2";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -35,7 +36,7 @@ export default function Categories() {
     }
 
     getCategoriesCount();
-  }, [currentPage, listLength, cookies.userId]);
+  }, [currentPage, categories, listLength, cookies.userId]);
 
   const handleCurrentPage = (data) => {
     setCurrentPage(data);
@@ -53,22 +54,52 @@ export default function Categories() {
   };
 
   const deleteCategory = (e) => {
-    axios
-      .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
-      .then((res) => {
-        if ((listLength - 1) % limit === 0) {
-          setCurrentPage((listLength - 1) / limit);
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting category:", error);
-      });
+    Swal.fire({
+      title: "Are you sure you want to delete?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0275d8",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
+          .then((res) => {
+            if ((listLength - 1) % limit === 0) {
+              setCurrentPage((listLength - 1) / limit);
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting category:", error);
+          });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Category has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#0275d8",
+        });
+      }
+    });
+  };
+
+  const editFavourite = (e) => {
+    const category = JSON.parse(e.target.id);
+
+    const formData = new FormData();
+    formData.append("isFavourite", category.is_favourite === 0 ? 1 : 0);
+    formData.append("categoryId", category.category_id);
+
+    axios.put(`${SERVER_HOST}/edit_category_favourite`, formData, {
+      headers: { "Content-Type": "application/json" },
+    });
   };
 
   return (
     <div>
       <NavBar />
-      <div className="vh-100 p-4 mb-2 bg-primary">
+      <div className="vh-100 p-5 mb-2 bg-primary">
         <div className="top-margin container">
           <h1 className="text-white text-center mb-5">Categories</h1>
           <div className="row">
@@ -76,7 +107,7 @@ export default function Categories() {
               ? categories.map((category) => (
                   <div key={category.category_id} className="col col-lg-3 p-4">
                     <div className="card p-3">
-                      <div className="card-body">
+                      <div className="card-body text-center">
                         <div>
                           <h3
                             id={category.category_id}
@@ -84,6 +115,19 @@ export default function Categories() {
                           >
                             {category.category_name}
                           </h3>
+                        </div>
+                        <div
+                          onClick={editFavourite}
+                          className="position-absolute top-0 start-0 m-2"
+                        >
+                          <i
+                            id={JSON.stringify(category)}
+                            className={`bi ${
+                              category.is_favourite === parseInt(1)
+                                ? "bi-star-fill"
+                                : "bi-star"
+                            } fs-5 text-warning`}
+                          ></i>
                         </div>
                         <button
                           className="btn btn-danger position-absolute top-0 end-0"
