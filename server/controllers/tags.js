@@ -12,6 +12,14 @@ exports.getTagsByUserId = (req, res) => {
 
 };
 
+exports.getTagsCountByUserId = (req, res) => {
+     const userId = req.params.userId;
+
+     const query = "SELECT COUNT(*) AS total_tags FROM tags WHERE user_id = ?;"
+     database.query(query, [userId], (result) => res.json(result[0].total_tags));
+
+}
+
 exports.getTagsByCandidateId = (req, res) => {
   const candidateId = req.params.candidateId;
 

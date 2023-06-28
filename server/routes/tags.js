@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   getTagsByUserId,
+  getTagsCountByUserId,
   getTagsByCandidateId,
   getTagsByCategoryId,
   deleteTag,
@@ -14,6 +15,7 @@ const {
 
 router
   .get("/tags_by_users/:userId", getTagsByUserId)
+  .get("/tags_count/:userId", getTagsCountByUserId)
   .get("/tags_by_candidate/:candidateId", getTagsByCandidateId)
   .get("/tags_by_category/:categoryId", getTagsByCategoryId)
   .delete("/remove_tag/:tagId", deleteTag)
