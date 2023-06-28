@@ -53,11 +53,12 @@ export default function EditUser() {
   };
 
   return (
-    <div>
+
+   <div>
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
         <div>
-          <h1 className="text-center mb-4">
+          <h1 className="user-text-heading text-center mb-4">
             Edit User&nbsp;<i className="bi bi-pencil-square"></i>
           </h1>
           <form onSubmit={handleSubmit}>
@@ -70,7 +71,6 @@ export default function EditUser() {
               onChange={handleUsernameChange}
               label="Username"
               required
-              autoFocus
             />
             <UserInputField
               id="email"
@@ -82,10 +82,10 @@ export default function EditUser() {
               label="Email"
               required
             />
-          <button type="submit" className="btn btn-primary w-100 mt-2" onClick={handleEditPassword}>
+          <button type="submit" className="user-button btn btn-primary w-100 mt-2" onClick={handleEditPassword}>
               Edit Password
             </button>
-            <button type="submit" className="btn btn-primary w-100 mt-2" onClick={handleSubmit}>
+            <button type="submit" className="user-button btn btn-primary w-100 mt-2" onClick={handleSubmit}>
               Save
             </button>
           </form>

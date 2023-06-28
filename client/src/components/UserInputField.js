@@ -22,7 +22,6 @@ export default function UserInputField({
         value={value}
         onChange={onChange}
         required={required}
-        autoFocus={autoFocus}
       />
       <label htmlFor={id}>{label}</label>
     </div>

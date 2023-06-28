@@ -85,7 +85,7 @@ return (
     <NavBar />
     <div className="d-flex align-items-center justify-content-center vh-100">
       <div>
-        <h1 className="text-center mb-4">
+        <h1 className="user-text-heading text-center mb-4">
           Edit Password&nbsp;<i className="bi bi-pencil-square"></i>
         </h1>
         <form onSubmit={handleSubmit}>
@@ -98,7 +98,6 @@ return (
             onChange={handleCurrentPasswordChange}
             label="Current Password"
             required
-            autoFocus
           />
           <PasswordInput
             id="new-password"
@@ -120,7 +119,7 @@ return (
             label="Confirm New Password"
             required
           />
-          <button type="submit" className="btn btn-primary w-100 mt-2">
+          <button type="submit" className="user-button btn btn-primary w-100 mt-2">
             Save
           </button>
         </form>
