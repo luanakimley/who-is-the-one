@@ -91,12 +91,18 @@ function rankListOfCandidates(tagWeights, categoryList)
 
     let score = 0;
 
-    for (const tag of tags)
+    for(let i = 0; i < tagWeights.length; i++)
     {
-      if (tagWeights.tag_id === tag.tag_id)
-      {
-        score += tagWeights.weight;
-      }
+        for (const tag of tags)
+        {
+          if (tagWeights[i].tag_id === tag.tag_id)
+          {
+           console.log(tagWeights[i].weight)
+            score += tagWeights[i].weight;
+            console.log(score)
+          }
+        }
+
     }
 
     const rankedCandidate = {
