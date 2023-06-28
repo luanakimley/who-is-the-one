@@ -35,7 +35,7 @@ export default function Categories() {
     }
 
     getCategoriesCount();
-  }, [currentPage, listLength, cookies.userId]);
+  }, [currentPage, categories, listLength, cookies.userId]);
 
   const handleCurrentPage = (data) => {
     setCurrentPage(data);
@@ -68,7 +68,7 @@ export default function Categories() {
   return (
     <div>
       <NavBar />
-      <div className="vh-100 p-4 mb-2 bg-primary">
+      <div className="vh-100 p-5 mb-2 bg-primary">
         <div className="top-margin container">
           <h1 className="text-white text-center mb-5">Categories</h1>
           <div className="row">
