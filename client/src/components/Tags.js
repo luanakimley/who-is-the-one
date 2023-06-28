@@ -51,7 +51,7 @@ export default function Tags() {
     <div>
       <NavBar />
       <div className="vh-100 p-4 mb-2">
-        <div className="d-flex w-100 vh-75 my-5">
+        <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
             <div className="bg-white p-5 rounded-box">
               <h1 className="text-primary mb-4">Add tags</h1>
