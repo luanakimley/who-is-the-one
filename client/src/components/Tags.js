@@ -4,27 +4,43 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import TagBoxReset from "./TagBoxReset";
+import Pagination from "./Pagination";
 import { useRef } from "react";
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
   const [tagName, setTagName] = useState("");
   const [cookies] = useCookies(["userId"]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [listLength, setListLength] = useState(0);
+  const limit = 12;
   const inputRef = useRef(null);
 
   useEffect(() => {
+    async function getTags() {
+      const tags = await axios.get(
+        `${SERVER_HOST}/tags_by_users/${cookies.userId}?limit=${limit}&page=${currentPage}`
+      );
+      setTags(tags.data);
+    }
     getTags();
-  });
 
-  async function getTags() {
-    const tags = await axios.get(
-      `${SERVER_HOST}/tags_by_users/${cookies.userId}`
-    );
-    setTags(tags.data);
-  }
+    async function getTagsCount() {
+      const count = await axios.get(
+        `${SERVER_HOST}/tags_count/${cookies.userId}`
+      );
+      setListLength(count.data);
+    }
+
+    getTagsCount();
+  }, [currentPage, tags, listLength, cookies.userId]);
 
   const handleTagNameChange = (e) => {
     setTagName(e.target.value);
+  };
+
+  const handleCurrentPage = (data) => {
+    setCurrentPage(data);
   };
 
   const addTag = (e) => {
@@ -78,8 +94,24 @@ export default function Tags() {
           <div className="w-50 m-5 align-self-center">
             <div className="row">
               {tags.length
-                ? tags.map((tag) => <TagBoxReset key={tag.tag_id} tag={tag} />)
+                ? tags.map((tag) => (
+                    <TagBoxReset
+                      key={tag.tag_id}
+                      tag={tag}
+                      listLength={listLength}
+                      limit={limit}
+                      setCurrentPage={setCurrentPage}
+                    />
+                  ))
                 : null}
+            </div>
+            <div className="pagination-container text-center">
+              <Pagination
+                currentPage={currentPage}
+                listLength={listLength}
+                limit={limit}
+                pageChange={handleCurrentPage}
+              />
             </div>
           </div>
         </div>

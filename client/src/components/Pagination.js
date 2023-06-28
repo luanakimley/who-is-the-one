@@ -9,19 +9,19 @@ export default function Pagination(props) {
   };
 
   const handlePreviousArrowClick = (e) => {
-    if (props.currentPage > 1) {
-      props.pageChange(props.currentPage - 1);
+    if (parseInt(props.currentPage) > 1) {
+      props.pageChange(parseInt(props.currentPage) - 1);
     }
   };
 
   const handleNextArrowClick = (e) => {
-    if (props.currentPage < pageNumbers) {
-      props.pageChange(props.currentPage + 1);
+    if (parseInt(props.currentPage) < pageNumbers) {
+      props.pageChange(parseInt(props.currentPage) + 1);
     }
   };
 
   return (
-    <ul className="pagination pagination-float">
+    <ul className="pagination">
       <li onClick={handlePreviousArrowClick} className="page-item">
         <p className="page-link" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>

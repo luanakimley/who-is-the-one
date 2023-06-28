@@ -17,8 +17,8 @@ export default function NavBar() {
       <div className="container-fluid">
         <a className="navbar-brand col-lg-3 me-0" href="/">
           <div>
-            <span class="fs-3 heading">WITO: &ensp;</span>
-            <span class="question">Who is the one?</span>
+            <span className="fs-3 heading">WITO: &ensp;</span>
+            <span className="question">Who is the one?</span>
           </div>
         </a>
         <div
