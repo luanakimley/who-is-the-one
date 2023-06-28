@@ -1,12 +1,31 @@
 import React from "react";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export function CandidateTagBox(props) {
   const deleteCandidate = () => {
-    axios.delete(
-      `${SERVER_HOST}/remove_candidate/${props.candidate.candidate_id}`
-    );
+    Swal.fire({
+      title: "Are you sure you want to delete?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0275d8",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(
+          `${SERVER_HOST}/remove_candidate/${props.candidate.candidate_id}`
+        );
+        Swal.fire({
+          title: "Deleted!",
+          text: "Candidate has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#0275d8",
+        });
+      }
+    });
   };
 
   return (

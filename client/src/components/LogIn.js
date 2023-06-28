@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
 import logo from "../assets/logo_WITO_white.png";
+import Swal from "sweetalert2";
 
 import axios from "axios";
 
@@ -31,6 +32,12 @@ export default function LogIn() {
       })
       .catch((error) => {
         console.error("Error logging in user:", error);
+        Swal.fire({
+          icon: "error",
+          title: "User does not exist",
+          text: "Check the entered e-mail and password!",
+          confirmButtonColor: "#0275d8",
+        });
       });
   };
 

@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "./Pagination";
+import Swal from "sweetalert2";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -53,16 +54,34 @@ export default function Categories() {
   };
 
   const deleteCategory = (e) => {
-    axios
-      .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
-      .then((res) => {
-        if ((listLength - 1) % limit === 0) {
-          setCurrentPage((listLength - 1) / limit);
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting category:", error);
-      });
+    Swal.fire({
+      title: "Are you sure you want to delete?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0275d8",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
+          .then((res) => {
+            if ((listLength - 1) % limit === 0) {
+              setCurrentPage((listLength - 1) / limit);
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting category:", error);
+          });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Category has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#0275d8",
+        });
+      }
+    });
   };
 
   return (

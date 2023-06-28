@@ -6,6 +6,7 @@ import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import TagBox from "./TagBox";
 import EditableInput from "./EditableInput";
+import Swal from "sweetalert2";
 
 export default function AddCandidateTags() {
   const [tags, setTags] = useState([]);
@@ -84,7 +85,6 @@ export default function AddCandidateTags() {
       id: location.state.category.id,
       name: location.state.category.name,
     };
-    console.log(location.state.category.id);
     navigate("/add_candidates", { state: category });
   };
 
