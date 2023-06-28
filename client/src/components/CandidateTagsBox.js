@@ -2,6 +2,7 @@ import React from "react";
 import { SERVER_HOST } from "../config/global_constants";
 import axios from "axios";
 import Swal from "sweetalert2";
+import DeleteButton from "./DeleteButton";
 
 export function CandidateTagBox(props) {
   const deleteCandidate = () => {
@@ -37,12 +38,7 @@ export function CandidateTagBox(props) {
               {props.candidate.candidate_name}
             </h2>
           </div>
-          <button
-            onClick={deleteCandidate}
-            className="btn position-absolute top-0 end-0"
-          >
-            <span className="bi bi-x"></span>
-          </button>
+          <DeleteButton text="Candidate has been deleted." route="/remove_candidate/${props.candidate.candidate_id}" />
           {props.tags.length
             ? props.tags.map((tag) =>
                 tag ? (

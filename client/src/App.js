@@ -3,7 +3,6 @@ import Register from "./components/Register";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
 import AddCategory from "./components/AddCategory";
-import DeleteCategory from "./components/Delete";
 import AddCandidates from "./components/AddCandidates";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Search from "./components/Search";
@@ -28,7 +27,6 @@ function App() {
       <Route exact path="/add_category" element={<ProtectedRoute />}>
         <Route exact path="/add_category" element={<AddCategory />} />
       </Route>
-      <Route exact path="/delete_category" element={<DeleteCategory />} />
       <Route exact path="/add_candidates" element={<ProtectedRoute />}>
         <Route exact path="/add_candidates" element={<AddCandidates />} />
       </Route>
