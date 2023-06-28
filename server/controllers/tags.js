@@ -4,7 +4,7 @@ exports.getTagsByUserId = (req, res) => {
   const userId = req.params.userId;
   const tagsLimit = parseInt(req.query.limit);
   const pageIndex = parseInt(req.query.page);
-  const offset = (pageIndex - 1) * categoriesLimit;
+  const offset = (pageIndex - 1) * tagsLimit;
 
   const query = "SELECT * FROM tags WHERE user_id = ? LIMIT ? OFFSET ?;"
 
