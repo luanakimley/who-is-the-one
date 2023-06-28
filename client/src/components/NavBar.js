@@ -18,7 +18,10 @@ export default function NavBar() {
     <nav className="fixed-top bg-white navbar navbar-expand-lg bg-body-tertiary rounded">
       <div className="container-fluid">
         <a className="navbar-brand col-lg-3 me-0" href="/">
-          <h2>Who Is The One?</h2>
+          <div>
+            <span class="fs-3 heading">WITO: &ensp;</span>
+            <span class="question">Who is the one?</span>
+          </div>
         </a>
         <div
           className="collapse navbar-collapse d-lg-flex"
