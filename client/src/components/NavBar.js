@@ -18,7 +18,7 @@ export default function NavBar() {
     <nav className="fixed-top bg-white navbar navbar-expand-lg bg-body-tertiary rounded">
       <div className="container-fluid">
         <a className="navbar-brand col-lg-3 me-0" href="/">
-          <h2>Which Is The One?</h2>
+          <h2>Who Is The One?</h2>
         </a>
         <div
           className="collapse navbar-collapse d-lg-flex"
@@ -40,18 +40,15 @@ export default function NavBar() {
                 <h3>All Tags</h3>
               </Link>
             </li>
-
-
           </ul>
         </div>
 
         <div className="d-lg-flex align-items-center">
-
           <li className="nav-item">
-                                            <Link className="nav-link active" to="/profile_page">
-                                              <h4>Profile</h4>
-                                            </Link>
-                                          </li>
+            <Link className="nav-link active" to="/profile_page">
+              <h4>Profile</h4>
+            </Link>
+          </li>
           <button className="btn btn-primary ml-5" onClick={handleLogOut}>
             Log out
           </button>

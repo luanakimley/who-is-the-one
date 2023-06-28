@@ -11,12 +11,12 @@ export default function UserInputField({
   return (
     <div className="form-floating mb-3">
       <input
-        className="form-control"
+        className="form-control rounded-pill"
         id={id}
         type={type}
         name={name}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
         onChange={onChange}
         required={required} // Convert the required prop to a boolean value
       />

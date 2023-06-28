@@ -8,10 +8,15 @@ import { SERVER_HOST } from "../config/global_constants";
 export default function AddCategory() {
   const [categoryName, setCategoryName] = useState("");
   const [cookies] = useCookies(["userId"]);
+  const [category, setCategory] = useState({});
   const navigate = useNavigate();
 
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);
+  };
+
+  const backToCategories = (e) => {
+    navigate("/categories", { state: category });
   };
 
   const addCategory = (e) => {
@@ -31,6 +36,7 @@ export default function AddCategory() {
             id: res.data[0].category_id,
             name: res.data[0].category_name,
           };
+          setCategory(category);
           navigate("/add_candidates", { state: category });
         }
       })
@@ -44,13 +50,22 @@ export default function AddCategory() {
       <NavBar />
       <div className="bg-primary vh-100 d-flex align-items-center justify-content-center">
         <div className="bg-white p-5 rounded-box">
-          <h1 className="text-primary mb-4">Add Category</h1>
-          <input
-            type="text"
-            placeholder="Category name"
-            onChange={handleCategoryNameChange}
-            className="px-4 border border-secondary rounded-pill p-2 w-100 mb-3"
-          />
+          <h1 className="text-primary mb-5">
+            <button className="btn btn-primary" onClick={backToCategories}>
+              <i className="bi bi-arrow-return-left"></i>
+            </button>
+            &ensp; Add Category
+          </h1>
+          <div className="form-floating">
+            <input
+              type="text"
+              id="category"
+              placeholder="Category name"
+              onChange={handleCategoryNameChange}
+              className="form-control rounded-pill w-100 mb-3"
+            />
+            <label htmlFor="category">Category name</label>
+          </div>
           <button
             className="btn btn-primary mt-4 w-25"
             disabled={categoryName.length === 0}

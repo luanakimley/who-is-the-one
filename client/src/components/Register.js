@@ -3,8 +3,6 @@ import { SERVER_HOST } from "../config/global_constants";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo_WITO_white.png";
 
-import Footer from "./Footer";
-
 import axios from "axios";
 
 export default function Register() {
@@ -51,24 +49,36 @@ export default function Register() {
         <div className="w-50 m-5">
           <div className="bg-white p-5 rounded-box mt-4">
             <h1 className="text-primary text-center mb-4">Welcome</h1>
-            <input
-              className="form-control rounded-pill mb-3"
-              type="text"
-              onChange={handleUsernameChange}
-              placeholder="Username"
-            />
-            <input
-              className="form-control rounded-pill mb-3"
-              type="email"
-              onChange={handleEmailChange}
-              placeholder="E-mail"
-            />
-            <input
-              className="form-control rounded-pill mb-4"
-              type="password"
-              onChange={handlePasswordChange}
-              placeholder="Password"
-            />
+            <div className="form-floating">
+              <input
+                className="form-control rounded-pill mb-3"
+                type="text"
+                onChange={handleUsernameChange}
+                placeholder="Username"
+                id="username"
+              />
+              <label htmlFor="username">Username</label>
+            </div>
+            <div className="form-floating">
+              <input
+                className="form-control rounded-pill mb-3"
+                type="email"
+                onChange={handleEmailChange}
+                placeholder="E-mail"
+                id="email"
+              />
+              <label htmlFor="email">E-mail</label>
+            </div>
+            <div className="form-floating">
+              <input
+                className="form-control rounded-pill mb-4"
+                type="password"
+                onChange={handlePasswordChange}
+                placeholder="Password"
+                id="password"
+              />
+              <label htmlFor="password">Password</label>
+            </div>
             <div className="mb-3 text-center">
               <Link className="text-secondary" to="/login">
                 I have an account
@@ -88,7 +98,6 @@ export default function Register() {
           <img width={370} src={logo} alt="WITO Logo" />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
