@@ -36,20 +36,16 @@ exports.editPassword =  (req, res) => {
     database.query(query, [newPassword, userId], (result) => res.send(`Update password where ID ${userId}`));
 }
 
-exports.editEmail =  (req, res) => {
+exports.editUsernameEmail =  (req, res) => {
+
     const newEmail = req.body.email;
+    const newUsername = req.body.username;
     const userId = req.body.userId;
 
-    const query = "UPDATE users SET email = ? WHERE user_id = ?";
-    database.query(query, [newEmail, userId], (result) => res.send(`Update email where ID ${userId}`));
+    const query = "UPDATE users SET email = ?, user_name = ? WHERE user_id = ?";
+    database.query(query, [newEmail, newUsername, userId], (result) => res.send(`Update email and username where ID ${userId}`));
 }
 
-exports.editUserId =  (req, res) => {
-    const newUserId = req.body.userId;
-    const email = req.body.email;
 
-    const query = "UPDATE users SET user_id = ? WHERE email = ?";
-    database.query(query, [newUserId, email], (result) => res.send("Update user_id"));
-}
 
 

@@ -6,9 +6,8 @@ const {
   userRegister,
   deleteUser,
   getAllUsers,
-  editUserId,
   editPassword,
-  editEmail
+  editUsernameEmail
 } = require("../controllers/users");
 
 router
@@ -16,9 +15,8 @@ router
   .post("/register", userRegister)
   .get("/users", getAllUsers)
   .delete("/users/:userId", deleteUser)
-  .put("edit_user_id", editUserId)
-  .put("edit_password", editPassword)
-  .put("edit_email", editEmail)
+  .put("/edit_username_email", editUsernameEmail)
+  .put("/edit_password", editPassword)
 
 
 module.exports = router;
