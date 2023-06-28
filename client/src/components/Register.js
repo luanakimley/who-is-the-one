@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { SERVER_HOST } from "../config/global_constants";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/logo_WITO_white.png";
+
 import Footer from "./Footer";
 
 import axios from "axios";
@@ -44,44 +46,48 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <div className="container">
-        <h1>Register</h1>
-        <form>
-          <div className="mb-3">
-            <label className="form-label">Username</label>
+    <div className="vh-100 p-4 mb-2 bg-primary">
+      <div className="d-flex align-items-center w-100 h-100">
+        <div className="w-50 m-5">
+          <div className="bg-white p-5 rounded-box mt-4">
+            <h1 className="text-primary text-center mb-4">Welcome</h1>
             <input
-              className="form-control"
-              type="email"
+              className="form-control rounded-pill mb-3"
+              type="text"
               onChange={handleUsernameChange}
+              placeholder="Username"
             />
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Email Address</label>
             <input
-              className="form-control"
+              className="form-control rounded-pill mb-3"
               type="email"
               onChange={handleEmailChange}
+              placeholder="E-mail"
             />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
             <input
-              className="form-control"
+              className="form-control rounded-pill mb-4"
               type="password"
               onChange={handlePasswordChange}
+              placeholder="Password"
             />
+            <div className="mb-3 text-center">
+              <Link className="text-secondary" to="/login">
+                I have an account
+              </Link>
+            </div>
+            <div className="text-center">
+              <button
+                className="btn btn-primary w-50 mt-4"
+                onClick={registerUser}
+              >
+                Register
+              </button>
+            </div>
           </div>
-          <button className="btn btn-primary" onClick={registerUser}>
-            Register
-          </button>
-          <div>
-            <Link to="/login">I have an account</Link>
-          </div>
-        </form>
+        </div>
+        <div className="w-50 m-5 align-self-center text-center">
+          <img width={370} src={logo} alt="WITO Logo" />
+        </div>
       </div>
-
       <Footer />
     </div>
   );

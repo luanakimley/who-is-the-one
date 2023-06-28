@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
+import logo from "../assets/logo_WITO_white.png";
+
 import axios from "axios";
-import Navbar from "./NavBar";
 import Footer from "./Footer";
 
 export default function LogIn() {
@@ -43,37 +44,38 @@ export default function LogIn() {
   };
 
   return (
-    <div>
-      <div className="container-sm">
-        <h1> WITO </h1>
-
-        <h1>Log In</h1>
-        <form>
-          <div className="mb-3">
-            <label className="form-label">Email address</label>
+    <div className="vh-100 p-4 mb-2 bg-primary">
+      <div className="d-flex align-items-center w-100 h-100">
+        <div className="w-50 m-5">
+          <div className="bg-white p-5 rounded-box mt-4">
+            <h1 className="text-primary text-center mb-4">Welcome</h1>
             <input
-              className="form-control"
+              className="form-control rounded-pill mb-3"
               type="email"
               onChange={handleEmailChange}
+              placeholder="E-mail"
             />
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Password</label>
             <input
-              className="form-control"
+              className="form-control rounded-pill mb-4"
               type="password"
               onChange={handlePasswordChange}
+              placeholder="Password"
             />
+            <div className="mb-3 text-center">
+              <Link className="text-secondary" to="/register">
+                I don't have an account
+              </Link>
+            </div>
+            <div className="text-center">
+              <button className="btn btn-primary w-50 mt-4" onClick={logIn}>
+                Log In
+              </button>
+            </div>
           </div>
-          <button className="btn btn-primary" onClick={logIn}>
-            Log In
-          </button>
-
-          <div className="mb-3">
-            <Link to="/register">I don't have an account</Link>
-          </div>
-        </form>
+        </div>
+        <div className="w-50 m-5 align-self-center text-center">
+          <img width={370} src={logo} alt="WITO Logo" />
+        </div>
       </div>
       <Footer />
     </div>
