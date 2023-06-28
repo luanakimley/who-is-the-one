@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   userLogin,
   userRegister,
+  getUserPassword,
   deleteUser,
   getAllUsers,
   editPassword,
@@ -13,6 +14,7 @@ const {
 router
   .post("/login", userLogin)
   .post("/register", userRegister)
+  .get("/password/:userId", getUserPassword)
   .get("/users", getAllUsers)
   .delete("/users/:userId", deleteUser)
   .put("/edit_username_email", editUsernameEmail)
