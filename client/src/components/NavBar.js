@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Search from "./Search";
-import Match from "./Match";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
