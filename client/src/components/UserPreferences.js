@@ -63,10 +63,9 @@ export default function UserPreferences() {
 
     let percent = 0;
 
-    for(const tag in preference.tagWeights)
+    for(let i = 0; i < preference.tagWeights.length; i++)
     {
-    console.log("HERE")
-        percent += tag.weight;
+        percent += preference.tagWeights[i].weight;
     }
     callback(percent)
   }
@@ -74,9 +73,14 @@ export default function UserPreferences() {
   const calculateMatch = (e) => {
     e.preventDefault();
 
+    if (preference === null) return;
+
     getTotalPercentMatch((percent) =>{
-    console.log(percent)
-        return;
+
+    if(percent !== 100)
+    {
+        console.log("Error")
+    }
     });
 
     const formData = new FormData();

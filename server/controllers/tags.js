@@ -4,13 +4,21 @@ exports.getTagsByUserId = (req, res) => {
   const userId = req.params.userId;
   const tagsLimit = parseInt(req.query.limit);
   const pageIndex = parseInt(req.query.page);
-  const offset = (pageIndex - 1) * categoriesLimit;
+  const offset = (pageIndex - 1) * tagsLimit;
 
   const query = "SELECT * FROM tags WHERE user_id = ? LIMIT ? OFFSET ?;"
 
   database.query(query, [userId, tagsLimit, offset], (result) => res.json(result));
 
 };
+
+exports.getTagsCountByUserId = (req, res) => {
+     const userId = req.params.userId;
+
+     const query = "SELECT COUNT(*) AS total_tags FROM tags WHERE user_id = ?;"
+     database.query(query, [userId], (result) => res.json(result[0].total_tags));
+
+}
 
 exports.getTagsByCandidateId = (req, res) => {
   const candidateId = req.params.candidateId;

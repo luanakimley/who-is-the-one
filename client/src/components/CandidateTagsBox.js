@@ -39,9 +39,9 @@ export function CandidateTagBox(props) {
           </div>
           <button
             onClick={deleteCandidate}
-            className="btn btn-danger position-absolute top-0 end-0"
+            className="btn position-absolute top-0 end-0"
           >
-            <i className="bi bi-trash"></i>
+            <span className="bi bi-x"></span>
           </button>
           {props.tags.length
             ? props.tags.map((tag) =>
