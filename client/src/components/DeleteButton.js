@@ -4,7 +4,6 @@ import { SERVER_HOST } from "../config/global_constants";
 import Swal from "sweetalert2";
 
 export default function DeleteButton(props) {
-
   const deleteObject = () => {
     Swal.fire({
       title: "Are you sure you want to delete?",
@@ -40,8 +39,11 @@ export default function DeleteButton(props) {
   };
 
   return (
-    <button onClick={deleteObject} className="btn position-absolute top-0 end-0">
-      <span className="bi bi-x"></span>
+    <button
+      onClick={deleteObject}
+      className="btn position-absolute top-0 end-0"
+    >
+      <span className="bi bi-x fs-4 text-danger"></span>
     </button>
   );
 }
