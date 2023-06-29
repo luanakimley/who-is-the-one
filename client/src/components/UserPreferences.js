@@ -45,6 +45,10 @@ export default function UserPreferences() {
   };
 
 
+    if(tagWeight > percentAvailable)
+    {
+        setTagWeight(percentAvailable)
+    }
 
   const handleTagWeightChange = (e) => {
     setTagWeight(e.target.value);
@@ -70,10 +74,12 @@ export default function UserPreferences() {
 
     let percent = 0;
 
+    if(preference){
     if(preference.tagWeights){
         for(let i = 0; i < preference.tagWeights.length; i++)
         {
             percent += preference.tagWeights[i].weight;
+        }
         }
     }
     callback(percent)
@@ -152,6 +158,7 @@ export default function UserPreferences() {
                   : null}
               </select>
               <div className="p-4">
+              <label>{tagWeight}%</label>
               <input
                 onChange={handleTagWeightChange}
                 type="range"
@@ -159,7 +166,7 @@ export default function UserPreferences() {
                 max={percentAvailable}
                 defaultValue={0}
               ></input>
-              <label>{tagWeight}%</label>
+              <label>{percentAvailable}%</label>
               <button
               className="btn btn-success m-4"
               disabled={!inputsAreAllValid}
