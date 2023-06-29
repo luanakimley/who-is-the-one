@@ -20,11 +20,16 @@ export default function Candidate(props)
     return <div className="col col-lg-4 p-4">
     <div className="card card-candidate">
       <div className="card-body">
-        <div>
-          <h1 className="text-primary">{props.index}: &nbsp;&nbsp;{candidate.candidate_name}</h1>
-          <h1>{candidate.score} %</h1>
 
+          <div className="position-relative">
+            <div className="index-circle">
+              {props.index}
+            </div>
+          </div>
 
+      <div style={{marginTop: "20px"}}>
+          <h1 className="text-primary">{candidate.candidate_name}</h1>
+          <h2 style={{marginTop: "12px"}}>{candidate.score} %</h2>
         </div>
         <div className="text-secondary">
 
@@ -38,7 +43,7 @@ export default function Candidate(props)
           key={tag.tag_id}
           className="rounded p-2 m-3 tag-candidate"
           style={{
-            backgroundColor: tagMatch.includes(tag.tag_id) ? '#AFDCEB' : '#0d6efd'
+            backgroundColor: tagMatch.includes(tag.tag_id) ? '#AFDCEB' : '#0D6EFD'
           }}
         >
           {tag.tag_description}
