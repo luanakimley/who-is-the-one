@@ -9,7 +9,8 @@ import BackButtonTitle from "./BackButtonTitle";
 
 export default function UserPreferences() {
   const location = useLocation();
-  const category = location.state;
+  let category = "";
+  category = location.state;
   const [tagsByCategory, setTagsByCategory] = useState([]);
   const [preference, setPreference] = useState([]);
   const [selectedTag, setSelectedTag] = useState("");
@@ -93,7 +94,7 @@ export default function UserPreferences() {
       })
       .then((res) => {
         if (res.data) {
-          navigate("/match", { state: res.data });
+        navigate("/match", { state: { data: res.data, category: category } });
         }
       })
       .catch((error) => {
@@ -120,7 +121,8 @@ export default function UserPreferences() {
     <div>
       <NavBar />
       <div className="p-4 mb-2 bg-primary text-white rounded">
-        <div className="container p-5">
+        <div className="top-margin container">
+        <div className="container">
           <h2>Category: {category.name}</h2>
           <div className="row">
             <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
@@ -141,23 +143,26 @@ export default function UserPreferences() {
                     ))
                   : null}
               </select>
+              <div className="p-4">
               <input
-                className="p-4"
                 onChange={handleTagWeightChange}
                 type="range"
                 min={0}
                 max={100}
                 defaultValue={0}
               ></input>
-              <div>
-                <button
-                  className="btn btn-success"
-                  disabled={!inputsAreAllValid}
-                  onClick={insertPreferences}
-                >
-                  Add
-                </button>
+              <label>{tagWeight}%</label>
+              <button
+              className="btn btn-success m-4"
+              disabled={!inputsAreAllValid}
+              onClick={insertPreferences}
+              >
+              Add
+              </button>
+
+
               </div>
+
               <div className="container p-4">
                 <button className="btn btn-primary" onClick={calculateMatch}>
                   Calculate
@@ -169,18 +174,21 @@ export default function UserPreferences() {
               {preference ? (
                 preference.tagWeights ? (
                   preference.tagWeights.map((tags) => (
+                  <div>
                     <TagWeightBox
                       key={tags.tag_id}
                       tag={tags}
                       category_id={preference.category_id}
                     />
+                    </div>
                   ))
                 ) : (
-                  <h2>DID Not</h2>
+                  <h2>No Tags set</h2>
                 )
               ) : null}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

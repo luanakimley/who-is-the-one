@@ -17,8 +17,8 @@ export default function Candidate(props)
 
 
         </div>
-        <div className="text-primary">
-        <h1>Score: {props.props.score}</h1>
+        <div className="text-secondary">
+        <h1>Match Rate: {props.props.score} %</h1>
 
         <div className="text-white">
 

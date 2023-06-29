@@ -124,3 +124,8 @@ input:checked + .slider:before {
 .user-text-heading {
   color: white;
 }
+
+label
+{
+    min-width: 40px;
+}
