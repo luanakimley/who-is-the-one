@@ -56,7 +56,12 @@ export default function Categories() {
             {categories.length
               ? categories.map((category) => (
                   <div key={category.category_id} className="col col-lg-3 p-4">
-                  <CategoryBox params= {category}/>
+                  <CategoryBox
+                  category= {category}
+                  listLength={listLength}
+                  limit={limit}
+                  setCurrentPage={handleCurrentPage}
+                  />
                   </div>
                 ))
               : null}

@@ -5,7 +5,7 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 
 export default function CategoryBox(props) {
-      const category = props.params;
+      const category = props.category;
 
       const navigate = useNavigate();
 
@@ -53,7 +53,12 @@ export default function CategoryBox(props) {
                } fs-5 text-warning`}
              ></i>
            </div>
-           <DeleteButton params= {{text: "Category", route: `/remove_category/${category.category_id}`}}/>
+           <DeleteButton
+           params= {{text: "Category", route: `/remove_category/${category.category_id}`}}
+           listLength={props.listLength}
+           limit={props.limit}
+           setCurrentPage={props.setCurrentPage}
+           />
          </div>
        </div>
      );
