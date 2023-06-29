@@ -5,7 +5,7 @@ export default function TutorialAccordion(props) {
     <div className="accordion-item">
       <h2 className="accordion-header">
         <button
-          className="accordion-button"
+          className="accordion-button fs-4 text-primary"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target={`#${props.id}`}
