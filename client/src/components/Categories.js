@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "./Pagination";
 import Swal from "sweetalert2";
-import DeleteButton from "./DeleteButton";
+import CategoryBox from "./CategoryBox";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -46,26 +46,6 @@ export default function Categories() {
     navigate("/add_category");
   };
 
-  const navigateToAddCandidatesForCategory = (e) => {
-    const category = {
-      id: e.target.id,
-      name: e.target.innerHTML,
-    };
-    navigate("/add_candidates", { state: category });
-  };
-
-  const editFavourite = (e) => {
-    const category = JSON.parse(e.target.id);
-
-    const formData = new FormData();
-    formData.append("isFavourite", category.is_favourite === 0 ? 1 : 0);
-    formData.append("categoryId", category.category_id);
-
-    axios.put(`${SERVER_HOST}/edit_category_favourite`, formData, {
-      headers: { "Content-Type": "application/json" },
-    });
-  };
-
   return (
     <div>
       <NavBar />
@@ -76,32 +56,7 @@ export default function Categories() {
             {categories.length
               ? categories.map((category) => (
                   <div key={category.category_id} className="col col-lg-3 p-4">
-                    <div className="card p-3">
-                      <div className="card-body text-center">
-                        <div>
-                          <h3
-                            id={category.category_id}
-                            onClick={navigateToAddCandidatesForCategory}
-                          >
-                            {category.category_name}
-                          </h3>
-                        </div>
-                        <div
-                          onClick={editFavourite}
-                          className="position-absolute top-0 start-0 m-2"
-                        >
-                          <i
-                            id={JSON.stringify(category)}
-                            className={`bi ${
-                              category.is_favourite === parseInt(1)
-                                ? "bi-star-fill"
-                                : "bi-star"
-                            } fs-5 text-warning`}
-                          ></i>
-                        </div>
-                        <DeleteButton params= {{text: "Category", route: `/remove_category/${category.category_id}`}}/>
-                      </div>
-                    </div>
+                  <CategoryBox params= {category}/>
                   </div>
                 ))
               : null}
