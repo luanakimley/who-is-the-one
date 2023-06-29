@@ -24,7 +24,7 @@ export default function Home() {
       id: "accordion3",
       title: "Step 3: Add tags to candidate",
       content:
-        "After adding the candidates, you will need to add related tags to each candidate based on your knowledge of it. In order to proceed, each candidate needs to have at least 1 tag. You can also add tags from the tags page that can be accessed through the navigation bar. The tags can be edited and deleted as you please.",
+        "After adding the candidates, you will need to add related tags to each candidate based on your knowledge of it. In order to proceed, each candidate needs to have at least 1 tag. You can also add tags from the all tags page that can be accessed through the navigation bar. The tags can be edited and deleted as you please.",
     },
     {
       id: "accordion4",
