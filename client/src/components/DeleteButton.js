@@ -3,11 +3,9 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import Swal from "sweetalert2";
 
-export default function DeleteButton({ text, route }) {
+export default function DeleteButton(props) {
 
   const deleteObject = () => {
-
-  console.log(route)
     Swal.fire({
       title: "Are you sure you want to delete?",
       text: "You won't be able to revert this!",
@@ -19,20 +17,20 @@ export default function DeleteButton({ text, route }) {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${SERVER_HOST}${route}`)
+          .delete(`${SERVER_HOST}${props.params.route}`)
           .then((res) => {
             Swal.fire({
               title: "Deleted!",
-              text: text,
+              text: `${props.params.text} has been deleted.`,
               icon: "success",
               confirmButtonColor: "#0275d8",
             });
           })
           .catch((error) => {
-            console.error("Error deleting object:", error);
+            console.error(`Error deleting object: ${props.params.text}`, error);
             Swal.fire({
               title: "Error",
-              text: "An error occurred while deleting the object.",
+              text: `An error occurred while deleting the ${props.params.text}.`,
               icon: "error",
               confirmButtonColor: "#0275d8",
             });

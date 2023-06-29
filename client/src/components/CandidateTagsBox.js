@@ -1,34 +1,7 @@
 import React from "react";
-import { SERVER_HOST } from "../config/global_constants";
-import axios from "axios";
-import Swal from "sweetalert2";
 import DeleteButton from "./DeleteButton";
 
 export function CandidateTagBox(props) {
-  const deleteCandidate = () => {
-    Swal.fire({
-      title: "Are you sure you want to delete?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#0275d8",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.delete(
-          `${SERVER_HOST}/remove_candidate/${props.candidate.candidate_id}`
-        );
-        Swal.fire({
-          title: "Deleted!",
-          text: "Candidate has been deleted.",
-          icon: "success",
-          confirmButtonColor: "#0275d8",
-        });
-      }
-    });
-  };
-
   return (
     <div key={props.candidate.candidate_id} className="col col-lg-4 p-4">
       <div className="card p-3">
@@ -38,7 +11,7 @@ export function CandidateTagBox(props) {
               {props.candidate.candidate_name}
             </h2>
           </div>
-          <DeleteButton text="Candidate has been deleted." route="/remove_candidate/${props.candidate.candidate_id}" />
+          <DeleteButton params= {{text: "Candidate", route: `/remove_candidate/${props.candidate.candidate_id}`}}/>
           {props.tags.length
             ? props.tags.map((tag) =>
                 tag ? (
