@@ -10,6 +10,7 @@ The following technologies are used in this project:
 * SQL
 * JavaScript
 * Node.js
+* React.js
   
 ## Features
 1. User registration and authentication
