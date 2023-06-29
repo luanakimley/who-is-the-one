@@ -51,7 +51,7 @@ export default function DeleteButton(props) {
       onClick={deleteObject}
       className="btn position-absolute top-0 end-0"
     >
-      <span className="bi bi-x fs-4 text-danger"></span>
+      <span className="bi bi-x fs-4 text-danger button-hover"></span>
     </button>
   );
 }

@@ -144,7 +144,8 @@ export default function UserPreferences() {
           <h2>Category: {category.name}</h2>
           <div className="row">
             <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
-            <BackButton params = {{href: "/add_candidates", text: "Preferences", state: category}}/>
+            <BackButton params = "/add_candidates"
+                        state= {category}/>
               <select
                 className="form-control me-2 w-25 p-3 m-3"
                 onChange={handleSelectTagChange}
