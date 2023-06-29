@@ -178,12 +178,14 @@ export default function AddCandidateTags() {
             <div className="row">
               {candidateTags.length
                 ? candidateTags.map((tag) => (
+                <div key={tag.tag_id} className="col col-lg-4 p-4">
                     <TagBox
                       key={tag.tag_id}
                       id={tag.tag_id}
                       tag={tag}
                       candidateId={state.candidate.id}
                     />
+                </div>
                   ))
                 : null}
             </div>
