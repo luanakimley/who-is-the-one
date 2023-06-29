@@ -9,12 +9,8 @@ const EditableInput = (props) => {
     setTextValue(event.target.value);
   };
 
-  const handleInputBlur = () => {
-    setIsEditable(false);
-  };
-
-  const handleSave = (event) => {
-    props.handleSaveText();
+  const handleSave = (e) => {
+    props.handleSaveText(e, textValue);
     setIsEditable(false);
   };
 
@@ -27,7 +23,6 @@ const EditableInput = (props) => {
             type="text"
             defaultValue={textValue}
             onChange={handleInputChange}
-            onBlur={handleInputBlur}
           />
           <button className="btn btn-outline-light" onClick={handleSave}>
             Save

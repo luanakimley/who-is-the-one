@@ -51,12 +51,14 @@ export default function AddCandidates() {
       });
   };
 
-  const editCategoryName = (e) => {
-    console.log("lalala");
-
+  const editCategoryName = (e, newCategoryName) => {
     let formData = new FormData();
-    formData.append("candidateName", e.target);
+    formData.append("categoryName", newCategoryName);
     formData.append("categoryId", category.id);
+
+     axios.put(`${SERVER_HOST}/edit_category`, formData, {
+            headers: { "Content-Type": "application/json" },
+          });
   };
 
   const doneAddCandidates = (e) => {
