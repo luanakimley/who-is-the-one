@@ -24,6 +24,14 @@ export default function DeleteButton(props) {
               icon: "success",
               confirmButtonColor: "#0275d8",
             });
+
+                if (props.listLength)
+                {
+                  if ((props.listLength - 1) % props.limit === 0)
+                  {
+                    props.setCurrentPage(1);
+                  }
+                }
           })
           .catch((error) => {
             console.error(`Error deleting object: ${props.params.text}`, error);

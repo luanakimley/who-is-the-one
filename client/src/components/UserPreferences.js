@@ -5,6 +5,7 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import { TagWeightBox } from "./TagWeightBox";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function UserPreferences() {
   const location = useLocation();
@@ -101,10 +102,6 @@ export default function UserPreferences() {
       });
   };
 
-  const backToCategory = (e) => {
-    navigate("/add_candidates", { state: category });
-  };
-
   const validateSelectedTag = () => selectedTag !== "";
 
   const validateTagWeight = () => tagWeight !== 0;
@@ -129,11 +126,7 @@ export default function UserPreferences() {
           <h2>Category: {category.name}</h2>
           <div className="row">
             <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
-              <button className="btn btn-primary" onClick={backToCategory}>
-                <i className="bi bi-arrow-return-left"></i>
-              </button>
-
-              <h1>My Preferences</h1>
+            <BackButtonTitle params = {{href: "/add_candidates", text: "Preferences"}}/>
               <select
                 className="form-control me-2 w-25 p-3"
                 onChange={handleSelectTagChange}

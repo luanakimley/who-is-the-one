@@ -6,10 +6,9 @@ import axios from "axios";
 import { CandidateTagBox } from "./CandidateTagsBox";
 import EditableInput from "./EditableInput";
 import Swal from "sweetalert2";
-import BackButton from "./BackButton";
+import AddBox from "./AddBox";
 
 export default function AddCandidates() {
-  const [candidateName, setCandidateName] = useState("");
   const [candidates, setCandidates] = useState([]);
   const [done, setDone] = useState(false);
   const navigate = useNavigate();
@@ -28,13 +27,8 @@ export default function AddCandidates() {
     validateAllCandidatesHasTag();
   });
 
-  const handleCandidateNameChange = (e) => {
-    setCandidateName(e.target.value);
-  };
 
-  const addCandidate = (e) => {
-    e.preventDefault();
-
+  const addCandidate = (e, candidateName) => {
     let formData = new FormData();
     formData.append("candidateName", candidateName);
     formData.append("categoryId", category.id);
@@ -57,8 +51,14 @@ export default function AddCandidates() {
       });
   };
 
-  const editCategoryName = (e) => {
-    console.log("lalala");
+  const editCategoryName = (e, newCategoryName) => {
+    let formData = new FormData();
+    formData.append("categoryName", newCategoryName);
+    formData.append("categoryId", category.id);
+
+     axios.put(`${SERVER_HOST}/edit_category`, formData, {
+            headers: { "Content-Type": "application/json" },
+          });
   };
 
   const doneAddCandidates = (e) => {
@@ -106,32 +106,8 @@ export default function AddCandidates() {
                 />{" "}
               </h2>
             </div>
+            <AddBox params= {{backButtonTitle: {href: "/categories", text: "Add Candidate"}, objectText: "Candidate", callback: addCandidate}}/>
 
-            <div className="bg-white p-5 rounded-box mt-4">
-              <BackButton
-                params={{ href: "/categories", text: "Add Candidate" }}
-              />
-              <div className="form-floating">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Candidate name"
-                  onChange={handleCandidateNameChange}
-                  id="candidate"
-                  className="form-control rounded-pill w-75 mb-3"
-                />
-                <label htmlFor="candidate">Candidate name</label>
-              </div>
-              <br />
-
-              <button
-                className="btn btn-primary mt-4 w-25"
-                disabled={candidateName.length === 0}
-                onClick={addCandidate}
-              >
-                Add
-              </button>
-            </div>
             <button
               className="btn btn-outline-light mt-5 w-50 mx-auto d-block"
               onClick={doneAddCandidates}
@@ -139,6 +115,7 @@ export default function AddCandidates() {
             >
               Set your Preferences
             </button>
+
           </div>
           <div className="w-50 m-5 align-self-center">
             <div className="row">

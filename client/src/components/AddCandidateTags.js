@@ -88,8 +88,14 @@ export default function AddCandidateTags() {
     navigate("/add_candidates", { state: category });
   };
 
-  const editCandidateName = (e) => {
-    console.log("lalalala");
+  const editCandidateName = (e, candidateName) => {
+    let formData = new FormData();
+          formData.append("candidateName", candidateName);
+          formData.append("candidateId", state.candidate.id);
+
+           axios.put(`${SERVER_HOST}/edit_candidate`, formData, {
+                  headers: { "Content-Type": "application/json" },
+                });
   };
 
   return (

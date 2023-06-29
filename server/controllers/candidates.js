@@ -36,7 +36,7 @@ exports.getCandidatesByPreference = (req, res) => {
 
 exports.editCandidate = (req, res) => {
     const newCandidateName = req.body.candidateName;
-    const candidateId = req.body.categoryId;
+    const candidateId = req.body.candidateId;
 
     const query = "UPDATE candidates SET candidate_name = ? WHERE candidate_id = ?";
     database.query(query, [newCandidateName, candidateId], (result) => res.send(`Update candidate_name where ID ${candidateId}`));
