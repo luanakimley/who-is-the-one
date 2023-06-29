@@ -3,10 +3,11 @@ import NavBar from "./NavBar";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
-import TagBoxReset from "./TagBoxReset";
 import Pagination from "./Pagination";
 import { useRef } from "react";
 import AddBox from "./AddBox";
+import TagBox from "./TagBox";
+import DeleteButton from "./DeleteButton";
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
@@ -70,13 +71,14 @@ export default function Tags() {
             <div className="row">
               {tags.length
                 ? tags.map((tag) => (
-                    <TagBoxReset
-                      key={tag.tag_id}
-                      tag={tag}
-                      listLength={listLength}
-                      limit={limit}
-                      setCurrentPage={setCurrentPage}
-                    />
+                <div key={tag.tag_id} className="col col-lg-4 p-4">
+                      <TagBox
+                        tag={tag}
+                        listLength={listLength}
+                        limit={limit}
+                        setCurrentPage={handleCurrentPage}
+                        />
+                    </div>
                   ))
                 : null}
             </div>

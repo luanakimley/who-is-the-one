@@ -27,8 +27,9 @@ export default function DeleteButton(props) {
 
                 if (props.listLength)
                 {
-                  if ((props.listLength - 1) % props.limit === 0) {
-                    props.setCurrentPage((props.listLength - 1) / props.limit);
+                  if ((props.listLength - 1) % props.limit === 0)
+                  {
+                    props.setCurrentPage(1);
                   }
                 }
           })
