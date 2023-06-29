@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BackButtonTitle from "./BackButtonTitle";
+import BackButton from "./BackButton";
 
 export default function AddBox(props) {
   const [text, setText] = useState("");
@@ -10,8 +10,8 @@ export default function AddBox(props) {
 
   return (
       <div className="bg-white p-5 rounded-box">
-        <BackButtonTitle params={props.params.backButtonTitle} />
-        <div className="form-floating">
+        <BackButton params={props.params.backButtonTitle} />
+        <div className="form-floating m-3">
           <input
             type="text"
             id="category"
