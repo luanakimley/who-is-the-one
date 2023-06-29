@@ -6,6 +6,7 @@ import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import { TagWeightBox } from "./TagWeightBox";
 import BackButtonTitle from "./BackButtonTitle";
+import Swal from "sweetalert2";
 
 export default function UserPreferences() {
   const location = useLocation();
@@ -89,25 +90,33 @@ export default function UserPreferences() {
 
     getTotalPercentMatch((percent) => {
       if (percent !== 100) {
-        console.log("Error");
+        Swal.fire({
+          title: "Error",
+          text: `Percentage is not 100.`,
+          icon: "error",
+          confirmButtonColor: "#0275d8",
+        });
       }
+      else
+      {
+       const formData = new FormData();
+          formData.append("userPreference", JSON.stringify(preference));
+
+          axios
+            .post(`${SERVER_HOST}/candidates_by_preference`, formData, {
+              headers: { "Content-Type": "application/json" },
+            })
+            .then((res) => {
+              if (res.data) {
+                navigate("/match", { state: { data: res.data, category: category, preference: preference } });
+              }
+            })
+            .catch((error) => {
+              console.error("Error adding category:", error);
+            });
+      }
+
     });
-
-    const formData = new FormData();
-    formData.append("userPreference", JSON.stringify(preference));
-
-    axios
-      .post(`${SERVER_HOST}/candidates_by_preference`, formData, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((res) => {
-        if (res.data) {
-          navigate("/match", { state: { data: res.data, category: category, preference: preference } });
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding category:", error);
-      });
   };
 
   const validateSelectedTag = () => selectedTag !== "";
