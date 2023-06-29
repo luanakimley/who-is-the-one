@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Tooltip } from "react-tooltip";
 
 const EditableInput = (props) => {
   const [isEditable, setIsEditable] = useState(false);
@@ -12,25 +13,37 @@ const EditableInput = (props) => {
     setIsEditable(false);
   };
 
-  const handleInputKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      setIsEditable(false);
-    }
+  const handleSave = (event) => {
+    props.handleSaveText();
+    setIsEditable(false);
   };
 
   return (
     <div>
       {isEditable ? (
-        <input
-          type="text"
-          value={textValue}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
-          onKeyPress={handleInputKeyPress}
-        />
+        <div className="input-group my-3">
+          <input
+            className="form-control"
+            type="text"
+            defaultValue={textValue}
+            onChange={handleInputChange}
+            onBlur={handleInputBlur}
+          />
+          <button className="btn btn-outline-light" onClick={handleSave}>
+            Save
+          </button>
+        </div>
       ) : (
-        <span onDoubleClick={() => setIsEditable(true)}>{textValue}</span>
+        <span
+          id="title"
+          data-tooltip-id="edit-tooltip"
+          data-tooltip-content="Double click to edit!"
+          onDoubleClick={() => setIsEditable(true)}
+        >
+          {textValue}
+        </span>
       )}
+      <Tooltip id="edit-tooltip" />
     </div>
   );
 };
