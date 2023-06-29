@@ -6,10 +6,10 @@ import { useCookies } from "react-cookie";
 import TagBoxReset from "./TagBoxReset";
 import Pagination from "./Pagination";
 import { useRef } from "react";
+import AddBox from "./AddBox";
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
-  const [tagName, setTagName] = useState("");
   const [cookies] = useCookies(["userId"]);
   const [currentPage, setCurrentPage] = useState(1);
   const [listLength, setListLength] = useState(0);
@@ -35,15 +35,11 @@ export default function Tags() {
     getTagsCount();
   }, [currentPage, tags, listLength, cookies.userId]);
 
-  const handleTagNameChange = (e) => {
-    setTagName(e.target.value);
-  };
-
   const handleCurrentPage = (data) => {
     setCurrentPage(data);
   };
 
-  const addTag = (e) => {
+  const addTag = (e, tagName) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("userId", cookies.userId);
@@ -68,28 +64,7 @@ export default function Tags() {
       <div className="vh-100 p-4 mb-2">
         <div className="d-flex w-100 h-100">
           <div className="w-50 m-5 align-self-center">
-            <div className="bg-white p-5 rounded-box">
-              <h1 className="text-primary mb-4">Add tags</h1>
-              <div className="form-floating">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  id="tagBox"
-                  onChange={handleTagNameChange}
-                  placeholder="Tag name"
-                  className="form-control rounded-pill w-75 mb-3"
-                />
-                <label htmlFor="tagBox">Tag name</label>
-              </div>
-              <br />
-              <button
-                className="btn btn-primary mt-4 w-25"
-                disabled={tagName.length === 0}
-                onClick={addTag}
-              >
-                Add
-              </button>
-            </div>
+           <AddBox params= {{backButtonTitle: {href: "", text: "Add Tag"}, objectText: "Tag", callback: addTag}}/>
           </div>
           <div className="w-50 m-5 align-self-center">
             <div className="row">

@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import BackButtonTitle from "./BackButtonTitle";
+import AddBox from "./AddBox";
 
 export default function AddCategory() {
   const [categoryName, setCategoryName] = useState("");
@@ -16,7 +17,7 @@ export default function AddCategory() {
     setCategoryName(e.target.value);
   };
 
-  const addCategory = (e) => {
+  const addCategory = (e, categoryName) => {
     e.preventDefault();
 
     let formData = new FormData();
@@ -46,26 +47,7 @@ export default function AddCategory() {
     <div>
       <NavBar />
       <div className="bg-primary vh-100 d-flex align-items-center justify-content-center">
-        <div className="bg-white p-5 rounded-box">
-          <BackButtonTitle params = {{href: "/categories", text: "Add Category"}}/>
-          <div className="form-floating">
-            <input
-              type="text"
-              id="category"
-              placeholder="Category name"
-              onChange={handleCategoryNameChange}
-              className="form-control rounded-pill w-100 mb-3"
-            />
-            <label htmlFor="category">Category name</label>
-          </div>
-          <button
-            className="btn btn-primary mt-4 w-25"
-            disabled={categoryName.length === 0}
-            onClick={addCategory}
-          >
-            Done
-          </button>
-        </div>
+      <AddBox params= {{backButtonTitle: {href: "/categories", text: "Add Category"}, objectText: "Category", callback: addCategory}}/>
       </div>
     </div>
   );
