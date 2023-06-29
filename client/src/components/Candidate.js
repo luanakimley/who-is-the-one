@@ -9,6 +9,8 @@ import { SERVER_HOST } from "../config/global_constants";
 export default function Candidate(props)
 {
     const candidate = props.params;
+    const tagMatch = props.tagsMatch;
+
      const [isScrollable, setIsScrollable] = useState(false);
 
      const handleDivClick = () => {
@@ -27,10 +29,22 @@ export default function Candidate(props)
         <div className="text-secondary">
 
 
-<div className="text-white scroll-bar-candidate ">
-  {candidate.tags.map((tag) => (
-      <li className="bg-primary rounded p-2 m-3 tag-candidate">{tag.tag_description}</li>
-  ))}
+<div className="text-white scroll-bar-candidate d-flex justify-content-center">
+  <div className="tag-column">
+    {candidate.tags
+      .sort((a, b) => tagMatch.includes(b.tag_id) - tagMatch.includes(a.tag_id))
+      .map((tag) => (
+        <div
+          key={tag.tag_id}
+          className="rounded p-2 m-3 tag-candidate"
+          style={{
+            backgroundColor: tagMatch.includes(tag.tag_id) ? '#AFDCEB' : '#0d6efd'
+          }}
+        >
+          {tag.tag_description}
+        </div>
+      ))}
+  </div>
 </div>
 
 

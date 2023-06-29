@@ -102,7 +102,7 @@ export default function UserPreferences() {
       })
       .then((res) => {
         if (res.data) {
-          navigate("/match", { state: { data: res.data, category: category } });
+          navigate("/match", { state: { data: res.data, category: category, preference: preference } });
         }
       })
       .catch((error) => {

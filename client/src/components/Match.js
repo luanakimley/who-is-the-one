@@ -13,7 +13,8 @@ export default function Match() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const location = useLocation();
-  const state1 = location.state.category;
+  const category = location.state.category;
+  const preference = location.state.preference;
   const [results, setResults] = useState(location.state.data);
   const [resultsSaved, setResultsSaved] = useState(location.state.data);
   const [limit, setLimit] = useState(6);
@@ -50,49 +51,51 @@ export default function Match() {
 
   return (
     <div>
-      <NavBar />
+     <NavBar />
+     <div className="top-margin container p-4">
+       <div className="container p-4 text-center">
+         <div className="bg-white p-3 rounded-box preference-box">
+           <BackButtonTitle params={{ href: "/user_preferences", text: "Matches", state: category }} />
 
-      <div className="vh-100 p-6 mb-2 bg-primary text-white">
-        <div className="top-margin container p-4">
-          <div className="container p-4 text-center">
-                    <BackButtonTitle params = {{href: "/user_preferences", text: "Back To Preferences", state: state1}}/>
 
-            <h1>Your Matches!</h1>
-
-            <div className="text-center p-2">
-              <label className="p-2">Descending Order</label>
-              <label className="switch">
-                <input type="checkbox" onChange={reverseRanking} />
-                <span className="slider round"></span>
-              </label>
-
+        <div className="row gx-2">
+          <div className="col d-flex justify-content-center ">
+            <div className="d-flex align-items-center mb-3">
+              <span className="me-5 text-red fs-5 bold">Descending Order</span>
+              <div className="form-check form-switch">
+                <input className="form-check-input big-checkbox" type="checkbox" id="reverseRanking" onChange={reverseRanking} />
+                <label className="form-check-label" htmlFor="reverseRanking"></label>
+              </div>
             </div>
-<div className="w-25 bg-white rounded text-primary p-3 float-right mx-auto text-center">
-  <label><h4>Limit: {limit}</h4></label>
-  <input
-    className="form-range"
-    onChange={handleLimitChange}
-    type="range"
-    min={1}
-    max={20}
-    defaultValue={6}
-  ></input>
-</div>
-
-    <div className="bg-white m-5 rounded">
-.
+          </div>
+          <div className="col d-flex justify-content-center">
+            <div className="w-25 bg-white rounded text-primary p-3 text-center">
+              <label><h4 className="input-color input-checkbox">Limit:&nbsp;&nbsp;{limit}</h4></label>
+              <input
+                className="form-range input-checkbox"
+                onChange={handleLimitChange}
+                type="range"
+                min={1}
+                max={20}
+                defaultValue={6}
+              />
+            </div>
+          </div>
+        </div>
     </div>
+    <br />
+    <br />
+    <br />
             <h1 className="text-white text-center p-3">Candidates</h1>
-
-
-            <div className="row">
+            <div className="row scroll-bar">
               {results ?
               results.length
                 ? results.map((candidate, index) => (
                     <Candidate
                       key={candidate.candidate_id}
-                      props={candidate}
+                      params={candidate}
                       index={index + 1}
+                      tagsMatch={preference.tagWeights.map((tag) => tag.tag_id)}
                     />
                   ))
                 : null : null}
@@ -100,6 +103,5 @@ export default function Match() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
