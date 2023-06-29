@@ -88,6 +88,10 @@ export default function AddCandidateTags() {
     navigate("/add_candidates", { state: category });
   };
 
+  const editCandidateName = (e) => {
+    console.log("lalalala");
+  };
+
   return (
     <div>
       <NavBar />
@@ -96,7 +100,10 @@ export default function AddCandidateTags() {
           <div className="w-50 m-5 align-self-center">
             <h2 className="text-white text-center mt-5">
               Category: {state.category.name}
-              <EditableInput value={state.candidate.name} />
+              <EditableInput
+                handleSaveText={editCandidateName}
+                value={state.candidate.name}
+              />
             </h2>
             <div className="bg-white p-5 rounded-box mt-4">
               <h1 className="text-primary mb-5">

@@ -58,7 +58,7 @@ export default function AddCandidates() {
   };
 
   const editCategoryName = (e) => {
-    category.name = "Tits";
+    console.log("lalala");
   };
 
   const doneAddCandidates = (e) => {
@@ -100,12 +100,17 @@ export default function AddCandidates() {
           <div className="w-50 m-5 align-self-center">
             <div>
               <h2 className="text-white text-center">
-                <EditableInput value={category.name} />{" "}
+                <EditableInput
+                  handleSaveText={editCategoryName}
+                  value={category.name}
+                />{" "}
               </h2>
             </div>
 
             <div className="bg-white p-5 rounded-box mt-4">
-                 <BackButtonTitle params = {{href: "/categories", text: "Add Candidate"}}/>
+              <BackButtonTitle
+                params={{ href: "/categories", text: "Add Candidate" }}
+              />
               <div className="form-floating">
                 <input
                   ref={inputRef}
