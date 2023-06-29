@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "./Pagination";
 import Swal from "sweetalert2";
+import DeleteButton from "./DeleteButton";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -53,37 +54,6 @@ export default function Categories() {
     navigate("/add_candidates", { state: category });
   };
 
-  const deleteCategory = (e) => {
-    Swal.fire({
-      title: "Are you sure you want to delete?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#0275d8",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${SERVER_HOST}/remove_category/${e.target.id}`)
-          .then((res) => {
-            if ((listLength - 1) % limit === 0) {
-              setCurrentPage((listLength - 1) / limit);
-            }
-          })
-          .catch((error) => {
-            console.error("Error deleting category:", error);
-          });
-        Swal.fire({
-          title: "Deleted!",
-          text: "Category has been deleted.",
-          icon: "success",
-          confirmButtonColor: "#0275d8",
-        });
-      }
-    });
-  };
-
   const editFavourite = (e) => {
     const category = JSON.parse(e.target.id);
 
@@ -129,17 +99,7 @@ export default function Categories() {
                             } fs-5 text-warning`}
                           ></i>
                         </div>
-                        <button
-                          className="btn btn-danger position-absolute top-0 end-0"
-                          key={category.category_name}
-                          id={category.category_id}
-                          onClick={deleteCategory}
-                        >
-                          <i
-                            id={category.category_id}
-                            className="bi bi-trash"
-                          ></i>
-                        </button>
+                        <DeleteButton params= {{text: "Category", route: `/remove_category/${category.category_id}`}}/>
                       </div>
                     </div>
                   </div>
