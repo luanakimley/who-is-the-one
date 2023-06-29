@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import Candidate from "./Candidate";
-import BackButton from "./BackButton";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function Match() {
   const [cookies] = useCookies(["userId"]);
@@ -17,6 +17,8 @@ export default function Match() {
   const [results, setResults] = useState(location.state.data);
   const [resultsSaved, setResultsSaved] = useState(location.state.data);
   const [limit, setLimit] = useState(6);
+
+  resultsSaved.sort((a, b) => b.score - a.score);
 
 
   useEffect(() => {
@@ -53,34 +55,9 @@ export default function Match() {
       <div className="vh-100 p-6 mb-2 bg-primary text-white">
         <div className="top-margin container p-4">
           <div className="container p-4 text-center">
-                    <BackButton params = {{href: "/user_preferences", text: "Back To Preferences", state: state1}}/>
+                    <BackButtonTitle params = {{href: "/user_preferences", text: "Back To Preferences", state: state1}}/>
 
             <h1>Your Matches!</h1>
-            <h2>
-              Hello {cookies.username}!, based on your preferences, we recommend
-              the following:{" "}
-            </h2>
-
-            <div className="text-center">
-              <select
-                onChange={handleSelectedCategoryChange}
-                className="px-4 border border-secondary rounded-pill p-2 w-25 mb-3 text-black"
-                defaultValue="Select tags"
-              >
-                <option disabled>Select Category</option>
-                {categories.length
-                  ? categories.map((category) => (
-                      <option
-                        key={category.category_id}
-                        value={category.category_id}
-                      >
-                        {category.category_name}
-                      </option>
-                    ))
-                  : null}
-              </select>
-            </div>
-
 
             <div className="text-center p-2">
               <label className="p-2">Descending Order</label>
@@ -101,6 +78,10 @@ export default function Match() {
     defaultValue={6}
   ></input>
 </div>
+
+    <div className="bg-white m-5 rounded">
+.
+    </div>
             <h1 className="text-white text-center p-3">Candidates</h1>
 
 
