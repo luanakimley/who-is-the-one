@@ -12,7 +12,10 @@ export default function Match() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const location = useLocation();
-  const results = location.state;
+  const [results, setResults] = useState(location.state);
+  const [resultsSaved, setResultsSaved] = useState(location.state);
+  const [limit, setLimit] = useState(6);
+
 
   useEffect(() => {
     getCategories();
@@ -30,16 +33,27 @@ export default function Match() {
     setSelectedCategory(e.target.value);
   };
 
+  const reverseRanking = () => {
+      setResults(results.slice().reverse())
+  };
+
+  const handleLimitChange = (e) => {
+    setLimit(e.target.value)
+    setResults(resultsSaved.slice(0, e.target.value))
+    };
+
+
+
   return (
     <div>
       <NavBar />
 
       <div className="vh-100 p-6 mb-2 bg-primary text-white">
         <div className="top-margin container p-4">
-          <div className="container p-4">
+          <div className="container p-4 text-center">
             <h1>Your Matches!</h1>
             <h2>
-              Hello {cookies.userId}!, based on your preferences, we recommend
+              Hello {cookies.username}!, based on your preferences, we recommend
               the following:{" "}
             </h2>
 
@@ -63,15 +77,29 @@ export default function Match() {
               </select>
             </div>
 
-            <h1 className="text-white text-center">Candidates</h1>
 
             <div className="text-center p-2">
               <label className="p-2">Descending Order</label>
               <label className="switch">
-                <input type="checkbox" />
+                <input type="checkbox" onChange={reverseRanking} />
                 <span className="slider round"></span>
               </label>
+
             </div>
+<div className="w-25 bg-white rounded text-primary p-3 float-right mx-auto text-center">
+  <label><h4>Limit: {limit}</h4></label>
+  <input
+    className="form-range"
+    onChange={handleLimitChange}
+    type="range"
+    min={1}
+    max={20}
+    defaultValue={6}
+  ></input>
+</div>
+            <h1 className="text-white text-center p-3">Candidates</h1>
+
+
             <div className="row">
               {results.length
                 ? results.map((candidate, index) => (
