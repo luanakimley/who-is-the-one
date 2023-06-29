@@ -80,7 +80,7 @@ export default function Categories() {
           className="float border border-white text-primary"
         >
           <h5>
-            <i className="bi bi-plus-circle"></i>&ensp;Add
+            <i className="bi bi-plus-circle button-hover"></i>&ensp;Add
           </h5>
         </button>
       </div>

@@ -5,7 +5,15 @@ export default function BackButton(props) {
     const navigate = useNavigate();
 
      const handleBackClick = () => {
-       navigate(props.params);
+       if(props.state)
+       {
+          navigate(props.params, {state: props.state});
+       }
+       else
+       {
+            navigate(props.params);
+       }
+
      };
 
      return (
