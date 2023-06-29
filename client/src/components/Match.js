@@ -18,6 +18,8 @@ export default function Match() {
   const [resultsSaved, setResultsSaved] = useState(location.state.data);
   const [limit, setLimit] = useState(6);
 
+  resultsSaved.sort((a, b) => b.score - a.score);
+
 
   useEffect(() => {
     getCategories();
@@ -56,12 +58,6 @@ export default function Match() {
                     <BackButton params = {{href: "/user_preferences", text: "Back To Preferences", state: state1}}/>
 
             <h1>Your Matches!</h1>
-            <h2>
-              Hello {cookies.username}!, based on your preferences, we recommend
-              the following:{" "}
-            </h2>
-
-
 
             <div className="text-center p-2">
               <label className="p-2">Descending Order</label>
