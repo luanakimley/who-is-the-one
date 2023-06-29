@@ -174,22 +174,22 @@ export default function AddCandidateTags() {
               Done
             </button>
           </div>
-          <div className="w-50 m-5 align-self-center">
-            <div className="row">
-              {candidateTags.length
-                ? candidateTags.map((tag) => (
-                <div key={tag.tag_id} className="col col-lg-4 p-4">
-                    <TagBox
-                      key={tag.tag_id}
-                      id={tag.tag_id}
-                      tag={tag}
-                      candidateId={state.candidate.id}
-                    />
-                </div>
-                  ))
-                : null}
-            </div>
-          </div>
+         <div className="w-50 m-5 align-self-center scroll-bar">
+           <div className="row">
+             {candidateTags.length ? (
+               candidateTags.map((tag) => (
+                 <div key={tag.tag_id} className="col col-lg-4 p-4">
+                   <TagBox
+                     key={tag.tag_id}
+                     id={tag.tag_id}
+                     tag={tag}
+                     candidateId={state.candidate.id}
+                   />
+                 </div>
+               ))
+             ) : null}
+           </div>
+         </div>
         </div>
       </div>
     </div>

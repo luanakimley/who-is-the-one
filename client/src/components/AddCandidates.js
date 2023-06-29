@@ -120,7 +120,7 @@ export default function AddCandidates() {
             </button>
 
           </div>
-          <div className="w-50 m-5 align-self-center">
+          <div className="w-50 m-5 align-self-center scroll-bar">
             <div className="row">
               {candidates.length
                 ? candidates.map((candidate) => (

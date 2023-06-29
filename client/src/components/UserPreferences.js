@@ -5,7 +5,7 @@ import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
 import { useCookies } from "react-cookie";
 import { TagWeightBox } from "./TagWeightBox";
-import BackButton from "./BackButton";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function UserPreferences() {
   const location = useLocation();
@@ -135,7 +135,7 @@ export default function UserPreferences() {
               <h2>Category: {category.name}</h2>
             </div>
             <div className="bg-white p-5 rounded-box mt-4">
-              <BackButton
+              <BackButtonTitle
                 params={{
                   href: "/add_candidates",
                   text: "Preferences",
@@ -186,7 +186,7 @@ export default function UserPreferences() {
               Calculate
             </button>
           </div>
-          <div className="w-50 align-self-center">
+          <div className="w-50 align-self-center scroll-bar">
             {preference ? (
               preference.tagWeights ? (
                 preference.tagWeights.map((tags) => (

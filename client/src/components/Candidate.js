@@ -8,25 +8,33 @@ import { SERVER_HOST } from "../config/global_constants";
 
 export default function Candidate(props)
 {
+    const candidate = props.params;
+     const [isScrollable, setIsScrollable] = useState(false);
+
+     const handleDivClick = () => {
+        setIsScrollable(!isScrollable);
+     };
+
     return <div className="col col-lg-4 p-4">
-    <div className="card">
+    <div className="card card-candidate">
       <div className="card-body">
         <div>
-          <h1 className="text-primary">{props.index}</h1>
-          <h3 className="text-primary">{props.props.candidate_name}</h3>
+          <h1 className="text-primary">{props.index}: &nbsp;&nbsp;{candidate.candidate_name}</h1>
+          <h1>{candidate.score} %</h1>
 
 
         </div>
         <div className="text-secondary">
-        <h1>Match Rate: {props.props.score} %</h1>
 
-        <div className="text-white">
 
-        {props.props.tags.map((tag) => (
-            <li key= {tag.tag_id} className="bg-primary rounded p-2 m-2">{tag.tag_description}</li>
-            ))
-}
-        </div>
+<div className="text-white scroll-bar-candidate ">
+  {candidate.tags.map((tag) => (
+      <li className="bg-primary rounded p-2 m-3 tag-candidate">{tag.tag_description}</li>
+  ))}
+</div>
+
+
+
         </div>
 
       </div>
