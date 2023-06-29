@@ -106,7 +106,10 @@ export default function AddCandidates() {
                 />{" "}
               </h2>
             </div>
-            <AddBox params= {{backButtonTitle: {href: "/categories", text: "Add Candidate"}, objectText: "Candidate", callback: addCandidate}}/>
+            <AddBox
+            params= {{backButtonTitle: {href: "/categories", text: "Add Candidate"}, objectText: "Candidate", callback: addCandidate}}
+            inputRef = {inputRef}
+            />
 
             <button
               className="btn btn-outline-light mt-5 w-50 mx-auto d-block"
