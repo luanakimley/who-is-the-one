@@ -61,25 +61,6 @@ export default function Match() {
               the following:{" "}
             </h2>
 
-            <div className="text-center">
-              <select
-                onChange={handleSelectedCategoryChange}
-                className="px-4 border border-secondary rounded-pill p-2 w-25 mb-3 text-black"
-                defaultValue="Select tags"
-              >
-                <option disabled>Select Category</option>
-                {categories.length
-                  ? categories.map((category) => (
-                      <option
-                        key={category.category_id}
-                        value={category.category_id}
-                      >
-                        {category.category_name}
-                      </option>
-                    ))
-                  : null}
-              </select>
-            </div>
 
 
             <div className="text-center p-2">
