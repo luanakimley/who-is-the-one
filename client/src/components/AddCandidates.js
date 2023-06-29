@@ -6,7 +6,7 @@ import axios from "axios";
 import { CandidateTagBox } from "./CandidateTagsBox";
 import EditableInput from "./EditableInput";
 import Swal from "sweetalert2";
-import BackButtonTitle from "./BackButtonTitle";
+import BackButton from "./BackButton";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
@@ -108,7 +108,7 @@ export default function AddCandidates() {
             </div>
 
             <div className="bg-white p-5 rounded-box mt-4">
-              <BackButtonTitle
+              <BackButton
                 params={{ href: "/categories", text: "Add Candidate" }}
               />
               <div className="form-floating">

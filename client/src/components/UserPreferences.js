@@ -8,7 +8,8 @@ import { TagWeightBox } from "./TagWeightBox";
 
 export default function UserPreferences() {
   const location = useLocation();
-  const category = location.state;
+  let category = "";
+  category = location.state;
   const [tagsByCategory, setTagsByCategory] = useState([]);
   const [preference, setPreference] = useState([]);
   const [selectedTag, setSelectedTag] = useState("");
@@ -92,7 +93,7 @@ export default function UserPreferences() {
       })
       .then((res) => {
         if (res.data) {
-          navigate("/match", { state: res.data });
+        navigate("/match", { state: { data: res.data, category: category } });
         }
       })
       .catch((error) => {
