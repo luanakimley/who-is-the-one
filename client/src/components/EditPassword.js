@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import PasswordInput from "./UserInputField";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { SERVER_HOST } from "../config/global_constants";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function EditPassword() {
   const [cookies] = useCookies(["userId"]);
@@ -81,21 +82,13 @@ export default function EditPassword() {
     }
   };
 
-  const backToEditProfile = () => {
-    navigate("/edit_user");
-  };
 
   return (
     <div>
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
         <div className="bg-white p-5 rounded-box">
-          <h1 className="text-center mb-5 text-primary">
-            <button className="btn btn-primary" onClick={backToEditProfile}>
-              <i className="bi bi-arrow-return-left"></i>
-            </button>
-            &nbsp; Edit Password
-          </h1>
+        <BackButtonTitle params = {{href: "/edit_user", text: "Edit Password"}}/>
           <form onSubmit={handleSubmit}>
             <PasswordInput
               id="current-password"

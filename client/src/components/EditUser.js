@@ -6,6 +6,7 @@ import UserInputField from "./UserInputField";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function EditUser() {
   const [cookies, setCookie] = useCookies(["userId", "username", "email"]);
@@ -85,12 +86,7 @@ export default function EditUser() {
       <NavBar />
       <div className="d-flex align-items-center justify-content-center vh-100">
         <div className="bg-white p-5 rounded-box">
-          <h1 className="text-center mb-5 text-primary">
-            <button className="btn btn-primary" onClick={backToProfile}>
-              <i className="bi bi-arrow-return-left"></i>
-            </button>
-            &nbsp;Edit User
-          </h1>
+        <BackButtonTitle params = {{href: "/profile_page", text: "Edit User"}}/>
           <form>
             <UserInputField
               id="username"

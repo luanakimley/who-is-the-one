@@ -6,6 +6,7 @@ import axios from "axios";
 import { CandidateTagBox } from "./CandidateTagsBox";
 import EditableInput from "./EditableInput";
 import Swal from "sweetalert2";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function AddCandidates() {
   const [candidateName, setCandidateName] = useState("");
@@ -26,10 +27,6 @@ export default function AddCandidates() {
     getCandidatesForCategory();
     validateAllCandidatesHasTag();
   });
-
-  const backToCategories = (e) => {
-    navigate("/categories", { state: category });
-  };
 
   const handleCandidateNameChange = (e) => {
     setCandidateName(e.target.value);
@@ -108,12 +105,7 @@ export default function AddCandidates() {
             </div>
 
             <div className="bg-white p-5 rounded-box mt-4">
-              <h1 className="text-primary mb-5">
-                <button className="btn btn-primary" onClick={backToCategories}>
-                  <i className="bi bi-arrow-return-left"></i>
-                </button>
-                &ensp; Add Candidates
-              </h1>
+                 <BackButtonTitle params = {{href: "/categories", text: "Add Candidate"}}/>
               <div className="form-floating">
                 <input
                   ref={inputRef}
