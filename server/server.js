@@ -1,14 +1,26 @@
-const http = require("http");
+const express = require("express");
+const cors = require("cors");
+const usersRoutes = require("./routes/users");
+const candidatesRoutes = require("./routes/candidates");
+const tagsRoutes = require("./routes/tags");
+const categoriesRoutes = require("./routes/categories");
+const userPreferencesRoutes = require("./routes/user_preferences");
+const app = express();
+const port = 8000;
 
-const hostname = "127.0.0.1";
-const port = 4000;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app
+  .use(cors())
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(usersRoutes)
+  .use(candidatesRoutes)
+  .use(tagsRoutes)
+  .use(categoriesRoutes)
+  .use(userPreferencesRoutes)
+  .use((req, res) => {
+    res.status(404);
+    res.json({
+      error: "Page not found",
+    });
+  })
+  .listen(port, () => console.log("listening on port " + port));
