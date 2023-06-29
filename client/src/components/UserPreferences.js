@@ -27,9 +27,9 @@ export default function UserPreferences() {
       `${SERVER_HOST}/tags_by_category/${category.id}`
     );
     setTagsByCategory(tags.data);
-    getTotalPercentMatch((percent) =>{
-        setPercentAvailable(100-percent)
-      })
+    getTotalPercentMatch((percent) => {
+      setPercentAvailable(100 - percent);
+    });
   }
 
   async function getUserPreferencesByCategory() {
@@ -44,15 +44,11 @@ export default function UserPreferences() {
     setSelectedTag(e.target.value);
   };
 
-
-    if(tagWeight > percentAvailable)
-    {
-        setTagWeight(percentAvailable)
-    }
-    if(percentAvailable <= 0)
-    {
-
-    }
+  if (tagWeight > percentAvailable) {
+    setTagWeight(percentAvailable);
+  }
+  if (percentAvailable <= 0) {
+  }
 
   const handleTagWeightChange = (e) => {
     setTagWeight(e.target.value);
@@ -73,34 +69,28 @@ export default function UserPreferences() {
     });
   };
 
-
-   function getTotalPercentMatch(callback){
-
+  function getTotalPercentMatch(callback) {
     let percent = 0;
 
-    if(preference){
-    if(preference.tagWeights){
-        for(let i = 0; i < preference.tagWeights.length; i++)
-        {
-            percent += preference.tagWeights[i].weight;
+    if (preference) {
+      if (preference.tagWeights) {
+        for (let i = 0; i < preference.tagWeights.length; i++) {
+          percent += preference.tagWeights[i].weight;
         }
-        }
+      }
     }
-    callback(percent)
+    callback(percent);
   }
-
 
   const calculateMatch = (e) => {
     e.preventDefault();
 
     if (preference === null) return;
 
-    getTotalPercentMatch((percent) =>{
-
-    if(percent !== 100)
-    {
-        console.log("Error")
-    }
+    getTotalPercentMatch((percent) => {
+      if (percent !== 100) {
+        console.log("Error");
+      }
     });
 
     const formData = new FormData();
@@ -112,7 +102,7 @@ export default function UserPreferences() {
       })
       .then((res) => {
         if (res.data) {
-        navigate("/match", { state: { data: res.data, category: category } });
+          navigate("/match", { state: { data: res.data, category: category } });
         }
       })
       .catch((error) => {
@@ -138,15 +128,22 @@ export default function UserPreferences() {
   return (
     <div>
       <NavBar />
-      <div className="p-4 mb-2 bg-primary text-white rounded">
-        <div className="top-margin container">
-        <div className="container">
-          <h2>Category: {category.name}</h2>
-          <div className="row">
-            <div className="p-4 mb-2 bg-white text-primary rounded w-50 h-75">
-            <BackButton params = {{href: "/add_candidates", text: "Preferences", state: category}}/>
+      <div className="vh-100 p-4 mb-4 bg-primary">
+        <div className="d-flex w-100 h-100 margin-top">
+          <div className="w-50 m-5 align-self-center">
+            <div className="text-center text-white">
+              <h2>Category: {category.name}</h2>
+            </div>
+            <div className="bg-white p-5 rounded-box mt-4">
+              <BackButton
+                params={{
+                  href: "/add_candidates",
+                  text: "Preferences",
+                  state: category,
+                }}
+              />
               <select
-                className="form-control me-2 w-25 p-3 m-3"
+                className="form-control form-select-lg w-75 fs-6 p-3 mt-5 rounded-pill"
                 onChange={handleSelectTagChange}
                 defaultValue="Select tags"
               >
@@ -162,37 +159,37 @@ export default function UserPreferences() {
                   : null}
               </select>
               <div className="p-4">
-              <label>{tagWeight}%</label>
-              <input
-                onChange={handleTagWeightChange}
-                type="range"
-                min={0}
-                max={percentAvailable}
-                defaultValue={0}
-              ></input>
-              <label>{percentAvailable}%</label>
-              <button
-              className="btn btn-success m-4"
-              disabled={!inputsAreAllValid}
-              onClick={insertPreferences}
-              >
-              Add
-              </button>
-
-
-              </div>
-{<div>Percent Available: {percentAvailable} %</div>}
-              <div className="container p-4">
-                <button className="btn btn-primary" onClick={calculateMatch}>
-                  Calculate
+                <label>{tagWeight}%</label>
+                <input
+                  onChange={handleTagWeightChange}
+                  type="range"
+                  className="w-75 mt-5"
+                  min={0}
+                  max={percentAvailable}
+                  defaultValue={0}
+                ></input>
+                <label>&ensp; {percentAvailable}%</label>
+                <button
+                  className="btn btn-primary my-5 w-25"
+                  disabled={!inputsAreAllValid}
+                  onClick={insertPreferences}
+                >
+                  Add
                 </button>
               </div>
+              {<div>Percent Available: {percentAvailable} %</div>}
             </div>
-
-            <div className="w-50">
-              {preference ? (
-                preference.tagWeights ? (
-                  preference.tagWeights.map((tags) => (
+            <button
+              className="btn btn-outline-light mt-5 w-50 d-block mx-auto"
+              onClick={calculateMatch}
+            >
+              Calculate
+            </button>
+          </div>
+          <div className="w-50 align-self-center">
+            {preference ? (
+              preference.tagWeights ? (
+                preference.tagWeights.map((tags) => (
                   <div>
                     <TagWeightBox
                       key={tags.tag_id}
@@ -200,15 +197,13 @@ export default function UserPreferences() {
                       category_id={preference.category_id}
                       max={percentAvailable}
                     />
-                    </div>
-                  ))
-                ) : (
-                  <h2>No Tags set</h2>
-                )
-              ) : null}
-            </div>
+                  </div>
+                ))
+              ) : (
+                <h2>No Tags set</h2>
+              )
+            ) : null}
           </div>
-        </div>
         </div>
       </div>
     </div>

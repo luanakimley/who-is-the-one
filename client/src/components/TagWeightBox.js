@@ -30,10 +30,12 @@ export function TagWeightBox(props) {
 
   return (
     <div className="col">
-      <div className="p-4 mb-2 bg-white text-primary rounded">
-        <div className="card">
-          <div className="card-body">
-            <h2>{props.tag.tag_description}</h2>
+      <div className="p-4 mb-4 bg-white text-primary rounded-box w-75">
+        <div className="card border border-0">
+          <div className="card-body text-center">
+            <div>
+              <h2>{props.tag.tag_description}</h2>
+            </div>
             <label>{pendingWeight}%</label>
             <input
               className="m-4"
@@ -41,11 +43,16 @@ export function TagWeightBox(props) {
               value={pendingWeight}
               min="0"
               max="100"
-              onChange={handleWeightChange}
               style={{ width: "200px" }}
+              readOnly
             />
             <label>100%</label>
-            <DeleteButton params= {{text: "Delete Preference", route: `/remove_user_preference/${props.category_id}/${props.tag.tag_id}`}}/>
+            <DeleteButton
+              params={{
+                text: "Delete Preference",
+                route: `/remove_user_preference/${props.category_id}/${props.tag.tag_id}`,
+              }}
+            />
           </div>
         </div>
       </div>
