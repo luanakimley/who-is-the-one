@@ -3,12 +3,20 @@ const database = require("../db/Database");
 exports.getTagsByUserId = (req, res) => {
   const userId = req.params.userId;
   const tagsLimit = parseInt(req.query.limit);
-  const pageIndex = parseInt(req.query.page);
-  const offset = (pageIndex - 1) * tagsLimit;
+  let pageIndex = parseInt(req.query.page);
 
-  const query = "SELECT * FROM tags WHERE user_id = ? LIMIT ? OFFSET ?;"
+   let query = "SELECT * FROM tags WHERE user_id = ?";
+   const queryParams = [userId];
 
-  database.query(query, [userId, tagsLimit, offset], (result) => res.json(result));
+    // Check if limit and pageIndex are provided
+    if (!isNaN(tagsLimit) && !isNaN(pageIndex))
+    {
+      const offset = (pageIndex - 1) * tagsLimit;
+      query += " LIMIT ? OFFSET ?";
+      queryParams.push(tagsLimit, offset);
+    }
+
+  database.query(query, queryParams, (result) => res.json(result));
 
 };
 

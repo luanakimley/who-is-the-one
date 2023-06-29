@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { SERVER_HOST } from "../config/global_constants";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function AddCategory() {
   const [categoryName, setCategoryName] = useState("");
@@ -13,10 +14,6 @@ export default function AddCategory() {
 
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);
-  };
-
-  const backToCategories = (e) => {
-    navigate("/categories", { state: category });
   };
 
   const addCategory = (e) => {
@@ -50,12 +47,7 @@ export default function AddCategory() {
       <NavBar />
       <div className="bg-primary vh-100 d-flex align-items-center justify-content-center">
         <div className="bg-white p-5 rounded-box">
-          <h1 className="text-primary mb-5">
-            <button className="btn btn-primary" onClick={backToCategories}>
-              <i className="bi bi-arrow-return-left"></i>
-            </button>
-            &ensp; Add Category
-          </h1>
+          <BackButtonTitle params = {{href: "/categories", text: "Add Category"}}/>
           <div className="form-floating">
             <input
               type="text"
