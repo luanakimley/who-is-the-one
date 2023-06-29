@@ -49,6 +49,10 @@ export default function UserPreferences() {
     {
         setTagWeight(percentAvailable)
     }
+    if(percentAvailable <= 0)
+    {
+
+    }
 
   const handleTagWeightChange = (e) => {
     setTagWeight(e.target.value);
@@ -194,6 +198,7 @@ export default function UserPreferences() {
                       key={tags.tag_id}
                       tag={tags}
                       category_id={preference.category_id}
+                      max={percentAvailable}
                     />
                     </div>
                   ))

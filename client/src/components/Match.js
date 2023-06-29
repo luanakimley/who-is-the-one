@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import Candidate from "./Candidate";
-import BackButton from "./BackButton";
+import BackButtonTitle from "./BackButtonTitle";
 
 export default function Match() {
   const [cookies] = useCookies(["userId"]);
@@ -55,7 +55,7 @@ export default function Match() {
       <div className="vh-100 p-6 mb-2 bg-primary text-white">
         <div className="top-margin container p-4">
           <div className="container p-4 text-center">
-                    <BackButton params = {{href: "/user_preferences", text: "Back To Preferences", state: state1}}/>
+                    <BackButtonTitle params = {{href: "/user_preferences", text: "Back To Preferences", state: state1}}/>
 
             <h1>Your Matches!</h1>
 
@@ -78,6 +78,10 @@ export default function Match() {
     defaultValue={6}
   ></input>
 </div>
+
+    <div className="bg-white m-5 rounded">
+.
+    </div>
             <h1 className="text-white text-center p-3">Candidates</h1>
 
 
