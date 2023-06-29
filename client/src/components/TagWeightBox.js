@@ -34,8 +34,7 @@ export function TagWeightBox(props) {
         <div className="card">
           <div className="card-body">
             <h2>{props.tag.tag_description}</h2>
-            <label               className="m-4"
->{pendingWeight}%</label>
+            <label>{pendingWeight}%</label>
             <input
               className="m-4"
               type="range"
