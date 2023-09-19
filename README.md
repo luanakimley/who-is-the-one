@@ -47,7 +47,3 @@ Contributions to this project are welcome. To contribute, please follow these st
 
 ## License
 This project is licensed under the MIT License.
-
-
-## Authors
- [<img src="https://media.licdn.com/dms/image/D4D03AQEBsFLk_HTNSw/profile-displayphoto-shrink_800_800/0/1668634568965?e=1693440000&v=beta&t=ncEgVos6ZvbJyGOqudUk4NvxjRR-6hQ86Q9BPQE2eEM" width=115><br><sub>Lorena Seabra</sub>](https://github.com/lorenaaseabra) 
